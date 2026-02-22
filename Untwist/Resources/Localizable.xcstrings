@@ -1,5 +1,666 @@
 {
   "sourceLanguage" : "en",
-  "strings" : {},
+  "strings" : {
+    "app_name" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Untwist" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Untwist" } }
+      }
+    },
+    "breath_exhale" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Breathe out" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Nefes ver" } }
+      }
+    },
+    "breath_hold" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hold" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Tut" } }
+      }
+    },
+    "breath_inhale" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Breathe in" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Nefes al" } }
+      }
+    },
+    "breathing_close" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Tamam" } }
+      }
+    },
+    "breathing_description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "4-7-8 Breathing Technique" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "4-7-8 Nefes Tekniği" } }
+      }
+    },
+    "breathing_done" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Well done!" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Harika!" } }
+      }
+    },
+    "breathing_done_message" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You completed %lld rounds of breathing." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "%lld tur nefes egzersizi tamamladın." } }
+      }
+    },
+    "breathing_instruction" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Breathe in for 4 seconds, hold for 7, breathe out for 8. Simple and calming." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "4 saniye nefes al, 7 saniye tut, 8 saniye nefes ver. Basit ve sakinleştirici." } }
+      }
+    },
+    "breathing_start" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Başla" } }
+      }
+    },
+    "breathing_stop" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stop" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Durdur" } }
+      }
+    },
+    "breathing_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Breathing Exercise" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Nefes Egzersizi" } }
+      }
+    },
+    "crisis_182" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "182 Suicide Prevention Line (TR)" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "182 İntihar Önleme Hattı" } }
+      }
+    },
+    "crisis_988" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "988 Suicide & Crisis Lifeline" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "988 Kriz Hattı (ABD)" } }
+      }
+    },
+    "crisis_breathing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Try a breathing exercise" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Nefes egzersizi dene" } }
+      }
+    },
+    "crisis_button" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Emergency Help" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Acil Yardım" } }
+      }
+    },
+    "crisis_continue" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Continue what I was doing" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Yaptığım şeye devam et" } }
+      }
+    },
+    "crisis_subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "If you're in crisis, please reach out. Help is available right now." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Zor bir dönemdeysen lütfen yardım al. Destek her zaman burada." } }
+      }
+    },
+    "crisis_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You're not alone" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Yalnız değilsin" } }
+      }
+    },
+    "disclaimer_body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Untwist is a self-help wellness tool based on Cognitive Behavioral Therapy (CBT) principles.\n\nThis app is NOT a substitute for professional therapy, counseling, or medical advice. It does not diagnose, treat, or cure any mental health condition.\n\nIf you are experiencing a mental health crisis, please contact a licensed mental health professional or call your local emergency services immediately.\n\nEmergency contacts:\n• 988 Suicide & Crisis Lifeline (US)\n• 182 İntihar Önleme Hattı (TR)\n\nAll data you enter stays on your device. We do not collect, store, or share any personal information." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Untwist, Bilişsel Davranışçı Terapi (BDT) ilkelerine dayalı bir kişisel gelişim aracıdır.\n\nBu uygulama profesyonel terapi, danışmanlık veya tıbbi tavsiyenin yerini ALMAZ. Herhangi bir ruh sağlığı durumunu teşhis etmez, tedavi etmez veya iyileştirmez.\n\nBir ruh sağlığı krizi yaşıyorsanız lütfen bir ruh sağlığı uzmanına başvurun veya acil servisi arayın.\n\nAcil iletişim:\n• 182 İntihar Önleme Hattı (TR)\n• 988 Kriz Hattı (ABD)\n\nGirdiğiniz tüm veriler cihazınızda kalır. Kişisel bilgilerinizi toplamıyoruz, saklamıyoruz veya paylaşmıyoruz." } }
+      }
+    },
+    "disclaimer_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Disclaimer" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Yasal Uyarı" } }
+      }
+    },
+    "home_breathing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Breathing Exercise" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Nefes Egzersizi" } }
+      }
+    },
+    "home_breathing_sub" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Take a moment to breathe" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Bir nefes molası ver" } }
+      }
+    },
+    "home_greeting" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hey there! How are you today?" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Merhaba! Bugün nasılsın?" } }
+      }
+    },
+    "home_mood_check" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mood Check" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Duygu Kaydı" } }
+      }
+    },
+    "home_mood_check_sub" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How are you feeling right now?" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Şu an nasıl hissediyorsun?" } }
+      }
+    },
+    "home_thought_traps" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Thought Traps" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Düşünce Tuzakları" } }
+      }
+    },
+    "home_thought_traps_sub" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Learn about common thinking patterns" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Yaygın düşünce kalıplarını öğren" } }
+      }
+    },
+    "home_thought_unwinder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Thought Unwinder" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Düşünce Çözücü" } }
+      }
+    },
+    "home_thought_unwinder_sub" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Explore and reframe a thought" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Bir düşünceyi keşfet ve yeniden çerçevele" } }
+      }
+    },
+    "mood_check_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mood Check" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Duygu Kaydı" } }
+      }
+    },
+    "mood_good" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Good" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "İyi" } }
+      }
+    },
+    "mood_great" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Great" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Harika" } }
+      }
+    },
+    "mood_high" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Great" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Harika" } }
+      }
+    },
+    "mood_low" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Low" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Düşük" } }
+      }
+    },
+    "mood_low_label" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Low" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Düşük" } }
+      }
+    },
+    "mood_neutral" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Neutral" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Nötr" } }
+      }
+    },
+    "mood_note_placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add a note (optional)..." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Not ekle (isteğe bağlı)..." } }
+      }
+    },
+    "mood_save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Kaydet" } }
+      }
+    },
+    "mood_very_low" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Very Low" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Çok Düşük" } }
+      }
+    },
+    "onboarding_disclaimer_body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Untwist is a self-help tool based on CBT principles. It is not a substitute for professional therapy or medical advice. If you're in crisis, please contact a mental health professional or call emergency services." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Untwist, BDT ilkelerine dayalı bir kişisel gelişim aracıdır. Profesyonel terapi veya tıbbi tavsiyenin yerini almaz. Kriz durumunda lütfen bir ruh sağlığı uzmanına veya acil servise başvurun." } }
+      }
+    },
+    "onboarding_disclaimer_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Important" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Önemli" } }
+      }
+    },
+    "onboarding_get_started" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Get Started" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Başlayalım" } }
+      }
+    },
+    "onboarding_how_sub" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Track your mood, explore your thoughts, and discover healthier ways to see things. All in under 2 minutes." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Ruh halini takip et, düşüncelerini keşfet ve olaylara daha sağlıklı bakış açıları bul. Hepsi 2 dakikadan kısa." } }
+      }
+    },
+    "onboarding_how_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How it works" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Nasıl çalışır" } }
+      }
+    },
+    "onboarding_privacy_note" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your data stays on your device. We don't collect or share any personal information." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Verilerin cihazında kalır. Kişisel bilgilerini toplamıyoruz veya paylaşmıyoruz." } }
+      }
+    },
+    "onboarding_welcome_sub" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your companion for understanding your thoughts better. Together, we'll learn to spot thinking patterns." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Düşüncelerini daha iyi anlamak için yanındaki arkadaşın. Birlikte düşünce kalıplarını fark etmeyi öğreneceğiz." } }
+      }
+    },
+    "onboarding_welcome_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Meet Twisty" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Twisty ile Tanış" } }
+      }
+    },
+    "settings_about_header" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "About" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Hakkında" } }
+      }
+    },
+    "settings_cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "İptal" } }
+      }
+    },
+    "settings_data_footer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All your data is stored only on this device." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Tüm verilerin yalnızca bu cihazda saklanır." } }
+      }
+    },
+    "settings_data_header" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Data" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Veriler" } }
+      }
+    },
+    "settings_delete_confirm" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Sil" } }
+      }
+    },
+    "settings_delete_data" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete All Data" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Tüm Verileri Sil" } }
+      }
+    },
+    "settings_delete_message" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This will permanently delete all your mood entries, thought records, and breathing sessions. This cannot be undone." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Bu işlem tüm duygu kayıtlarını, düşünce kayıtlarını ve nefes egzersizi verilerini kalıcı olarak silecektir. Bu işlem geri alınamaz." } }
+      }
+    },
+    "settings_delete_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete All Data?" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Tüm Veriler Silinsin mi?" } }
+      }
+    },
+    "settings_disclaimer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Disclaimer" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Yasal Uyarı" } }
+      }
+    },
+    "settings_emergency" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Emergency Contacts" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Acil İletişim" } }
+      }
+    },
+    "settings_notifications" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily Reminder" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Günlük Hatırlatma" } }
+      }
+    },
+    "settings_notifications_header" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notifications" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Bildirimler" } }
+      }
+    },
+    "settings_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Ayarlar" } }
+      }
+    },
+    "settings_version" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Version" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Sürüm" } }
+      }
+    },
+    "trap_all_or_nothing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All-or-Nothing Thinking" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Ya Hep Ya Hiç Düşüncesi" } }
+      }
+    },
+    "trap_all_or_nothing_desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Seeing things in black and white — if it's not perfect, it's a total failure." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Her şeyi siyah-beyaz görmek — mükemmel değilse tamamen başarısız saymak." } }
+      }
+    },
+    "trap_all_or_nothing_ex" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "\"I got a B on the exam. I'm a complete failure.\"" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "\"Sınavdan B aldım. Tam bir başarısızım.\"" } }
+      }
+    },
+    "trap_detail_example" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Example" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Örnek" } }
+      }
+    },
+    "trap_detail_what" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What is it?" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Nedir?" } }
+      }
+    },
+    "trap_disqualifying_positive" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Disqualifying the Positive" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Olumluyu Geçersiz Kılma" } }
+      }
+    },
+    "trap_disqualifying_positive_desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dismissing positive experiences by insisting they don't count." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Olumlu deneyimleri \"sayılmaz\" diyerek görmezden gelmek." } }
+      }
+    },
+    "trap_disqualifying_positive_ex" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "\"They only said that to be nice. They didn't really mean it.\"" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "\"Bunu sadece nazik olmak için söylediler. Gerçekten kastetmediler.\"" } }
+      }
+    },
+    "trap_emotional_reasoning" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Emotional Reasoning" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Duygusal Akıl Yürütme" } }
+      }
+    },
+    "trap_emotional_reasoning_desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Believing something must be true because you feel it strongly." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Güçlü hissettiğin için bir şeyin doğru olması gerektiğine inanmak." } }
+      }
+    },
+    "trap_emotional_reasoning_ex" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "\"I feel anxious about flying, so it must be dangerous.\"" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "\"Uçmak beni kaygılandırıyor, o zaman tehlikeli olmalı.\"" } }
+      }
+    },
+    "trap_jumping_conclusions" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Jumping to Conclusions" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Acele Sonuç Çıkarma" } }
+      }
+    },
+    "trap_jumping_conclusions_desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Making negative assumptions without actual evidence." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Somut bir kanıt olmadan olumsuz varsayımlarda bulunmak." } }
+      }
+    },
+    "trap_jumping_conclusions_ex" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "\"My friend didn't text back. They must be angry at me.\"" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "\"Arkadaşım mesajıma cevap vermedi. Bana kızgın olmalı.\"" } }
+      }
+    },
+    "trap_labeling" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Labeling" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Etiketleme" } }
+      }
+    },
+    "trap_labeling_desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Attaching a negative label to yourself instead of describing the behavior." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Davranışı tanımlamak yerine kendine olumsuz bir etiket yapıştırmak." } }
+      }
+    },
+    "trap_labeling_ex" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "\"I forgot to reply. I'm such a terrible person.\"" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "\"Cevap vermeyi unuttum. Ne kadar kötü bir insanım.\"" } }
+      }
+    },
+    "trap_magnification" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Magnification" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Büyütme" } }
+      }
+    },
+    "trap_magnification_desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Blowing things out of proportion or shrinking their importance." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Olayları olduğundan büyük göstermek veya önemini küçümsemek." } }
+      }
+    },
+    "trap_magnification_ex" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "\"I made a small mistake at work. I'll probably get fired.\"" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "\"İşte küçük bir hata yaptım. Muhtemelen kovulacağım.\"" } }
+      }
+    },
+    "trap_mental_filter" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mental Filter" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Zihinsel Filtreleme" } }
+      }
+    },
+    "trap_mental_filter_desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Focusing only on the negatives while ignoring the positives." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Olumlu şeyleri görmezden gelip sadece olumsuzlara odaklanmak." } }
+      }
+    },
+    "trap_mental_filter_ex" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "\"One person criticized my presentation. The whole thing was terrible.\"" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "\"Bir kişi sunumumu eleştirdi. Her şey berbattı.\"" } }
+      }
+    },
+    "trap_overgeneralization" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Overgeneralization" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Aşırı Genelleme" } }
+      }
+    },
+    "trap_overgeneralization_desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Taking one negative event and expecting it to happen over and over again." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Tek bir olumsuz olayı alıp tekrar tekrar olacağını beklemek." } }
+      }
+    },
+    "trap_overgeneralization_ex" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "\"I didn't get the job. I'll never find work.\"" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "\"İşe alınmadım. Asla iş bulamayacağım.\"" } }
+      }
+    },
+    "trap_personalization" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Personalization" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Kişiselleştirme" } }
+      }
+    },
+    "trap_personalization_desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Blaming yourself for things outside your control." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Kontrolün dışındaki şeyler için kendini suçlamak." } }
+      }
+    },
+    "trap_personalization_ex" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "\"My team lost the project. It's all my fault.\"" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "\"Ekibim projeyi kaybetti. Her şey benim hatam.\"" } }
+      }
+    },
+    "trap_should_statements" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Should Statements" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Zorunluluk İfadeleri" } }
+      }
+    },
+    "trap_should_statements_desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Putting pressure on yourself with rigid rules about how things should be." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "\"Yapmalıyım\" gibi katı kurallarla kendine baskı yapmak." } }
+      }
+    },
+    "trap_should_statements_ex" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "\"I should always be productive. Resting means I'm lazy.\"" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "\"Her zaman üretken olmalıyım. Dinlenmek tembellik demek.\"" } }
+      }
+    },
+    "traps_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Thought Traps" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Düşünce Tuzakları" } }
+      }
+    },
+    "unwinder_alternative_placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "e.g., Maybe they're just busy" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "ör. Belki sadece meşguldür" } }
+      }
+    },
+    "unwinder_event_placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "e.g., My friend didn't reply to my message" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "ör. Arkadaşım mesajıma cevap vermedi" } }
+      }
+    },
+    "unwinder_might_apply" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Might apply" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Uygun olabilir" } }
+      }
+    },
+    "unwinder_mood_after" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How do you feel now? (%lld)" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Şimdi nasıl hissediyorsun? (%lld)" } }
+      }
+    },
+    "unwinder_mood_before" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How does this make you feel? (%lld)" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Bu seni nasıl hissettiriyor? (%lld)" } }
+      }
+    },
+    "unwinder_next" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "İleri" } }
+      }
+    },
+    "unwinder_save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save & Finish" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Kaydet ve Bitir" } }
+      }
+    },
+    "unwinder_step1_subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Describe the situation briefly." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Durumu kısaca anlat." } }
+      }
+    },
+    "unwinder_step1_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What happened?" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Ne oldu?" } }
+      }
+    },
+    "unwinder_step2_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What went through your mind?" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Aklından ne geçti?" } }
+      }
+    },
+    "unwinder_step3_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Any thought traps?" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Düşünce tuzağı var mı?" } }
+      }
+    },
+    "unwinder_step4_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What's another way to see this?" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Buna başka nasıl bakabilirsin?" } }
+      }
+    },
+    "unwinder_suggestions" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "We noticed some patterns that might apply:" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Uyabilecek bazı kalıplar fark ettik:" } }
+      }
+    },
+    "unwinder_thought_placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "e.g., They must be angry at me" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "ör. Bana kızgın olmalı" } }
+      }
+    },
+    "unwinder_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Thought Unwinder" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Düşünce Çözücü" } }
+      }
+    }
+  },
   "version" : "1.0"
 }
