@@ -8,9 +8,10 @@ struct ThoughtTrapDetailView: View {
             VStack(alignment: .leading, spacing: 24) {
                 // Header
                 VStack(spacing: 12) {
-                    Image(systemName: "lightbulb.fill")
-                        .font(.system(size: 44))
-                        .foregroundStyle(Color.twistyOrange)
+                    Image(trap.imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 80)
 
                     Text(trap.name)
                         .font(.title2.weight(.bold))

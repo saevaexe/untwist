@@ -14,6 +14,21 @@ enum ThoughtTrapType: String, Codable, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
+    var imageName: String {
+        switch self {
+        case .allOrNothing: "TrapAllOrNothing"
+        case .overgeneralization: "TrapOvergeneralization"
+        case .mentalFilter: "TrapMentalFilter"
+        case .disqualifyingPositive: "TrapDisqualifyPositive"
+        case .jumpingToConclusions: "TrapMindReading"
+        case .magnification: "TrapCatastrophizing"
+        case .emotionalReasoning: "TrapEmotionalReasoning"
+        case .shouldStatements: "TrapShouldStatements"
+        case .labeling: "TrapLabeling"
+        case .personalization: "TrapFortuneTelling"
+        }
+    }
+
     var name: String {
         switch self {
         case .allOrNothing:

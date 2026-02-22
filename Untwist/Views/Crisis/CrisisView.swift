@@ -9,9 +9,7 @@ struct CrisisView: View {
                 VStack(spacing: 24) {
                     // Calm Twisty
                     VStack(spacing: 12) {
-                        Image(systemName: "heart.fill")
-                            .font(.system(size: 50))
-                            .foregroundStyle(Color.crisisWarning)
+                        TwistyView(mood: .calm, size: 140)
 
                         Text(String(localized: "crisis_title", defaultValue: "You're not alone"))
                             .font(.title2.weight(.semibold))

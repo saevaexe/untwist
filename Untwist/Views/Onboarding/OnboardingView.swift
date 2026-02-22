@@ -8,21 +8,48 @@ struct OnboardingView: View {
         VStack {
             TabView(selection: $currentPage) {
                 // Page 1: Welcome + Twisty
-                onboardingPage(
-                    icon: "circle.fill",
-                    iconColor: .twistyOrange,
-                    title: String(localized: "onboarding_welcome_title", defaultValue: "Meet Twisty"),
-                    subtitle: String(localized: "onboarding_welcome_sub", defaultValue: "Your companion for understanding your thoughts better. Together, we'll learn to spot thinking patterns.")
-                )
+                VStack(spacing: 24) {
+                    Spacer()
+
+                    TwistyView(mood: .waving, size: 200)
+
+                    Text(String(localized: "onboarding_welcome_title", defaultValue: "Meet Twisty"))
+                        .font(.title.weight(.bold))
+                        .foregroundStyle(Color.textPrimary)
+
+                    Text(String(localized: "onboarding_welcome_sub", defaultValue: "Your companion for understanding your thoughts better. Together, we'll learn to spot thinking patterns."))
+                        .font(.body)
+                        .foregroundStyle(Color.textSecondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 40)
+
+                    Spacer()
+                    Spacer()
+                }
                 .tag(0)
 
                 // Page 2: How it works
-                onboardingPage(
-                    icon: "brain.head.profile",
-                    iconColor: .primaryPurple,
-                    title: String(localized: "onboarding_how_title", defaultValue: "How it works"),
-                    subtitle: String(localized: "onboarding_how_sub", defaultValue: "Track your mood, explore your thoughts, and discover healthier ways to see things. All in under 2 minutes.")
-                )
+                VStack(spacing: 24) {
+                    Spacer()
+
+                    Image("OnboardingWorkflow")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 220)
+
+                    Text(String(localized: "onboarding_how_title", defaultValue: "How it works"))
+                        .font(.title.weight(.bold))
+                        .foregroundStyle(Color.textPrimary)
+
+                    Text(String(localized: "onboarding_how_sub", defaultValue: "Track your mood, explore your thoughts, and discover healthier ways to see things. All in under 2 minutes."))
+                        .font(.body)
+                        .foregroundStyle(Color.textSecondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 40)
+
+                    Spacer()
+                    Spacer()
+                }
                 .tag(1)
 
                 // Page 3: Disclaimer + Get Started
@@ -35,36 +62,14 @@ struct OnboardingView: View {
         .background(Color.appBackground)
     }
 
-    private func onboardingPage(icon: String, iconColor: Color, title: String, subtitle: String) -> some View {
-        VStack(spacing: 24) {
-            Spacer()
-
-            Image(systemName: icon)
-                .font(.system(size: 80))
-                .foregroundStyle(iconColor)
-
-            Text(title)
-                .font(.title.weight(.bold))
-                .foregroundStyle(Color.textPrimary)
-
-            Text(subtitle)
-                .font(.body)
-                .foregroundStyle(Color.textSecondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
-
-            Spacer()
-            Spacer()
-        }
-    }
-
     private var disclaimerPage: some View {
         VStack(spacing: 24) {
             Spacer()
 
-            Image(systemName: "shield.checkered")
-                .font(.system(size: 60))
-                .foregroundStyle(Color.primaryPurple)
+            Image("OnboardingShield")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 120)
 
             Text(String(localized: "onboarding_disclaimer_title", defaultValue: "Important"))
                 .font(.title.weight(.bold))

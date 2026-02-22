@@ -9,11 +9,10 @@ struct ThoughtTrapsListView: View {
                         ThoughtTrapDetailView(trap: trap)
                     } label: {
                         HStack(spacing: 16) {
-                            Image(systemName: "lightbulb")
-                                .font(.title3)
-                                .foregroundStyle(Color.twistyOrange)
+                            Image(trap.imageName)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
                                 .frame(width: 40, height: 40)
-                                .background(Color.twistyOrange.opacity(0.12))
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
 
                             VStack(alignment: .leading, spacing: 2) {

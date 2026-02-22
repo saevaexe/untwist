@@ -39,6 +39,7 @@ struct ThoughtUnwinderView: View {
     private var stepEvent: some View {
         VStack(spacing: 20) {
             Spacer()
+            TwistyView(mood: .thinking, size: 100, animated: false)
             Text(String(localized: "unwinder_step1_title", defaultValue: "What happened?"))
                 .font(.title2.weight(.semibold))
                 .foregroundStyle(Color.textPrimary)
@@ -62,6 +63,7 @@ struct ThoughtUnwinderView: View {
     private var stepThought: some View {
         VStack(spacing: 20) {
             Spacer()
+            TwistyView(mood: .thinking, size: 100, animated: false)
             Text(String(localized: "unwinder_step2_title", defaultValue: "What went through your mind?"))
                 .font(.title2.weight(.semibold))
                 .foregroundStyle(Color.textPrimary)
@@ -141,7 +143,7 @@ struct ThoughtUnwinderView: View {
                 }
 
                 nextButton(enabled: true)
-                    .padding(.bottom)
+                    .padding(.bottom, 100)
             }
         }
     }
@@ -151,6 +153,7 @@ struct ThoughtUnwinderView: View {
     private var stepAlternative: some View {
         VStack(spacing: 20) {
             Spacer()
+            TwistyView(mood: .celebrating, size: 100, animated: false)
             Text(String(localized: "unwinder_step4_title", defaultValue: "What's another way to see this?"))
                 .font(.title2.weight(.semibold))
                 .foregroundStyle(Color.textPrimary)
@@ -186,7 +189,7 @@ struct ThoughtUnwinderView: View {
             .padding(.horizontal)
             .disabled(alternativeThought.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             .opacity(alternativeThought.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.5 : 1)
-            .padding(.bottom)
+            .padding(.bottom, 100)
         }
     }
 
@@ -207,6 +210,7 @@ struct ThoughtUnwinderView: View {
         }
         .disabled(!enabled)
         .padding(.horizontal)
+        .padding(.bottom, 100)
     }
 
     private func saveRecord() {

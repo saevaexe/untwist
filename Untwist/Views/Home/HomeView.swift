@@ -6,9 +6,7 @@ struct HomeView: View {
             VStack(spacing: 20) {
                 // Twisty greeting
                 VStack(spacing: 8) {
-                    Image(systemName: "circle.fill")
-                        .font(.system(size: 60))
-                        .foregroundStyle(Color.twistyOrange)
+                    TwistyView(mood: .happy, size: 160)
 
                     Text(String(localized: "home_greeting", defaultValue: "Hey there! How are you today?"))
                         .font(.title3.weight(.medium))

@@ -56,9 +56,7 @@ struct BreathingView: View {
 
     private var startView: some View {
         VStack(spacing: 24) {
-            Image(systemName: "wind")
-                .font(.system(size: 60))
-                .foregroundStyle(Color.successGreen)
+            TwistyView(mood: .breathing, size: 140)
 
             Text(String(localized: "breathing_description", defaultValue: "4-7-8 Breathing Technique"))
                 .font(.title2.weight(.semibold))
@@ -123,9 +121,7 @@ struct BreathingView: View {
 
     private var completedView: some View {
         VStack(spacing: 24) {
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 60))
-                .foregroundStyle(Color.successGreen)
+            TwistyView(mood: .celebrating, size: 140)
 
             Text(String(localized: "breathing_done", defaultValue: "Well done!"))
                 .font(.title.weight(.semibold))

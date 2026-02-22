@@ -12,9 +12,10 @@ struct MoodCheckView: View {
         VStack(spacing: 32) {
             Spacer()
 
-            // Mood emoji
-            Text(moodEmoji)
-                .font(.system(size: 80))
+            // Mood Twisty — fixed frame prevents layout jumps on mood change
+            TwistyView(mood: moodTwisty, size: moodTwistySize, animated: false)
+                .frame(width: 160, height: 160)
+                .animation(.easeInOut(duration: 0.3), value: moodTwisty)
 
             // Score display
             Text("\(Int(score))")
@@ -62,20 +63,28 @@ struct MoodCheckView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 14))
             }
             .padding(.horizontal)
-            .padding(.bottom)
+            .padding(.bottom, 100)
         }
         .background(Color.appBackground)
         .navigationTitle(String(localized: "mood_check_title", defaultValue: "Mood Check"))
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    private var moodEmoji: String {
+    private var moodTwisty: TwistyMood {
         switch Int(score) {
-        case 0..<20: "😢"
-        case 20..<40: "😟"
-        case 40..<60: "😐"
-        case 60..<80: "🙂"
-        default: "😊"
+        case 0..<30: .sad
+        case 30..<60: .neutral
+        case 60..<80: .happy
+        default: .celebrating
+        }
+    }
+
+    /// Sad image fills more of the frame (no protruding threads), so scale it down slightly
+    private var moodTwistySize: CGFloat {
+        switch moodTwisty {
+        case .sad: 120
+        case .neutral: 130
+        default: 140
         }
     }
 
