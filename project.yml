@@ -26,3 +26,5 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.osmanseven.untwist
         INFOPLIST_FILE: Untwist/Info.plist
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_IDENTITY: "Apple Development"
