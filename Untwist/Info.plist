@@ -35,5 +35,7 @@
 	</array>
 	<key>UIRequiresFullScreen</key>
 	<true/>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>Untwist sends a gentle daily reminder to check in with yourself.</string>
 </dict>
 </plist>

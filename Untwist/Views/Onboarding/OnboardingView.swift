@@ -90,7 +90,10 @@ struct OnboardingView: View {
             Spacer()
 
             Button {
-                hasCompletedOnboarding = true
+                Task {
+                    _ = await NotificationManager.shared.requestPermission()
+                    hasCompletedOnboarding = true
+                }
             } label: {
                 Text(String(localized: "onboarding_get_started", defaultValue: "Get Started"))
                     .font(.headline)

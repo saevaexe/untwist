@@ -12,6 +12,7 @@ struct ThoughtUnwinderView: View {
     @State private var alternativeThought = ""
     @State private var moodAfter: Double = 50
     @State private var suggestions: [TrapSuggestion] = []
+    @State private var showCrisis = false
 
     var body: some View {
         VStack {
@@ -32,6 +33,9 @@ struct ThoughtUnwinderView: View {
         .background(Color.appBackground)
         .navigationTitle(String(localized: "unwinder_title", defaultValue: "Thought Unwinder"))
         .navigationBarTitleDisplayMode(.inline)
+        .fullScreenCover(isPresented: $showCrisis) {
+            CrisisView()
+        }
     }
 
     // MARK: - Step 1: Event
@@ -54,7 +58,9 @@ struct ThoughtUnwinderView: View {
                 .padding(.horizontal)
 
             Spacer()
-            nextButton(enabled: !event.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            nextButton(enabled: !event.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, crisisCheck: {
+                ThoughtTrapEngine.detectCrisis(event)
+            })
         }
     }
 
@@ -84,9 +90,11 @@ struct ThoughtUnwinderView: View {
             }
 
             Spacer()
-            nextButton(enabled: !automaticThought.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
+            nextButton(enabled: !automaticThought.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, action: {
                 suggestions = ThoughtTrapEngine.analyze(automaticThought)
-            }
+            }, crisisCheck: {
+                ThoughtTrapEngine.detectCrisis(automaticThought)
+            })
         }
     }
 
@@ -195,8 +203,12 @@ struct ThoughtUnwinderView: View {
 
     // MARK: - Helpers
 
-    private func nextButton(enabled: Bool, action: (() -> Void)? = nil) -> some View {
+    private func nextButton(enabled: Bool, action: (() -> Void)? = nil, crisisCheck: (() -> Bool)? = nil) -> some View {
         Button {
+            if let check = crisisCheck, check() {
+                showCrisis = true
+                return
+            }
             action?()
             withAnimation { step += 1 }
         } label: {

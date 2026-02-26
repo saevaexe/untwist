@@ -28,3 +28,14 @@ targets:
         INFOPLIST_FILE: Untwist/Info.plist
         CODE_SIGN_STYLE: Automatic
         CODE_SIGN_IDENTITY: "Apple Development"
+
+  UntwistTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: UntwistTests
+    dependencies:
+      - target: Untwist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.osmanseven.untwist.tests

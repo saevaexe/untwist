@@ -7,8 +7,27 @@ struct MoodCheckView: View {
     @State private var score: Double = 50
     @State private var note = ""
     @State private var saved = false
+    @State private var showCrisis = false
 
     var body: some View {
+        Group {
+            if saved && Int(score) < 60 {
+                savedRedirectView
+            } else {
+                moodInputView
+            }
+        }
+        .background(Color.appBackground)
+        .navigationTitle(String(localized: "mood_check_title", defaultValue: "Mood Check"))
+        .navigationBarTitleDisplayMode(.inline)
+        .fullScreenCover(isPresented: $showCrisis) {
+            CrisisView()
+        }
+    }
+
+    // MARK: - Mood Input
+
+    private var moodInputView: some View {
         VStack(spacing: 32) {
             Spacer()
 
@@ -65,9 +84,49 @@ struct MoodCheckView: View {
             .padding(.horizontal)
             .padding(.bottom, 100)
         }
-        .background(Color.appBackground)
-        .navigationTitle(String(localized: "mood_check_title", defaultValue: "Mood Check"))
-        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    // MARK: - Saved + Redirect (mood < 60)
+
+    private var savedRedirectView: some View {
+        VStack(spacing: 24) {
+            Spacer()
+
+            TwistyView(mood: .thinking, size: 140)
+
+            Text(String(localized: "mood_saved", defaultValue: "Mood saved!"))
+                .font(.title2.weight(.semibold))
+                .foregroundStyle(Color.textPrimary)
+
+            Text(String(localized: "mood_redirect_prompt", defaultValue: "Would you like to explore what's on your mind?"))
+                .font(.subheadline)
+                .foregroundStyle(Color.textSecondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+
+            NavigationLink {
+                ThoughtUnwinderView()
+            } label: {
+                Text(String(localized: "mood_redirect_yes", defaultValue: "Explore my thoughts"))
+                    .font(.headline)
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.primaryPurple)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+            }
+            .padding(.horizontal)
+
+            Button {
+                dismiss()
+            } label: {
+                Text(String(localized: "mood_redirect_no", defaultValue: "Not now"))
+                    .font(.subheadline)
+                    .foregroundStyle(Color.primaryPurple)
+            }
+
+            Spacer()
+        }
     }
 
     private var moodTwisty: TwistyMood {
@@ -101,6 +160,17 @@ struct MoodCheckView: View {
     private func saveMood() {
         let entry = MoodEntry(score: Int(score), note: note.isEmpty ? nil : note)
         modelContext.insert(entry)
+        saved = true
+
+        // Crisis check on note text
+        if !note.isEmpty && ThoughtTrapEngine.detectCrisis(note) {
+            showCrisis = true
+            return
+        }
+
+        // Low mood → show redirect to Thought Unwinder
+        if Int(score) < 60 { return }
+
         dismiss()
     }
 }

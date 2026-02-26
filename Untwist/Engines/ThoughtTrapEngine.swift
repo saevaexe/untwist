@@ -49,11 +49,16 @@ struct ThoughtTrapEngine {
         "ölsem daha iyi", "dayanamıyorum", "her şeyi bitir"
     ]
 
-    /// Detect crisis language in text — HIGH threshold, only clear crisis language
+    /// Detect crisis language in text — HIGH threshold, only clear crisis language.
+    /// Checks BOTH EN and TR keywords regardless of locale (user may type in either language).
+    /// Also strips diacritics for basic evasion resistance.
     static func detectCrisis(_ text: String, locale: Locale = .current) -> Bool {
-        let lowercased = text.lowercased()
-        let isTurkish = locale.language.languageCode?.identifier == "tr"
-        let keywords = isTurkish ? crisisKeywordsTR : crisisKeywordsEN
-        return keywords.contains { lowercased.contains($0) }
+        let normalized = text
+            .lowercased()
+            .folding(options: .diacriticInsensitive, locale: nil)
+        let allKeywords = crisisKeywordsEN + crisisKeywordsTR.map {
+            $0.folding(options: .diacriticInsensitive, locale: nil)
+        }
+        return allKeywords.contains { normalized.contains($0) }
     }
 }
