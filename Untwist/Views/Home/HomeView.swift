@@ -1,14 +1,19 @@
 import SwiftUI
 
 struct HomeView: View {
+    @AppStorage("launchThoughtWriterAfterOnboarding") private var launchThoughtWriterAfterOnboarding = false
     @State private var showUnwinding = false
+    @State private var showThoughtWriter = false
     @State private var showCrisis = false
+    @State private var showThoughtWriterExitConfirmation = false
+    @State private var showMoodCheck = false
+    @State private var quickMoodScore: Double = 50
 
     var body: some View {
         ZStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 18) {
-                    headerCard
+                    heroSection
                     unwindHeroCard
                     sectionTitle
                     quickActionGrid
@@ -44,8 +49,64 @@ struct HomeView: View {
                 UnwindingNowView()
             }
         }
+        .fullScreenCover(isPresented: $showThoughtWriter) {
+            NavigationStack {
+                ThoughtUnwinderView()
+                    .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button(String(localized: "onboarding_close_unwinder", defaultValue: "Close")) {
+                                showThoughtWriterExitConfirmation = true
+                            }
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Color.textSecondary)
+                        }
+                    }
+                    .confirmationDialog(
+                        String(localized: "onboarding_close_unwinder_confirm_title", defaultValue: "Exit without saving?"),
+                        isPresented: $showThoughtWriterExitConfirmation,
+                        titleVisibility: .visible
+                    ) {
+                        Button(
+                            String(localized: "onboarding_close_unwinder_confirm_discard", defaultValue: "Exit without saving"),
+                            role: .destructive
+                        ) {
+                            showThoughtWriterExitConfirmation = false
+                            showThoughtWriter = false
+                        }
+                        Button(
+                            String(localized: "onboarding_close_unwinder_confirm_continue", defaultValue: "Continue editing"),
+                            role: .cancel
+                        ) {
+                            showThoughtWriterExitConfirmation = false
+                        }
+                    } message: {
+                        Text(
+                            String(
+                                localized: "onboarding_close_unwinder_confirm_message",
+                                defaultValue: "Your progress in this session will be lost."
+                            )
+                        )
+                    }
+            }
+        }
         .fullScreenCover(isPresented: $showCrisis) {
             CrisisView()
+        }
+        .sheet(isPresented: $showMoodCheck) {
+            NavigationStack {
+                MoodCheckView(initialScore: quickMoodScore)
+            }
+        }
+        .onAppear {
+            guard launchThoughtWriterAfterOnboarding else { return }
+            launchThoughtWriterAfterOnboarding = false
+            DispatchQueue.main.async {
+                showThoughtWriter = true
+            }
+        }
+        .onChange(of: showThoughtWriter) {
+            guard !showThoughtWriter else { return }
+            showThoughtWriterExitConfirmation = false
         }
         .navigationTitle(String(localized: "app_name", defaultValue: "Untwist"))
         .toolbar {
@@ -83,40 +144,82 @@ struct HomeView: View {
         .ignoresSafeArea()
     }
 
-    private var headerCard: some View {
-        HStack(spacing: 14) {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(String(localized: "home_greeting", defaultValue: "Hey there! How are you today?"))
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(Color.textPrimary)
-                    .multilineTextAlignment(.leading)
+    private var heroSection: some View {
+        VStack(spacing: 14) {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(greetingText)
+                        .font(.title3.weight(.bold))
+                        .foregroundStyle(.white)
 
-                Text(todayLabel)
-                    .font(.caption.weight(.medium))
-                    .foregroundStyle(Color.textSecondary)
-                    .textCase(.uppercase)
-                    .tracking(0.8)
+                    Text(todayLabel)
+                        .font(.caption.weight(.medium))
+                        .foregroundStyle(.white.opacity(0.75))
+                        .textCase(.uppercase)
+                        .tracking(0.8)
+                }
+                Spacer()
             }
 
-            Spacer(minLength: 0)
+            TwistyView(mood: .happy, size: 100)
 
-            TwistyView(mood: .happy, size: 78)
-                .frame(width: 88, height: 88)
-                .background(
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .fill(Color.primaryPurple.opacity(0.10))
-                )
+            // Quick mood widget
+            HStack(spacing: 12) {
+                quickMoodButton(mood: .sad, label: String(localized: "home_mood_awful", defaultValue: "Awful"), score: 10)
+                quickMoodButton(mood: .neutral, label: String(localized: "home_mood_low", defaultValue: "Low"), score: 30)
+                quickMoodButton(mood: .thinking, label: String(localized: "home_mood_okay", defaultValue: "Okay"), score: 50)
+                quickMoodButton(mood: .happy, label: String(localized: "home_mood_good", defaultValue: "Good"), score: 70)
+                quickMoodButton(mood: .celebrating, label: String(localized: "home_mood_great", defaultValue: "Great"), score: 90)
+            }
         }
-        .padding(18)
+        .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .fill(Color.cardBackground.opacity(0.96))
+                .fill(
+                    LinearGradient(
+                        colors: [Color.primaryPurple.opacity(0.85), Color.twistyOrange.opacity(0.65)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
         )
-        .overlay(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(Color.primaryPurple.opacity(0.14), lineWidth: 1)
-        )
-        .shadow(color: .black.opacity(0.08), radius: 14, y: 5)
+        .shadow(color: Color.primaryPurple.opacity(0.20), radius: 16, y: 6)
+    }
+
+    private func quickMoodButton(mood: TwistyMood, label: String, score: Int) -> some View {
+        Button {
+            quickMoodScore = Double(score)
+            showMoodCheck = true
+        } label: {
+            VStack(spacing: 4) {
+                Image(mood.imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .padding(5)
+                    .frame(width: 44, height: 44)
+                    .background(.white.opacity(0.20), in: Circle())
+
+                Text(label)
+                    .font(.caption2.weight(.medium))
+                    .foregroundStyle(.white.opacity(0.9))
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .accessibilityLabel(label)
+    }
+
+    private var greetingText: String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        switch hour {
+        case 5..<12:
+            return String(localized: "home_greeting_morning", defaultValue: "Good morning!")
+        case 12..<17:
+            return String(localized: "home_greeting_afternoon", defaultValue: "Good afternoon!")
+        case 17..<22:
+            return String(localized: "home_greeting_evening", defaultValue: "Good evening!")
+        default:
+            return String(localized: "home_greeting_night", defaultValue: "Hey there!")
+        }
     }
 
     private var unwindHeroCard: some View {

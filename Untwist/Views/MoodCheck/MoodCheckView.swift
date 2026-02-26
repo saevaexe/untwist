@@ -4,10 +4,14 @@ import SwiftData
 struct MoodCheckView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    @State private var score: Double = 50
+    @State private var score: Double
     @State private var note = ""
     @State private var saved = false
     @State private var showCrisis = false
+
+    init(initialScore: Double = 50) {
+        _score = State(initialValue: initialScore)
+    }
 
     var body: some View {
         ZStack {

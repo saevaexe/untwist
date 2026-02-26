@@ -26,11 +26,16 @@ struct DisclaimerView: View {
 
     private var headerCard: some View {
         HStack(spacing: 12) {
-            Image(systemName: "shield.lefthalf.filled")
-                .font(.title3.weight(.semibold))
-                .foregroundStyle(Color.successGreen)
+            Image("TwistyReading")
+                .resizable()
+                .scaledToFit()
+                .padding(2)
                 .frame(width: 42, height: 42)
-                .background(Color.successGreen.opacity(0.14), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .background(Color.primaryPurple.opacity(0.10), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(Color.primaryPurple.opacity(0.12), lineWidth: 1)
+                )
 
             VStack(alignment: .leading, spacing: 3) {
                 Text(String(localized: "disclaimer_title", defaultValue: "Disclaimer"))
@@ -51,17 +56,15 @@ struct DisclaimerView: View {
     private var disclaimerCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(String(localized: "disclaimer_body", defaultValue: """
-            Untwist is a self-help wellness tool based on Cognitive Behavioral Therapy (CBT) principles.
+            Untwist is a wellness self-help companion based on Cognitive Behavioral Therapy (CBT) principles.
 
-            This app is NOT a substitute for professional therapy, counseling, or medical advice. It does not diagnose, treat, or cure any mental health condition.
+            Untwist is not a medical or emergency service and cannot replace licensed professional support.
 
-            If you are experiencing a mental health crisis, please contact a licensed mental health professional or call your local emergency services immediately.
+            Crisis resources are shown based on your selected or device region. Hotline availability and numbers may change over time. If no local hotline is available, Untwist directs you to findahelpline.com.
 
-            Emergency contacts:
-            • 988 Suicide & Crisis Lifeline (US)
-            • 182 İntihar Önleme Hattı (TR)
+            If you are in immediate danger or may harm yourself or others, call your local emergency number now.
 
-            All data you enter stays on your device. We do not collect, store, or share any personal information.
+            Your entries stay on your device. Untwist does not collect or share your personal thought content.
             """))
                 .font(.body)
                 .foregroundStyle(Color.textPrimary)

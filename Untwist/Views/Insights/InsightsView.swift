@@ -7,6 +7,158 @@ struct InsightsView: View {
     @Query private var thoughtRecords: [ThoughtRecord]
     @Query private var breathingSessions: [BreathingSession]
 
+    @State private var selectedPeriod = 1 // 0=7d, 1=month, 2=all
+
+    private enum Period: Int, CaseIterable {
+        case week = 0, month, all
+
+        var label: String {
+            switch self {
+            case .week: String(localized: "period_week", defaultValue: "7 Days")
+            case .month: String(localized: "period_month", defaultValue: "This Month")
+            case .all: String(localized: "period_all", defaultValue: "All")
+            }
+        }
+
+        var startDate: Date? {
+            let calendar = Calendar.current
+            let today = calendar.startOfDay(for: Date())
+            switch self {
+            case .week: return calendar.date(byAdding: .day, value: -7, to: today)
+            case .month: return calendar.date(from: calendar.dateComponents([.year, .month], from: today))
+            case .all: return nil
+            }
+        }
+    }
+
+    private var period: Period { Period(rawValue: selectedPeriod) ?? .month }
+
+    private func filterByPeriod<T>(_ items: [T], dateKeyPath: KeyPath<T, Date>) -> [T] {
+        guard let start = period.startDate else { return items }
+        return items.filter { $0[keyPath: dateKeyPath] >= start }
+    }
+
+    private var filteredMoods: [MoodEntry] { filterByPeriod(moodEntries, dateKeyPath: \.date) }
+    private var filteredRecords: [ThoughtRecord] { filterByPeriod(thoughtRecords, dateKeyPath: \.date) }
+    private var filteredSessions: [BreathingSession] { filterByPeriod(breathingSessions, dateKeyPath: \.date) }
+
+    // MARK: - Computed Properties
+
+    private var totalEntries: Int {
+        filteredMoods.count + filteredRecords.count + filteredSessions.count
+    }
+
+    private var averageMood: Double {
+        guard !filteredMoods.isEmpty else { return 0 }
+        return Double(filteredMoods.map(\.score).reduce(0, +)) / Double(filteredMoods.count)
+    }
+
+    private var improvementRate: Double {
+        guard !filteredRecords.isEmpty else { return 0 }
+        let total = filteredRecords.map { $0.moodAfter - $0.moodBefore }.reduce(0, +)
+        return Double(total) / Double(filteredRecords.count)
+    }
+
+    private var currentStreak: Int {
+        let calendar = Calendar.current
+        var allDates = Set<Date>()
+
+        for entry in moodEntries {
+            allDates.insert(calendar.startOfDay(for: entry.date))
+        }
+        for record in thoughtRecords {
+            allDates.insert(calendar.startOfDay(for: record.date))
+        }
+        for session in breathingSessions {
+            allDates.insert(calendar.startOfDay(for: session.date))
+        }
+
+        var streak = 0
+        var checkDate = calendar.startOfDay(for: Date())
+
+        // If no entry today, start from yesterday
+        if !allDates.contains(checkDate) {
+            guard let yesterday = calendar.date(byAdding: .day, value: -1, to: checkDate) else { return 0 }
+            checkDate = yesterday
+        }
+
+        while allDates.contains(checkDate) {
+            streak += 1
+            guard let prev = calendar.date(byAdding: .day, value: -1, to: checkDate) else { break }
+            checkDate = prev
+        }
+        return streak
+    }
+
+    private let trapColors: [Color] = [.primaryPurple, .crisisWarning, .twistyOrange, .successGreen, .secondaryLavender]
+
+    private var trapFrequency: [(trap: ThoughtTrapType, count: Int)] {
+        var counts: [ThoughtTrapType: Int] = [:]
+        for record in filteredRecords {
+            for trap in record.selectedTraps {
+                counts[trap, default: 0] += 1
+            }
+        }
+        return counts
+            .map { (trap: $0.key, count: $0.value) }
+            .sorted { $0.count > $1.count }
+    }
+
+    private var activityCounts: [Date: Int] {
+        let calendar = Calendar.current
+        var counts: [Date: Int] = [:]
+        for entry in moodEntries {
+            let day = calendar.startOfDay(for: entry.date)
+            counts[day, default: 0] += 1
+        }
+        for record in thoughtRecords {
+            let day = calendar.startOfDay(for: record.date)
+            counts[day, default: 0] += 1
+        }
+        for session in breathingSessions {
+            let day = calendar.startOfDay(for: session.date)
+            counts[day, default: 0] += 1
+        }
+        return counts
+    }
+
+    private func heatmapColor(for count: Int) -> Color {
+        switch count {
+        case 0: return Color.primaryPurple.opacity(0.06)
+        case 1: return Color.primaryPurple.opacity(0.25)
+        case 2: return Color.primaryPurple.opacity(0.50)
+        default: return Color.primaryPurple
+        }
+    }
+
+    private var heatmapWeeks: [[Date]] {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+
+        // Find the Monday of this week
+        let weekday = calendar.component(.weekday, from: today)
+        let daysToMonday = (weekday + 5) % 7 // Monday = 2, so offset
+        guard let thisMonday = calendar.date(byAdding: .day, value: -daysToMonday, to: today) else { return [] }
+
+        // Go back 11 more weeks (12 total)
+        guard let startMonday = calendar.date(byAdding: .weekOfYear, value: -11, to: thisMonday) else { return [] }
+
+        var weeks: [[Date]] = []
+        var currentMonday = startMonday
+
+        for _ in 0..<12 {
+            var week: [Date] = []
+            for dayOffset in 0..<7 {
+                if let day = calendar.date(byAdding: .day, value: dayOffset, to: currentMonday) {
+                    week.append(day)
+                }
+            }
+            weeks.append(week)
+            currentMonday = calendar.date(byAdding: .weekOfYear, value: 1, to: currentMonday) ?? currentMonday
+        }
+        return weeks
+    }
+
     private var last7DaysMoods: [(date: Date, average: Double)] {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
@@ -34,11 +186,18 @@ struct InsightsView: View {
                     if moodEntries.isEmpty && thoughtRecords.isEmpty && breathingSessions.isEmpty {
                         emptyStateView
                     } else {
-                        headerSummaryCard
+                        periodTabs
+
+                        overallMetricsSection
 
                         if !last7DaysMoods.isEmpty {
                             moodChartSection
                         }
+
+                        trapFrequencySection
+
+                        activityHeatmapSection
+
                         statsSection
                     }
                 }
@@ -49,6 +208,33 @@ struct InsightsView: View {
         }
         .navigationTitle(String(localized: "insights_title", defaultValue: "Insights"))
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    // MARK: - Period Tabs
+
+    private var periodTabs: some View {
+        HStack(spacing: 4) {
+            ForEach(Period.allCases, id: \.rawValue) { p in
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) { selectedPeriod = p.rawValue }
+                } label: {
+                    Text(p.label)
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(selectedPeriod == p.rawValue ? .white : Color.textSecondary)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .fill(selectedPeriod == p.rawValue ? Color.primaryPurple : Color.clear)
+                                .shadow(color: selectedPeriod == p.rawValue ? Color.primaryPurple.opacity(0.25) : .clear, radius: 6, y: 2)
+                        )
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(4)
+        .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: .black.opacity(0.05), radius: 4, y: 1)
     }
 
     // MARK: - Empty State
@@ -67,56 +253,63 @@ struct InsightsView: View {
         .elevatedCard(stroke: Color.primaryPurple.opacity(0.18), shadowColor: Color.primaryPurple.opacity(0.12))
     }
 
-    private var headerSummaryCard: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            Text(String(localized: "insights_header_title", defaultValue: "Your weekly snapshot"))
-                .font(.headline.weight(.semibold))
-                .foregroundStyle(Color.textPrimary)
+    // MARK: - Overall Metrics (2x2 Grid)
 
-            Text(String(localized: "insights_header_sub", defaultValue: "Small steps count. This is your progress this week."))
-                .font(.subheadline)
-                .foregroundStyle(Color.textSecondary)
+    private var overallMetricsSection: some View {
+        LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+            metricCard(
+                value: "\(totalEntries)",
+                label: String(localized: "stats_total_entries", defaultValue: "Total Entries"),
+                icon: "square.stack.fill",
+                color: .primaryPurple
+            )
 
-            HStack(spacing: 12) {
-                summaryPill(
-                    value: "\(moodEntries.count)",
-                    label: String(localized: "insights_mood_checks", defaultValue: "Mood Checks"),
-                    color: .primaryPurple
-                )
+            metricCard(
+                value: moodEntries.isEmpty ? "—" : String(format: "%.0f", averageMood),
+                label: String(localized: "stats_avg_mood", defaultValue: "Avg Mood"),
+                icon: "face.smiling",
+                color: .twistyOrange
+            )
 
-                summaryPill(
-                    value: "\(thoughtRecords.count)",
-                    label: String(localized: "insights_thought_records", defaultValue: "Thought Records"),
-                    color: .secondaryLavender
-                )
+            metricCard(
+                value: thoughtRecords.isEmpty ? "—" : String(format: "%+.0f \(String(localized: "stats_pts", defaultValue: "pts"))", improvementRate),
+                label: String(localized: "stats_improvement", defaultValue: "Improvement"),
+                icon: "arrow.up.right",
+                color: .successGreen
+            )
 
-                summaryPill(
-                    value: "\(breathingSessions.count)",
-                    label: String(localized: "insights_breathing_sessions", defaultValue: "Breathing Sessions"),
-                    color: .successGreen
-                )
-            }
+            metricCard(
+                value: currentStreak == 0 ? "—" : "\(currentStreak) \(String(localized: "stats_days", defaultValue: "days"))",
+                label: String(localized: "stats_streak", defaultValue: "Streak"),
+                icon: "flame.fill",
+                color: .twistyOrange
+            )
         }
-        .padding(18)
-        .elevatedCard(stroke: Color.primaryPurple.opacity(0.16), shadowColor: Color.primaryPurple.opacity(0.12))
     }
 
-    private func summaryPill(value: String, label: String, color: Color) -> some View {
-        VStack(spacing: 2) {
-            Text(value)
-                .font(.subheadline.weight(.bold))
+    private func metricCard(value: String, label: String, icon: String, color: Color) -> some View {
+        VStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.title3)
                 .foregroundStyle(color)
+
+            Text(value)
+                .font(.title2.weight(.bold))
+                .foregroundStyle(Color.textPrimary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+
             Text(label)
-                .font(.caption2)
+                .font(.caption)
                 .foregroundStyle(Color.textSecondary)
                 .lineLimit(1)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 9)
-        .background(color.opacity(0.10), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .padding(.vertical, 16)
+        .elevatedCard(cornerRadius: 18, stroke: color.opacity(0.14), shadowColor: .black.opacity(0.06))
     }
 
-    // MARK: - Mood Chart
+    // MARK: - Mood Chart (Enhanced with AreaMark)
 
     private var moodChartSection: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -126,6 +319,19 @@ struct InsightsView: View {
 
             Chart {
                 ForEach(last7DaysMoods, id: \.date) { entry in
+                    AreaMark(
+                        x: .value("Date", entry.date, unit: .day),
+                        y: .value("Mood", entry.average)
+                    )
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [Color.primaryPurple.opacity(0.3), Color.primaryPurple.opacity(0.05)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .interpolationMethod(.catmullRom)
+
                     LineMark(
                         x: .value("Date", entry.date, unit: .day),
                         y: .value("Mood", entry.average)
@@ -157,7 +363,106 @@ struct InsightsView: View {
         }
     }
 
-    // MARK: - Stats
+    // MARK: - Trap Frequency
+
+    private var trapFrequencySection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(String(localized: "stats_trap_frequency", defaultValue: "Top Thought Traps"))
+                .font(.headline)
+                .foregroundStyle(Color.textPrimary)
+
+            if trapFrequency.isEmpty {
+                Text(String(localized: "stats_no_traps", defaultValue: "Complete thought records to see patterns"))
+                    .font(.subheadline)
+                    .foregroundStyle(Color.textSecondary)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.vertical, 20)
+            } else {
+                let top5 = Array(trapFrequency.prefix(5))
+                VStack(spacing: 8) {
+                    ForEach(Array(top5.enumerated()), id: \.element.trap) { index, item in
+                        let color = trapColors[index % trapColors.count]
+                        let maxCount = top5.first?.count ?? 1
+                        HStack(spacing: 10) {
+                            Image(item.trap.imageName)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 28, height: 28)
+                                .padding(4)
+                                .background(color.opacity(0.12), in: RoundedRectangle(cornerRadius: 9, style: .continuous))
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(item.trap.name)
+                                    .font(.caption.weight(.bold))
+                                    .foregroundStyle(Color.textPrimary)
+
+                                GeometryReader { geo in
+                                    RoundedRectangle(cornerRadius: 99)
+                                        .fill(Color.appBackground)
+                                        .frame(height: 5)
+                                        .overlay(alignment: .leading) {
+                                            RoundedRectangle(cornerRadius: 99)
+                                                .fill(color)
+                                                .frame(width: geo.size.width * CGFloat(item.count) / CGFloat(maxCount), height: 5)
+                                        }
+                                }
+                                .frame(height: 5)
+                            }
+
+                            Text("\u{00D7}\(item.count)")
+                                .font(.caption.weight(.heavy))
+                                .foregroundStyle(Color.textSecondary)
+                        }
+                    }
+                }
+            }
+        }
+        .padding(18)
+        .elevatedCard(stroke: Color.twistyOrange.opacity(0.16), shadowColor: .black.opacity(0.07))
+    }
+
+    // MARK: - Activity Heatmap
+
+    private var activityHeatmapSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(String(localized: "stats_activity", defaultValue: "Activity"))
+                .font(.headline)
+                .foregroundStyle(Color.textPrimary)
+
+            if activityCounts.isEmpty {
+                Text(String(localized: "stats_no_data_yet", defaultValue: "Your activity will appear here"))
+                    .font(.subheadline)
+                    .foregroundStyle(Color.textSecondary)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.vertical, 20)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 4) {
+                        ForEach(heatmapWeeks, id: \.first) { week in
+                            VStack(spacing: 4) {
+                                ForEach(week, id: \.self) { day in
+                                    let isFuture = day > Date()
+                                    let count = activityCounts[day] ?? 0
+                                    let isToday = Calendar.current.isDateInToday(day)
+                                    RoundedRectangle(cornerRadius: 3, style: .continuous)
+                                        .fill(isFuture ? Color.clear : heatmapColor(for: count))
+                                        .frame(width: 14, height: 14)
+                                        .overlay(
+                                            isToday ? RoundedRectangle(cornerRadius: 3, style: .continuous)
+                                                .stroke(Color.primaryPurple, lineWidth: 1.5) : nil
+                                        )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .padding(18)
+        .elevatedCard(stroke: Color.successGreen.opacity(0.16), shadowColor: .black.opacity(0.06))
+    }
+
+    // MARK: - Stats (original 3-column grid, preserved)
 
     private var statsSection: some View {
         VStack(alignment: .leading, spacing: 12) {

@@ -14,6 +14,7 @@ struct ThoughtUnwinderView: View {
     @State private var suggestions: [TrapSuggestion] = []
     @State private var showCrisis = false
     @State private var showTip = false
+    @State private var showCompletion = false
     @FocusState private var isTextFieldFocused: Bool
 
     @State private var placeholderSet = PlaceholderSet.all[0]
@@ -63,6 +64,16 @@ struct ThoughtUnwinderView: View {
         .sheet(isPresented: $showTip) {
             unwinderTipSheet
         }
+        .sheet(isPresented: $showCompletion) {
+            ThoughtResolverCompletionView(
+                moodBefore: Int(moodBefore),
+                moodAfter: Int(moodAfter),
+                selectedTraps: Array(selectedTraps),
+                onDismiss: { dismiss() }
+            )
+            .interactiveDismissDisabled()
+            .presentationDetents([.large])
+        }
     }
 
     private var unwinderTipSheet: some View {
@@ -76,7 +87,7 @@ struct ThoughtUnwinderView: View {
 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 16) {
-                        TwistyView(mood: .happy, size: 72, animated: false)
+                        TwistyView(mood: .reading, size: 72, animated: false)
                             .padding(.top, 4)
 
                         Text(String(localized: "tip_intro", defaultValue: "The Thought Unwinder helps you step back from overwhelming thoughts and see them from a new angle."))
@@ -510,7 +521,7 @@ struct ThoughtUnwinderView: View {
             alternativeThought: alternativeThought
         )
         modelContext.insert(record)
-        dismiss()
+        showCompletion = true
     }
 }
 

@@ -7,8 +7,14 @@ struct CrisisHotline: Identifiable, Hashable {
     let displayNumber: String
     let nameKey: String
     let nameDefault: String
+    let sourceURL: URL?
+    let lastVerifiedAt: String?
 
     var phoneURL: URL? {
-        URL(string: "tel://\(number.filter { $0.isNumber })")
+        let hasLeadingPlus = number.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("+")
+        let digits = number.filter(\.isNumber)
+        let dialValue = hasLeadingPlus ? "+\(digits)" : digits
+        guard !dialValue.isEmpty else { return nil }
+        return URL(string: "tel://\(dialValue)")
     }
 }

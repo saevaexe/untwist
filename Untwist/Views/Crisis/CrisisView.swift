@@ -2,11 +2,34 @@ import SwiftUI
 
 struct CrisisView: View {
     @Environment(\.dismiss) private var dismiss
+    @AppStorage("crisisCountryOverride") private var crisisCountryOverride = ""
     @State private var showAllCountries = false
 
-    private let localHotlines = CrisisHotlineProvider.localHotlines
-    private let otherHotlines = CrisisHotlineProvider.otherHotlines
-    private let hasLocalHotlines = !CrisisHotlineProvider.localHotlines.isEmpty
+    private var resolvedCountryCode: String? {
+        CrisisHotlineProvider.resolvedCountryCode(overrideCode: crisisCountryOverride)
+    }
+
+    private var localHotlines: [CrisisHotline] {
+        CrisisHotlineProvider.localHotlines(for: resolvedCountryCode)
+    }
+
+    private var otherHotlines: [CrisisHotline] {
+        CrisisHotlineProvider.otherHotlines(for: resolvedCountryCode)
+    }
+
+    private var hasLocalHotlines: Bool {
+        !localHotlines.isEmpty
+    }
+
+    private var usingManualOverride: Bool {
+        !crisisCountryOverride.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    private var countryMenuOptions: [String] {
+        CrisisHotlineProvider.supportedCountryCodes.sorted {
+            CrisisHotlineProvider.countryName(for: $0) < CrisisHotlineProvider.countryName(for: $1)
+        }
+    }
 
     var body: some View {
         NavigationStack {
@@ -35,6 +58,8 @@ struct CrisisView: View {
                         }
                         .padding(18)
                         .elevatedCard(stroke: Color.crisisWarning.opacity(0.24), shadowColor: Color.crisisWarning.opacity(0.12))
+
+                        regionSelectorCard
 
                         // Local hotlines or findahelpline fallback
                         if hasLocalHotlines {
@@ -113,15 +138,6 @@ struct CrisisView: View {
                         }
                         .buttonStyle(.plain)
 
-                        // Continue writing
-                        Button {
-                            dismiss()
-                        } label: {
-                            Text(String(localized: "crisis_continue", defaultValue: "Continue what I was doing"))
-                                .font(.subheadline.weight(.medium))
-                                .foregroundStyle(Color.primaryPurple)
-                        }
-                        .padding(.top, 8)
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 16)
@@ -142,6 +158,85 @@ struct CrisisView: View {
     }
 
     // MARK: - Hotline Button
+
+    private var regionSelectorCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 8) {
+                Image(systemName: "globe.europe.africa.fill")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Color.primaryPurple)
+
+                Text(String(localized: "crisis_region_title", defaultValue: "Region"))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.textPrimary)
+            }
+
+            Menu {
+                Button {
+                    crisisCountryOverride = ""
+                } label: {
+                    if !usingManualOverride {
+                        Label(String(localized: "crisis_region_auto", defaultValue: "Use device region (automatic)"), systemImage: "checkmark")
+                    } else {
+                        Text(String(localized: "crisis_region_auto", defaultValue: "Use device region (automatic)"))
+                    }
+                }
+
+                ForEach(countryMenuOptions, id: \.self) { countryCode in
+                    Button {
+                        crisisCountryOverride = countryCode
+                    } label: {
+                        if countryCode == resolvedCountryCode && usingManualOverride {
+                            Label(countryLabel(for: countryCode), systemImage: "checkmark")
+                        } else {
+                            Text(countryLabel(for: countryCode))
+                        }
+                    }
+                }
+            } label: {
+                HStack(spacing: 10) {
+                    Text(currentRegionLabel)
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(Color.textPrimary)
+                        .lineLimit(1)
+
+                    Spacer()
+
+                    Image(systemName: "chevron.up.chevron.down")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Color.textSecondary)
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Color.appBackground.opacity(0.9))
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(Color.primaryPurple.opacity(0.18), lineWidth: 1)
+                )
+            }
+            .buttonStyle(.plain)
+
+            Text(String(localized: "crisis_region_note", defaultValue: "If your region looks wrong, pick another country."))
+                .font(.caption)
+                .foregroundStyle(Color.textSecondary)
+        }
+        .padding(14)
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.16), shadowColor: .black.opacity(0.06))
+    }
+
+    private var currentRegionLabel: String {
+        if let code = resolvedCountryCode {
+            return countryLabel(for: code)
+        }
+        return String(localized: "crisis_region_unknown", defaultValue: "Unknown region")
+    }
+
+    private func countryLabel(for countryCode: String) -> String {
+        "\(CrisisHotlineProvider.flag(for: countryCode)) \(CrisisHotlineProvider.countryName(for: countryCode))"
+    }
 
     private func hotlineButton(hotline: CrisisHotline, isLocal: Bool) -> some View {
         Button {

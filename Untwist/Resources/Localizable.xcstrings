@@ -270,13 +270,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "182 Suicide Prevention Line (TR)"
+            "value": "182 MHRS Appointment Line (TR)"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "182 İntihar Önleme Hattı"
+            "value": "182 MHRS Randevu Hattı"
           }
         }
       }
@@ -328,23 +328,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Acil Yardım"
-          }
-        }
-      }
-    },
-    "crisis_continue": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Continue what I was doing"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yaptığım şeye devam et"
           }
         }
       }
@@ -660,13 +643,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "iCall (IN)"
+            "value": "AASRA Suicide Prevention (IN)"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "iCall (Hindistan)"
+            "value": "AASRA İntihar Önleme (Hindistan)"
           }
         }
       }
@@ -741,13 +724,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Untwist is a self-help wellness tool based on Cognitive Behavioral Therapy (CBT) principles.\n\nThis app is NOT a substitute for professional therapy, counseling, or medical advice. It does not diagnose, treat, or cure any mental health condition.\n\nIf you are experiencing a mental health crisis, please contact a licensed mental health professional or call your local emergency services immediately.\n\nEmergency contacts:\n• 988 Suicide & Crisis Lifeline (US)\n• 182 İntihar Önleme Hattı (TR)\n\nAll data you enter stays on your device. We do not collect, store, or share any personal information."
+            "value": "Untwist is a wellness self-help companion based on Cognitive Behavioral Therapy (CBT) principles.\n\nUntwist is not a medical or emergency service and cannot replace licensed professional support.\n\nCrisis resources are shown based on your selected or device region. Hotline availability and numbers may change over time. If no local hotline is available, Untwist directs you to findahelpline.com.\n\nIf you are in immediate danger or may harm yourself or others, call your local emergency number now.\n\nYour entries stay on your device. Untwist does not collect or share your personal thought content."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Untwist, Bilişsel Davranışçı Terapi (BDT) ilkelerine dayalı bir kişisel gelişim aracıdır.\n\nBu uygulama profesyonel terapi, danışmanlık veya tıbbi tavsiyenin yerini ALMAZ. Herhangi bir ruh sağlığı durumunu teşhis etmez, tedavi etmez veya iyileştirmez.\n\nBir ruh sağlığı krizi yaşıyorsanız lütfen bir ruh sağlığı uzmanına başvurun veya acil servisi arayın.\n\nAcil iletişim:\n• 182 İntihar Önleme Hattı (TR)\n• 988 Kriz Hattı (ABD)\n\nGirdiğiniz tüm veriler cihazınızda kalır. Kişisel bilgilerinizi toplamıyoruz, saklamıyoruz veya paylaşmıyoruz."
+            "value": "Untwist, Bilişsel Davranışçı Terapi (BDT) ilkelerine dayalı bir iyi oluş ve kişisel gelişim aracıdır.\n\nUntwist tıbbi bir hizmet veya acil yardım servisi değildir; lisanslı profesyonel desteğin yerini tutmaz.\n\nKriz kaynakları seçtiğiniz veya cihaz bölgenize göre gösterilir. Hatların kullanılabilirliği ve numaralar zamanla değişebilir. Bölgeniz için yerel bir hat yoksa Untwist sizi findahelpline.com adresine yönlendirir.\n\nKendinize veya başkasına zarar verme riski varsa yerel acil numarayı hemen arayın.\n\nYazdığınız içerikler cihazınızda kalır. Untwist kişisel düşünce içeriğinizi toplamaz veya paylaşmaz."
           }
         }
       }
@@ -934,7 +917,7 @@
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yaygın düşünce kalıplarını öğren"
+            "value": "Yaygın düşünce tuzaklarını keşfet"
           }
         }
       }
@@ -1506,13 +1489,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Untwist is a self-help tool based on CBT principles. It is not a substitute for professional therapy or medical advice. If you're in crisis, please contact a mental health professional or call emergency services."
+            "value": "Untwist is a wellness self-help app based on CBT principles. It is not a medical or emergency service. Crisis resources are shown by region; if no local line is available, Untwist directs you to findahelpline.com. If you are in immediate danger, call your local emergency number."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Untwist, BDT ilkelerine dayalı bir kişisel gelişim aracıdır. Profesyonel terapi veya tıbbi tavsiyenin yerini almaz. Kriz durumunda lütfen bir ruh sağlığı uzmanına veya acil servise başvurun."
+            "value": "Untwist, BDT ilkelerine dayalı bir iyi oluş ve kişisel gelişim aracıdır. Tıbbi bir hizmet veya acil yardım servisi değildir. Kriz kaynakları bölgenize göre gösterilir; yerel hat yoksa Untwist sizi findahelpline.com adresine yönlendirir. Acil tehlike durumunda yerel acil numarayı arayın."
           }
         }
       }
@@ -1523,13 +1506,166 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Important"
+            "value": "Today, let's start with just one thought."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Önemli"
+            "value": "Bugün sadece bir düşünceyle başlayalım."
+          }
+        }
+      }
+    },
+    "onboarding_eta_step_one": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "~1 min left"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "~1 dk kaldı"
+          }
+        }
+      }
+    },
+    "onboarding_eta_step_three": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "~15 sec left"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "~15 sn kaldı"
+          }
+        }
+      }
+    },
+    "onboarding_eta_step_two": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "~40 sec left"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "~40 sn kaldı"
+          }
+        }
+      }
+    },
+    "onboarding_header_step_one": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Understanding"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anlama"
+          }
+        }
+      }
+    },
+    "onboarding_header_step_three": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başlangıç"
+          }
+        }
+      }
+    },
+    "onboarding_header_step_two": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Approach"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yaklaşım"
+          }
+        }
+      }
+    },
+    "onboarding_focus_note": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pick one. You can switch later from Home."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Birini seç. Ana ekrandan istediğin zaman değiştirebilirsin."
+          }
+        }
+      }
+    },
+    "onboarding_welcome_chip_speed": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Under 2 minutes"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 dakikadan kısa"
+          }
+        }
+      }
+    },
+    "onboarding_welcome_chip_private": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Private on device"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cihazında gizli"
           }
         }
       }
@@ -1540,13 +1676,115 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Get Started"
+            "value": "Write my thought"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Başlayalım"
+            "value": "Düşüncemi yaz"
+          }
+        }
+      }
+    },
+    "onboarding_continue": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devam edelim"
+          }
+        }
+      }
+    },
+    "onboarding_close_unwinder": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kapat"
+          }
+        }
+      }
+    },
+    "onboarding_close_unwinder_confirm_continue": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue editing"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düzenlemeye devam et"
+          }
+        }
+      }
+    },
+    "onboarding_close_unwinder_confirm_discard": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exit without saving"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydetmeden çık"
+          }
+        }
+      }
+    },
+    "onboarding_close_unwinder_confirm_message": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your progress in this session will be lost."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu oturumdaki ilerlemen kaydedilmez."
+          }
+        }
+      }
+    },
+    "onboarding_close_unwinder_confirm_title": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exit without saving?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydetmeden çıkılsın mı?"
           }
         }
       }
@@ -1557,13 +1795,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Track your mood, explore your thoughts, and discover healthier ways to see things. All in under 2 minutes."
+            "value": "With simple, structured prompts, Untwist helps clarify your thought and reduce emotional intensity."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ruh halini takip et, düşüncelerini keşfet ve olaylara daha sağlıklı bakış açıları bul. Hepsi 2 dakikadan kısa."
+            "value": "Basit ve yapılandırılmış sorularla düşünceyi netleştirir, duygunun yoğunluğunu azaltmana yardım eder."
           }
         }
       }
@@ -1574,13 +1812,183 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "How it works"
+            "value": "Untwist works through thoughts step by step."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nasıl çalışır"
+            "value": "Untwist düşünceleri adım adım ele alır."
+          }
+        }
+      }
+    },
+    "onboarding_plan_sub": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not big changes. A small moment of clarity is enough."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Büyük değişimler değil.\nKüçük bir netleşme yeterli."
+          }
+        }
+      }
+    },
+    "onboarding_skip_for_now": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip for now"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şimdilik geç"
+          }
+        }
+      }
+    },
+    "onboarding_step_one_footer": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We can work through this together here."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Burada bunu birlikte çözebiliriz."
+          }
+        }
+      }
+    },
+    "onboarding_step_two_bullet_1": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Practices under 2 minutes"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 dakikadan kısa pratikler"
+          }
+        }
+      }
+    },
+    "onboarding_step_two_bullet_2": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your progress stays only on your device"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlerlemen yalnızca cihazında saklanır"
+          }
+        }
+      }
+    },
+    "onboarding_step_two_bullet_3": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No ads, no distractions"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reklam yok, dikkat dağıtıcı yok"
+          }
+        }
+      }
+    },
+    "onboarding_plan_points_title": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What you'll get"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sana ne kazandıracak"
+          }
+        }
+      }
+    },
+    "onboarding_plan_point_1": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A clear first step based on your focus"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seçtiğin odağa göre net bir ilk adım"
+          }
+        }
+      }
+    },
+    "onboarding_plan_point_2": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A quick exercise you can do in under 2 minutes"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 dakikadan kısa süren hızlı bir egzersiz"
+          }
+        }
+      }
+    },
+    "onboarding_plan_point_3": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Private progress, stored only on your device"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlerlemen yalnızca cihazında saklanır"
           }
         }
       }
@@ -1608,13 +2016,47 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your companion for understanding your thoughts better. Together, we'll learn to spot thinking patterns."
+            "value": "Replaying the same topic, building scenarios in your head, not being able to let go... This is part of being human."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Düşüncelerini daha iyi anlamak için yanındaki arkadaşın. Birlikte düşünce kalıplarını fark etmeyi öğreneceğiz."
+            "value": "Aynı konuyu tekrar tekrar düşünmek,\nzihinde senaryolar kurmak,\nbir şeyi bırakamamak…\nBu insan olmanın bir parçası."
+          }
+        }
+      }
+    },
+    "onboarding_recommended_label": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recommended first step"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önerilen ilk adım"
+          }
+        }
+      }
+    },
+    "onboarding_select_focus": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Select a focus"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir odak seç"
           }
         }
       }
@@ -1625,13 +2067,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meet Twisty"
+            "value": "Sometimes thoughts can feel exhausting."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Twisty ile Tanış"
+            "value": "Bazen düşünceler yorucu olabilir."
           }
         }
       }
@@ -3811,6 +4253,662 @@
           "stringUnit": {
             "state": "translated",
             "value": "ör. Bir tartışma her şeyin bittiği anlamına gelmez"
+          }
+        }
+      }
+    },
+    "crisis_region_title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Region"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bölge"
+          }
+        }
+      }
+    },
+    "crisis_region_auto": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use device region (automatic)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cihaz bölgesini kullan (otomatik)"
+          }
+        }
+      }
+    },
+    "crisis_region_note": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If your region looks wrong, pick another country."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bölgen yanlış görünüyorsa başka bir ülke seç."
+          }
+        }
+      }
+    },
+    "crisis_region_unknown": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown region"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bilinmeyen bölge"
+          }
+        }
+      }
+    },
+    "completion_title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Great work!"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Harika iş!"
+          }
+        }
+      }
+    },
+    "completion_mood_before": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Before"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önce"
+          }
+        }
+      }
+    },
+    "completion_mood_after": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonra"
+          }
+        }
+      }
+    },
+    "completion_mood_improved": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your mood improved by %lld points. That's the power of looking at things differently."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruh halin %lld puan iyileşti. Farklı bakmanın gücü bu."
+          }
+        }
+      }
+    },
+    "completion_mood_same": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your mood stayed the same — and that's okay. You still took time to reflect, and that matters."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruh halin aynı kaldı — sorun yok. Düşünmeye zaman ayırdın, bu önemli."
+          }
+        }
+      }
+    },
+    "completion_mood_notice": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You noticed how you feel, and that awareness is a big step. Keep going."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nasıl hissettiğini fark ettin, bu farkındalık büyük bir adım. Devam et."
+          }
+        }
+      }
+    },
+    "completion_traps_found": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You spotted %lld thought trap(s)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld düşünce tuzağı fark ettin"
+          }
+        }
+      }
+    },
+    "completion_traps_insight": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recognizing patterns is the first step to breaking free from them."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kalıpları fark etmek, onlardan kurtulmanın ilk adımıdır."
+          }
+        }
+      }
+    },
+    "completion_streak": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld day streak"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld gün serisi"
+          }
+        }
+      }
+    },
+    "completion_streak_first": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First entry — the journey begins!"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk kayıt — yolculuk başlıyor!"
+          }
+        }
+      }
+    },
+    "completion_done": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamam"
+          }
+        }
+      }
+    },
+    "completion_accessibility_mood": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mood changed from %lld to %lld"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruh hali %lld'den %lld'e değişti"
+          }
+        }
+      }
+    },
+    "stats_total_entries": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total Entries"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toplam Kayıt"
+          }
+        }
+      }
+    },
+    "stats_avg_mood": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avg Mood"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort. Ruh Hali"
+          }
+        }
+      }
+    },
+    "stats_improvement": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Improvement"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İyileşme"
+          }
+        }
+      }
+    },
+    "stats_streak": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Streak"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seri"
+          }
+        }
+      }
+    },
+    "stats_days": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "days"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gün"
+          }
+        }
+      }
+    },
+    "stats_pts": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pts"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "puan"
+          }
+        }
+      }
+    },
+    "stats_trap_frequency": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top Thought Traps"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En Sık Düşünce Tuzakları"
+          }
+        }
+      }
+    },
+    "stats_no_traps": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Complete thought records to see patterns"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kalıpları görmek için düşünce kayıtları tamamla"
+          }
+        }
+      }
+    },
+    "stats_activity": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activity"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktivite"
+          }
+        }
+      }
+    },
+    "stats_no_data_yet": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your activity will appear here"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiviten burada görünecek"
+          }
+        }
+      }
+    },
+    "home_greeting_morning": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Good morning!"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günaydın!"
+          }
+        }
+      }
+    },
+    "home_greeting_afternoon": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Good afternoon!"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İyi öğlenler!"
+          }
+        }
+      }
+    },
+    "home_greeting_evening": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Good evening!"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İyi akşamlar!"
+          }
+        }
+      }
+    },
+    "home_greeting_night": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hey there!"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Merhaba!"
+          }
+        }
+      }
+    },
+    "home_mood_awful": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Awful"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kötü"
+          }
+        }
+      }
+    },
+    "home_mood_low": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düşük"
+          }
+        }
+      }
+    },
+    "home_mood_okay": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Okay"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İdare"
+          }
+        }
+      }
+    },
+    "home_mood_good": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Good"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İyi"
+          }
+        }
+      }
+    },
+    "home_mood_great": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Great"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Harika"
+          }
+        }
+      }
+    },
+    "period_week": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 Days"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 Gün"
+          }
+        }
+      }
+    },
+    "period_month": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This Month"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu Ay"
+          }
+        }
+      }
+    },
+    "period_all": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tümü"
+          }
+        }
+      }
+    },
+    "completion_progress_low": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düşük"
+          }
+        }
+      }
+    },
+    "completion_progress_great": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Great"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Harika"
+          }
+        }
+      }
+    },
+    "completion_streak_today": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Completed today"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugün de tamamladın"
           }
         }
       }
