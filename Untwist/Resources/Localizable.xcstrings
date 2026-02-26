@@ -383,6 +383,358 @@
         }
       }
     },
+    "crisis_tr_112": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "112 Emergency Line (TR)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "112 Acil Çağrı Merkezi"
+          }
+        }
+      }
+    },
+    "crisis_gb_116123": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "116 123 Samaritans (UK)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "116 123 Samaritans (İngiltere)"
+          }
+        }
+      }
+    },
+    "crisis_de_tele": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telefonseelsorge (DE)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telefonseelsorge (Almanya)"
+          }
+        }
+      }
+    },
+    "crisis_fr_3114": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3114 National Suicide Prevention (FR)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3114 İntihar Önleme Hattı (Fransa)"
+          }
+        }
+      }
+    },
+    "crisis_ca_988": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "988 Suicide Crisis Helpline (CA)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "988 Kriz Hattı (Kanada)"
+          }
+        }
+      }
+    },
+    "crisis_au_lifeline": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "13 11 14 Lifeline (AU)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "13 11 14 Lifeline (Avustralya)"
+          }
+        }
+      }
+    },
+    "crisis_nz_1737": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1737 Need to Talk? (NZ)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1737 Need to Talk? (Yeni Zelanda)"
+          }
+        }
+      }
+    },
+    "crisis_nl_113": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "113 Suicide Prevention (NL)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "113 İntihar Önleme (Hollanda)"
+          }
+        }
+      }
+    },
+    "crisis_be_1813": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1813 Suicide Line (BE)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1813 Kriz Hattı (Belçika)"
+          }
+        }
+      }
+    },
+    "crisis_at_142": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "142 Telefonseelsorge (AT)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "142 Telefonseelsorge (Avusturya)"
+          }
+        }
+      }
+    },
+    "crisis_ch_143": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "143 Die Dargebotene Hand (CH)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "143 Die Dargebotene Hand (İsviçre)"
+          }
+        }
+      }
+    },
+    "crisis_es_024": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "024 Suicide Helpline (ES)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "024 Kriz Hattı (İspanya)"
+          }
+        }
+      }
+    },
+    "crisis_it_telefono": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telefono Amico (IT)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telefono Amico (İtalya)"
+          }
+        }
+      }
+    },
+    "crisis_se_90101": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "90101 Mind (SE)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "90101 Mind (İsveç)"
+          }
+        }
+      }
+    },
+    "crisis_jp_yorisoi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yorisoi Hotline (JP)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yorisoi Hotline (Japonya)"
+          }
+        }
+      }
+    },
+    "crisis_kr_1393": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1393 Suicide Prevention (KR)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1393 İntihar Önleme (Güney Kore)"
+          }
+        }
+      }
+    },
+    "crisis_br_188": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "188 CVV (BR)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "188 CVV (Brezilya)"
+          }
+        }
+      }
+    },
+    "crisis_in_aasra": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCall (IN)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCall (Hindistan)"
+          }
+        }
+      }
+    },
+    "crisis_more_countries": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "More countries"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daha fazla ülke"
+          }
+        }
+      }
+    },
+    "crisis_findahelpline": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Find a Helpline"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yardım Hattı Bul"
+          }
+        }
+      }
+    },
+    "crisis_expand_countries": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expand country list"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ülke listesini genişlet"
+          }
+        }
+      }
+    },
+    "crisis_collapse_countries": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collapse country list"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ülke listesini daralt"
+          }
+        }
+      }
+    },
     "disclaimer_body": {
       "extractionState": "stale",
       "localizations": {

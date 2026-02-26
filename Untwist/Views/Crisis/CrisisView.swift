@@ -2,6 +2,11 @@ import SwiftUI
 
 struct CrisisView: View {
     @Environment(\.dismiss) private var dismiss
+    @State private var showAllCountries = false
+
+    private let localHotlines = CrisisHotlineProvider.localHotlines
+    private let otherHotlines = CrisisHotlineProvider.otherHotlines
+    private let hasLocalHotlines = !CrisisHotlineProvider.localHotlines.isEmpty
 
     var body: some View {
         NavigationStack {
@@ -31,22 +36,58 @@ struct CrisisView: View {
                         .padding(18)
                         .elevatedCard(stroke: Color.crisisWarning.opacity(0.24), shadowColor: Color.crisisWarning.opacity(0.12))
 
-                        // Hotlines
-                        VStack(spacing: 10) {
-                            hotlineButton(
-                                country: "🇺🇸",
-                                label: String(localized: "crisis_988", defaultValue: "988 Suicide & Crisis Lifeline"),
-                                number: "988"
-                            )
+                        // Local hotlines or findahelpline fallback
+                        if hasLocalHotlines {
+                            VStack(spacing: 10) {
+                                ForEach(localHotlines) { hotline in
+                                    hotlineButton(hotline: hotline, isLocal: true)
+                                }
+                            }
+                            .padding(14)
+                            .elevatedCard(stroke: Color.crisisWarning.opacity(0.26), shadowColor: Color.crisisWarning.opacity(0.12))
+                        } else {
+                            findAHelplineLink()
+                                .padding(14)
+                                .elevatedCard(stroke: Color.crisisWarning.opacity(0.26), shadowColor: Color.crisisWarning.opacity(0.12))
+                        }
 
-                            hotlineButton(
-                                country: "🇹🇷",
-                                label: String(localized: "crisis_182", defaultValue: "182 İntihar Önleme Hattı"),
-                                number: "182"
-                            )
+                        // Other countries expandable
+                        VStack(spacing: 10) {
+                            Button {
+                                withAnimation(.easeInOut(duration: 0.25)) {
+                                    showAllCountries.toggle()
+                                }
+                            } label: {
+                                HStack {
+                                    Text(String(localized: "crisis_more_countries", defaultValue: "More countries"))
+                                        .font(.subheadline.weight(.medium))
+                                        .foregroundStyle(Color.textPrimary)
+
+                                    Spacer()
+
+                                    Image(systemName: showAllCountries ? "chevron.up" : "chevron.down")
+                                        .font(.caption.weight(.semibold))
+                                        .foregroundStyle(Color.textSecondary)
+                                }
+                                .padding(.vertical, 4)
+                                .accessibilityLabel(showAllCountries
+                                    ? String(localized: "crisis_collapse_countries", defaultValue: "Collapse country list")
+                                    : String(localized: "crisis_expand_countries", defaultValue: "Expand country list"))
+                            }
+                            .buttonStyle(.plain)
+
+                            if showAllCountries {
+                                ForEach(otherHotlines) { hotline in
+                                    hotlineButton(hotline: hotline, isLocal: false)
+                                }
+
+                                if hasLocalHotlines {
+                                    findAHelplineLink()
+                                }
+                            }
                         }
                         .padding(14)
-                        .elevatedCard(stroke: Color.crisisWarning.opacity(0.26), shadowColor: Color.crisisWarning.opacity(0.12))
+                        .elevatedCard(stroke: Color.crisisWarning.opacity(0.16), shadowColor: .black.opacity(0.06))
 
                         // Breathing shortcut
                         NavigationLink {
@@ -100,21 +141,23 @@ struct CrisisView: View {
         }
     }
 
-    private func hotlineButton(country: String, label: String, number: String) -> some View {
+    // MARK: - Hotline Button
+
+    private func hotlineButton(hotline: CrisisHotline, isLocal: Bool) -> some View {
         Button {
-            if let url = URL(string: "tel://\(number)") {
+            if let url = hotline.phoneURL {
                 UIApplication.shared.open(url)
             }
         } label: {
             HStack(spacing: 12) {
-                Text(country)
+                Text(CrisisHotlineProvider.flag(for: hotline.countryCode))
                     .font(.title2)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(label)
+                    Text(NSLocalizedString(hotline.nameKey, value: hotline.nameDefault, comment: ""))
                         .font(.subheadline.weight(.medium))
                         .foregroundStyle(Color.textPrimary)
-                    Text(number)
+                    Text(hotline.displayNumber)
                         .font(.caption)
                         .foregroundStyle(Color.textSecondary)
                 }
@@ -125,9 +168,38 @@ struct CrisisView: View {
                     .foregroundStyle(Color.crisisWarning)
             }
             .padding()
-            .elevatedCard(cornerRadius: 16, stroke: Color.crisisWarning.opacity(0.28), shadowColor: Color.crisisWarning.opacity(0.10))
+            .elevatedCard(cornerRadius: 16, stroke: isLocal ? Color.crisisWarning.opacity(0.28) : Color.crisisWarning.opacity(0.14), shadowColor: Color.crisisWarning.opacity(isLocal ? 0.10 : 0.05))
         }
         .buttonStyle(.plain)
+    }
+
+    // MARK: - Find A Helpline
+
+    private func findAHelplineLink() -> some View {
+        Link(destination: CrisisHotlineProvider.findAHelplineURL) {
+            HStack(spacing: 12) {
+                Image(systemName: "globe")
+                    .font(.title3)
+                    .foregroundStyle(Color.primaryPurple)
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(String(localized: "crisis_findahelpline", defaultValue: "Find a Helpline"))
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(Color.textPrimary)
+                    Text("findahelpline.com")
+                        .font(.caption)
+                        .foregroundStyle(Color.textSecondary)
+                }
+
+                Spacer()
+
+                Image(systemName: "arrow.up.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(Color.primaryPurple)
+            }
+            .padding()
+            .elevatedCard(cornerRadius: 16, stroke: Color.primaryPurple.opacity(0.20), shadowColor: .black.opacity(0.06))
+        }
     }
 }
 
