@@ -6,10 +6,9 @@ struct UnwindingNowView: View {
     @State private var phase: UnwindPhase = .calming
     @State private var breathCount = 0
     @State private var breathPhase: BreathStep = .inhale
-    @State private var circleScale: CGFloat = 0.5
-    @State private var showRedirect = false
+    @State private var circleScale: CGFloat = 0.56
 
-    enum UnwindPhase {
+    enum UnwindPhase: Int {
         case calming, breathing, redirect
     }
 
@@ -28,9 +27,122 @@ struct UnwindingNowView: View {
     }
 
     var body: some View {
-        VStack(spacing: 32) {
+        ZStack {
+            backgroundLayer
+
+            VStack(spacing: 18) {
+                topBar
+                phaseProgress
+
+                Spacer(minLength: 0)
+
+                contentCard
+
+                Spacer(minLength: 0)
+
+                if phase == .breathing {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text(String(localized: "unwind_skip", defaultValue: "Skip"))
+                            .font(.subheadline.weight(.medium))
+                            .foregroundStyle(Color.textSecondary)
+                            .padding(.horizontal, 22)
+                            .padding(.vertical, 10)
+                            .background(
+                                Capsule(style: .continuous)
+                                    .fill(Color.cardBackground.opacity(0.85))
+                            )
+                            .overlay(
+                                Capsule(style: .continuous)
+                                    .stroke(Color.textSecondary.opacity(0.20), lineWidth: 1)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 12)
+            .padding(.bottom, 24)
+        }
+        .onAppear { startCalming() }
+    }
+
+    private var backgroundLayer: some View {
+        ZStack {
+            LinearGradient(
+                colors: [Color.appBackground, Color.primaryPurple.opacity(0.10)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+
+            Circle()
+                .fill(Color.successGreen.opacity(0.22))
+                .frame(width: 260, height: 260)
+                .blur(radius: 60)
+                .offset(x: -150, y: -260)
+
+            Circle()
+                .fill(Color.twistyOrange.opacity(0.20))
+                .frame(width: 300, height: 300)
+                .blur(radius: 70)
+                .offset(x: 180, y: -120)
+        }
+        .ignoresSafeArea()
+    }
+
+    private var topBar: some View {
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(String(localized: "home_unwinding_now", defaultValue: "Unwinding Now"))
+                    .font(.headline.weight(.semibold))
+                    .foregroundStyle(Color.textPrimary)
+                Text(String(localized: "unwind_top_subtitle", defaultValue: "Take one gentle step at a time"))
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary)
+            }
+
             Spacer()
 
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(Color.textSecondary)
+                    .frame(width: 34, height: 34)
+                    .background(Color.cardBackground.opacity(0.85), in: Circle())
+            }
+        }
+    }
+
+    private var phaseProgress: some View {
+        HStack(spacing: 8) {
+            phasePill(label: String(localized: "unwind_phase_settle", defaultValue: "Settle"), isActive: phase == .calming)
+            phasePill(label: String(localized: "unwind_phase_breathe", defaultValue: "Breathe"), isActive: phase == .breathing)
+            phasePill(label: String(localized: "unwind_phase_next", defaultValue: "Next Step"), isActive: phase == .redirect)
+        }
+    }
+
+    private func phasePill(label: String, isActive: Bool) -> some View {
+        Text(label)
+            .font(.caption.weight(.semibold))
+            .foregroundStyle(isActive ? Color.cardBackground : Color.textSecondary)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity)
+            .background(
+                Capsule(style: .continuous)
+                    .fill(isActive ? Color.primaryPurple : Color.cardBackground.opacity(0.82))
+            )
+            .overlay(
+                Capsule(style: .continuous)
+                    .stroke(isActive ? Color.clear : Color.textSecondary.opacity(0.15), lineWidth: 1)
+            )
+    }
+
+    private var contentCard: some View {
+        VStack(spacing: 22) {
             switch phase {
             case .calming:
                 calmingView
@@ -39,62 +151,81 @@ struct UnwindingNowView: View {
             case .redirect:
                 redirectView
             }
-
-            Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.appBackground)
-        .onAppear { startCalming() }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 22)
+        .padding(.vertical, 28)
+        .background(
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .fill(Color.cardBackground.opacity(0.94))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .stroke(Color.primaryPurple.opacity(0.16), lineWidth: 1)
+        )
+        .shadow(color: .black.opacity(0.12), radius: 18, y: 8)
+        .animation(.spring(response: 0.42, dampingFraction: 0.84), value: phase)
     }
-
-    // MARK: - Phase 1: Calming (5 seconds)
 
     private var calmingView: some View {
-        VStack(spacing: 20) {
-            TwistyView(mood: .calm, size: 160)
+        VStack(spacing: 16) {
+            TwistyView(mood: .calm, size: 152)
 
             Text(String(localized: "unwind_calming_title", defaultValue: "Let's slow down together"))
-                .font(.title2.weight(.semibold))
+                .font(.title2.weight(.bold))
                 .foregroundStyle(Color.textPrimary)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 32)
+                .padding(.horizontal, 20)
+
+            Text(String(localized: "unwind_calming_sub", defaultValue: "You're safe. We'll move gently, one breath at a time."))
+                .font(.subheadline)
+                .foregroundStyle(Color.textSecondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 20)
         }
     }
-
-    // MARK: - Phase 2: Breathing (3 rounds of 4-4-4)
 
     private var breathingView: some View {
         VStack(spacing: 24) {
-            Text(String(localized: "unwind_breathing_round", defaultValue: "Breath \(breathCount + 1) of 3"))
-                .font(.subheadline)
+            Text(
+                String(
+                    format: String(localized: "unwind_breathing_round", defaultValue: "Breath %lld of 3"),
+                    locale: Locale.current,
+                    Int64(breathCount + 1)
+                )
+            )
+                .font(.subheadline.weight(.medium))
                 .foregroundStyle(Color.textSecondary)
+
+            HStack(spacing: 8) {
+                ForEach(0..<3, id: \.self) { index in
+                    Capsule(style: .continuous)
+                        .fill(index < breathCount ? Color.successGreen : Color.successGreen.opacity(0.20))
+                        .frame(width: 32, height: 6)
+                }
+            }
 
             ZStack {
                 Circle()
                     .fill(Color.successGreen.opacity(0.15))
-                    .frame(width: 200, height: 200)
+                    .frame(width: 224, height: 224)
 
                 Circle()
                     .fill(Color.successGreen.opacity(0.3))
-                    .frame(width: 200, height: 200)
+                    .frame(width: 224, height: 224)
                     .scaleEffect(circleScale)
+
+                Circle()
+                    .stroke(Color.successGreen.opacity(0.38), lineWidth: 1)
+                    .frame(width: 224, height: 224)
+                    .scaleEffect(circleScale * 0.72)
 
                 Text(breathPhase.label)
                     .font(.title2.weight(.medium))
                     .foregroundStyle(Color.textPrimary)
             }
-
-            Button {
-                dismiss()
-            } label: {
-                Text(String(localized: "unwind_skip", defaultValue: "Skip"))
-                    .font(.subheadline)
-                    .foregroundStyle(Color.textSecondary)
-            }
         }
     }
-
-    // MARK: - Phase 3: Redirect
 
     private var redirectView: some View {
         VStack(spacing: 24) {
@@ -112,25 +243,34 @@ struct UnwindingNowView: View {
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.primaryPurple)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.primaryPurple, Color.secondaryLavender],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
                     .clipShape(RoundedRectangle(cornerRadius: 14))
             }
-            .padding(.horizontal, 40)
 
             Button {
                 dismiss()
             } label: {
                 Text(String(localized: "unwind_im_good", defaultValue: "I'm good for now"))
-                    .font(.subheadline)
+                    .font(.subheadline.weight(.medium))
                     .foregroundStyle(Color.primaryPurple)
             }
         }
     }
 
-    // MARK: - Logic
-
     private func startCalming() {
+        phase = .calming
+        breathCount = 0
+        breathPhase = .inhale
+        circleScale = 0.56
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            guard phase == .calming else { return }
             withAnimation { phase = .breathing }
             runBreathCycle()
         }

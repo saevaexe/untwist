@@ -11,7 +11,7 @@ extension Color {
 
     // Text
     static let textPrimary = Color(light: .init(hex: 0x2D2344), dark: .init(hex: 0xF0ECF8))
-    static let textSecondary = Color(hex: 0x6B6189)
+    static let textSecondary = Color(light: .init(hex: 0x6B6189), dark: .init(hex: 0xC2BADB))
 
     // Semantic
     static let successGreen = Color(hex: 0x5BBD8A)
@@ -37,5 +37,75 @@ extension Color {
         self.init(uiColor: UIColor { traits in
             traits.userInterfaceStyle == .dark ? UIColor(dark) : UIColor(light)
         })
+    }
+}
+
+struct AppScreenBackground: View {
+    var primaryTint: Color = Color.primaryPurple.opacity(0.18)
+    var secondaryTint: Color = Color.twistyOrange.opacity(0.20)
+    var tertiaryTint: Color = Color.successGreen.opacity(0.14)
+
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                colors: [Color.appBackground, Color.primaryPurple.opacity(0.08)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+
+            Circle()
+                .fill(primaryTint)
+                .frame(width: 260, height: 260)
+                .blur(radius: 60)
+                .offset(x: -160, y: -260)
+
+            Circle()
+                .fill(secondaryTint)
+                .frame(width: 300, height: 300)
+                .blur(radius: 70)
+                .offset(x: 170, y: -120)
+
+            Circle()
+                .fill(tertiaryTint)
+                .frame(width: 220, height: 220)
+                .blur(radius: 55)
+                .offset(x: -130, y: 280)
+        }
+        .ignoresSafeArea()
+    }
+}
+
+struct ElevatedCardModifier: ViewModifier {
+    var cornerRadius: CGFloat = 24
+    var stroke: Color = Color.primaryPurple.opacity(0.14)
+    var shadowColor: Color = .black.opacity(0.10)
+
+    func body(content: Content) -> some View {
+        content
+            .background(
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .fill(Color.cardBackground.opacity(0.95))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .stroke(stroke, lineWidth: 1)
+            )
+            .shadow(color: shadowColor, radius: 14, y: 6)
+    }
+}
+
+extension View {
+    func elevatedCard(
+        cornerRadius: CGFloat = 24,
+        stroke: Color = Color.primaryPurple.opacity(0.14),
+        shadowColor: Color = .black.opacity(0.10)
+    ) -> some View {
+        modifier(
+            ElevatedCardModifier(
+                cornerRadius: cornerRadius,
+                stroke: stroke,
+                shadowColor: shadowColor
+            )
+        )
     }
 }

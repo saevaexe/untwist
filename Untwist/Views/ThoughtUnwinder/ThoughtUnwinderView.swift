@@ -15,22 +15,29 @@ struct ThoughtUnwinderView: View {
     @State private var showCrisis = false
 
     var body: some View {
-        VStack {
-            // Progress indicator
-            ProgressView(value: Double(step + 1), total: 4)
-                .tint(Color.primaryPurple)
-                .padding(.horizontal)
+        ZStack {
+            AppScreenBackground(
+                primaryTint: Color.primaryPurple.opacity(0.16),
+                secondaryTint: Color.secondaryLavender.opacity(0.20),
+                tertiaryTint: Color.successGreen.opacity(0.10)
+            )
 
-            TabView(selection: $step) {
-                stepEvent.tag(0)
-                stepThought.tag(1)
-                stepTraps.tag(2)
-                stepAlternative.tag(3)
+            VStack(spacing: 12) {
+                progressHeader
+
+                TabView(selection: $step) {
+                    stepEvent.tag(0)
+                    stepThought.tag(1)
+                    stepTraps.tag(2)
+                    stepAlternative.tag(3)
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .animation(.easeInOut, value: step)
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.easeInOut, value: step)
+            .padding(.horizontal, 20)
+            .padding(.top, 14)
+            .padding(.bottom, 18)
         }
-        .background(Color.appBackground)
         .navigationTitle(String(localized: "unwinder_title", defaultValue: "Thought Unwinder"))
         .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(isPresented: $showCrisis) {
@@ -38,12 +45,59 @@ struct ThoughtUnwinderView: View {
         }
     }
 
-    // MARK: - Step 1: Event
+    private var progressHeader: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Text(String(localized: "unwinder_header_title", defaultValue: "Untwist in 4 steps"))
+                    .font(.headline.weight(.semibold))
+                    .foregroundStyle(Color.textPrimary)
+
+                Spacer()
+
+                Text(
+                    String(
+                        format: String(localized: "unwinder_step_counter", defaultValue: "%lld / 4"),
+                        locale: Locale.current,
+                        Int64(step + 1)
+                    )
+                )
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(Color.primaryPurple)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(Color.primaryPurple.opacity(0.12), in: Capsule(style: .continuous))
+            }
+
+            ProgressView(value: Double(step + 1), total: 4)
+                .tint(Color.primaryPurple)
+
+            Text(stepHint)
+                .font(.caption)
+                .foregroundStyle(Color.textSecondary)
+        }
+        .padding(16)
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.16), shadowColor: .black.opacity(0.07))
+    }
+
+    private var stepHint: String {
+        switch step {
+        case 0:
+            return String(localized: "unwinder_hint_event", defaultValue: "Start with what happened.")
+        case 1:
+            return String(localized: "unwinder_hint_thought", defaultValue: "Capture the automatic thought.")
+        case 2:
+            return String(localized: "unwinder_hint_traps", defaultValue: "Select possible thought traps.")
+        default:
+            return String(localized: "unwinder_hint_reframe", defaultValue: "Write a gentler alternative thought.")
+        }
+    }
+
+    // MARK: - Step 1
 
     private var stepEvent: some View {
-        VStack(spacing: 20) {
-            Spacer()
+        VStack(spacing: 16) {
             TwistyView(mood: .thinking, size: 100, animated: false)
+
             Text(String(localized: "unwinder_step1_title", defaultValue: "What happened?"))
                 .font(.title2.weight(.semibold))
                 .foregroundStyle(Color.textPrimary)
@@ -52,32 +106,36 @@ struct ThoughtUnwinderView: View {
                 .font(.subheadline)
                 .foregroundStyle(Color.textSecondary)
 
-            TextField(String(localized: "unwinder_event_placeholder", defaultValue: "e.g., My friend didn't reply to my message"), text: $event, axis: .vertical)
-                .textFieldStyle(.roundedBorder)
-                .lineLimit(3...6)
-                .padding(.horizontal)
+            styledInputField(
+                placeholder: String(localized: "unwinder_event_placeholder", defaultValue: "e.g., My friend didn't reply to my message"),
+                text: $event
+            )
 
-            Spacer()
-            nextButton(enabled: !event.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, crisisCheck: {
-                ThoughtTrapEngine.detectCrisis(event)
-            })
+            Spacer(minLength: 0)
+
+            nextButton(
+                enabled: !event.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+                crisisCheck: { ThoughtTrapEngine.detectCrisis(event) }
+            )
         }
+        .padding(22)
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.18), shadowColor: Color.primaryPurple.opacity(0.10))
     }
 
-    // MARK: - Step 2: Thought + Mood Before
+    // MARK: - Step 2
 
     private var stepThought: some View {
-        VStack(spacing: 20) {
-            Spacer()
+        VStack(spacing: 16) {
             TwistyView(mood: .thinking, size: 100, animated: false)
+
             Text(String(localized: "unwinder_step2_title", defaultValue: "What went through your mind?"))
                 .font(.title2.weight(.semibold))
                 .foregroundStyle(Color.textPrimary)
 
-            TextField(String(localized: "unwinder_thought_placeholder", defaultValue: "e.g., They must be angry at me"), text: $automaticThought, axis: .vertical)
-                .textFieldStyle(.roundedBorder)
-                .lineLimit(3...6)
-                .padding(.horizontal)
+            styledInputField(
+                placeholder: String(localized: "unwinder_thought_placeholder", defaultValue: "e.g., They must be angry at me"),
+                text: $automaticThought
+            )
 
             VStack(spacing: 8) {
                 Text(String(localized: "unwinder_mood_before", defaultValue: "How does this make you feel? (\(Int(moodBefore)))"))
@@ -86,33 +144,34 @@ struct ThoughtUnwinderView: View {
 
                 Slider(value: $moodBefore, in: 0...100, step: 1)
                     .tint(Color.primaryPurple)
-                    .padding(.horizontal, 32)
             }
 
-            Spacer()
-            nextButton(enabled: !automaticThought.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, action: {
-                suggestions = ThoughtTrapEngine.analyze(automaticThought)
-            }, crisisCheck: {
-                ThoughtTrapEngine.detectCrisis(automaticThought)
-            })
+            Spacer(minLength: 0)
+
+            nextButton(
+                enabled: !automaticThought.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+                action: { suggestions = ThoughtTrapEngine.analyze(automaticThought) },
+                crisisCheck: { ThoughtTrapEngine.detectCrisis(automaticThought) }
+            )
         }
+        .padding(22)
+        .elevatedCard(stroke: Color.secondaryLavender.opacity(0.26), shadowColor: .black.opacity(0.08))
     }
 
-    // MARK: - Step 3: Trap Selection
+    // MARK: - Step 3
 
     private var stepTraps: some View {
-        ScrollView {
-            VStack(spacing: 16) {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 12) {
                 Text(String(localized: "unwinder_step3_title", defaultValue: "Any thought traps?"))
                     .font(.title2.weight(.semibold))
                     .foregroundStyle(Color.textPrimary)
-                    .padding(.top, 20)
 
                 if !suggestions.isEmpty {
                     Text(String(localized: "unwinder_suggestions", defaultValue: "We noticed some patterns that might apply:"))
                         .font(.subheadline)
                         .foregroundStyle(Color.textSecondary)
-                        .padding(.horizontal)
+                        .multilineTextAlignment(.center)
                 }
 
                 ForEach(ThoughtTrapType.allCases) { trap in
@@ -125,7 +184,7 @@ struct ThoughtUnwinderView: View {
                         }
                     } label: {
                         HStack {
-                            VStack(alignment: .leading, spacing: 2) {
+                            VStack(alignment: .leading, spacing: 3) {
                                 Text(trap.name)
                                     .font(.subheadline.weight(.medium))
                                     .foregroundStyle(Color.textPrimary)
@@ -139,37 +198,44 @@ struct ThoughtUnwinderView: View {
                             Image(systemName: selectedTraps.contains(trap) ? "checkmark.circle.fill" : "circle")
                                 .foregroundStyle(selectedTraps.contains(trap) ? Color.primaryPurple : Color.textSecondary)
                         }
-                        .padding()
-                        .background(Color.cardBackground)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .padding(12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .fill(Color.appBackground.opacity(0.92))
+                        )
                         .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(isSuggested ? Color.primaryPurple.opacity(0.3) : .clear, lineWidth: 1)
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .stroke(
+                                    selectedTraps.contains(trap) ? Color.primaryPurple.opacity(0.30) :
+                                        (isSuggested ? Color.primaryPurple.opacity(0.20) : Color.clear),
+                                    lineWidth: 1
+                                )
                         )
                     }
-                    .padding(.horizontal)
+                    .buttonStyle(.plain)
                 }
 
                 nextButton(enabled: true)
-                    .padding(.bottom, 100)
             }
+            .padding(20)
         }
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.18), shadowColor: .black.opacity(0.08))
     }
 
-    // MARK: - Step 4: Alternative Thought + Mood After
+    // MARK: - Step 4
 
     private var stepAlternative: some View {
-        VStack(spacing: 20) {
-            Spacer()
+        VStack(spacing: 16) {
             TwistyView(mood: .celebrating, size: 100, animated: false)
+
             Text(String(localized: "unwinder_step4_title", defaultValue: "What's another way to see this?"))
                 .font(.title2.weight(.semibold))
                 .foregroundStyle(Color.textPrimary)
 
-            TextField(String(localized: "unwinder_alternative_placeholder", defaultValue: "e.g., Maybe they're just busy"), text: $alternativeThought, axis: .vertical)
-                .textFieldStyle(.roundedBorder)
-                .lineLimit(3...6)
-                .padding(.horizontal)
+            styledInputField(
+                placeholder: String(localized: "unwinder_alternative_placeholder", defaultValue: "e.g., Maybe they're just busy"),
+                text: $alternativeThought
+            )
 
             VStack(spacing: 8) {
                 Text(String(localized: "unwinder_mood_after", defaultValue: "How do you feel now? (\(Int(moodAfter)))"))
@@ -178,10 +244,9 @@ struct ThoughtUnwinderView: View {
 
                 Slider(value: $moodAfter, in: 0...100, step: 1)
                     .tint(Color.primaryPurple)
-                    .padding(.horizontal, 32)
             }
 
-            Spacer()
+            Spacer(minLength: 0)
 
             Button {
                 saveRecord()
@@ -191,17 +256,37 @@ struct ThoughtUnwinderView: View {
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.primaryPurple)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.primaryPurple, Color.secondaryLavender],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
                     .clipShape(RoundedRectangle(cornerRadius: 14))
             }
-            .padding(.horizontal)
             .disabled(alternativeThought.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             .opacity(alternativeThought.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.5 : 1)
-            .padding(.bottom, 100)
         }
+        .padding(22)
+        .elevatedCard(stroke: Color.secondaryLavender.opacity(0.26), shadowColor: .black.opacity(0.08))
     }
 
     // MARK: - Helpers
+
+    private func styledInputField(placeholder: String, text: Binding<String>) -> some View {
+        TextField(placeholder, text: text, axis: .vertical)
+            .lineLimit(3...7)
+            .padding(12)
+            .background(
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .fill(Color.appBackground.opacity(0.92))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .stroke(Color.primaryPurple.opacity(0.14), lineWidth: 1)
+            )
+    }
 
     private func nextButton(enabled: Bool, action: (() -> Void)? = nil, crisisCheck: (() -> Bool)? = nil) -> some View {
         Button {
@@ -217,12 +302,22 @@ struct ThoughtUnwinderView: View {
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(enabled ? Color.primaryPurple : Color.gray)
+                .background(
+                    enabled ?
+                        LinearGradient(
+                            colors: [Color.primaryPurple, Color.secondaryLavender],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        ) :
+                        LinearGradient(
+                            colors: [Color.gray.opacity(0.7), Color.gray.opacity(0.7)],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                )
                 .clipShape(RoundedRectangle(cornerRadius: 14))
         }
         .disabled(!enabled)
-        .padding(.horizontal)
-        .padding(.bottom, 100)
     }
 
     private func saveRecord() {

@@ -32,82 +32,24 @@ struct SettingsView: View {
     }
 
     var body: some View {
-        List {
-            // Notifications
-            Section {
-                Toggle(String(localized: "settings_notifications", defaultValue: "Daily Reminder"), isOn: $notificationEnabled)
-                    .onChange(of: notificationEnabled) { _, enabled in
-                        if enabled {
-                            Task {
-                                let granted = await notificationManager.requestPermission()
-                                if granted {
-                                    notificationManager.scheduleDailyReminder(hour: notificationHour, minute: notificationMinute)
-                                } else {
-                                    notificationEnabled = false
-                                }
-                            }
-                        } else {
-                            notificationManager.cancelDailyReminder()
-                        }
-                    }
+        ZStack {
+            AppScreenBackground(
+                primaryTint: Color.primaryPurple.opacity(0.15),
+                secondaryTint: Color.secondaryLavender.opacity(0.16),
+                tertiaryTint: Color.successGreen.opacity(0.10)
+            )
 
-                if notificationEnabled {
-                    DatePicker(
-                        String(localized: "settings_notif_time", defaultValue: "Reminder Time"),
-                        selection: reminderTime,
-                        displayedComponents: .hourAndMinute
-                    )
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 16) {
+                    headerCard
+                    notificationsCard
+                    appearanceCard
+                    dataCard
+                    aboutCard
                 }
-            } header: {
-                Text(String(localized: "settings_notifications_header", defaultValue: "Notifications"))
-            }
-
-            // Appearance
-            Section {
-                Picker(String(localized: "settings_theme", defaultValue: "Theme"), selection: $preferredTheme) {
-                    Text(String(localized: "settings_theme_system", defaultValue: "System")).tag(0)
-                    Text(String(localized: "settings_theme_light", defaultValue: "Light")).tag(1)
-                    Text(String(localized: "settings_theme_dark", defaultValue: "Dark")).tag(2)
-                }
-            } header: {
-                Text(String(localized: "settings_appearance_header", defaultValue: "Appearance"))
-            }
-
-            // Data
-            Section {
-                Button(role: .destructive) {
-                    showDeleteAlert = true
-                } label: {
-                    Label(String(localized: "settings_delete_data", defaultValue: "Delete All Data"), systemImage: "trash")
-                }
-            } header: {
-                Text(String(localized: "settings_data_header", defaultValue: "Data"))
-            } footer: {
-                Text(String(localized: "settings_data_footer", defaultValue: "All your data is stored only on this device."))
-            }
-
-            // About
-            Section {
-                NavigationLink {
-                    DisclaimerView()
-                } label: {
-                    Label(String(localized: "settings_disclaimer", defaultValue: "Disclaimer"), systemImage: "info.circle")
-                }
-
-                NavigationLink {
-                    CrisisView()
-                } label: {
-                    Label(String(localized: "settings_emergency", defaultValue: "Emergency Contacts"), systemImage: "heart")
-                }
-
-                HStack {
-                    Text(String(localized: "settings_version", defaultValue: "Version"))
-                    Spacer()
-                    Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0")
-                        .foregroundStyle(Color.textSecondary)
-                }
-            } header: {
-                Text(String(localized: "settings_about_header", defaultValue: "About"))
+                .padding(.horizontal, 20)
+                .padding(.top, 14)
+                .padding(.bottom, 120)
             }
         }
         .navigationTitle(String(localized: "settings_title", defaultValue: "Settings"))
@@ -134,6 +76,225 @@ struct SettingsView: View {
         } message: {
             Text(String(localized: "settings_delete_message", defaultValue: "This will permanently delete all your mood entries, thought records, and breathing sessions. This cannot be undone."))
         }
+    }
+
+    private var headerCard: some View {
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(String(localized: "settings_title", defaultValue: "Settings"))
+                    .font(.headline.weight(.semibold))
+                    .foregroundStyle(Color.textPrimary)
+
+                Text(String(localized: "settings_data_footer", defaultValue: "All your data is stored only on this device."))
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary)
+            }
+
+            Spacer(minLength: 0)
+
+            Image(systemName: "gearshape.fill")
+                .font(.title3.weight(.semibold))
+                .foregroundStyle(Color.primaryPurple)
+                .frame(width: 42, height: 42)
+                .background(Color.primaryPurple.opacity(0.14), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        }
+        .padding(16)
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.16), shadowColor: .black.opacity(0.07))
+    }
+
+    private var notificationsCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            sectionLabel(
+                title: String(localized: "settings_notifications_header", defaultValue: "Notifications"),
+                icon: "bell.badge.fill",
+                tint: .primaryPurple
+            )
+
+            Toggle(String(localized: "settings_notifications", defaultValue: "Daily Reminder"), isOn: $notificationEnabled)
+                .tint(Color.primaryPurple)
+                .onChange(of: notificationEnabled) { _, enabled in
+                    if enabled {
+                        Task {
+                            let granted = await notificationManager.requestPermission()
+                            if granted {
+                                notificationManager.scheduleDailyReminder(hour: notificationHour, minute: notificationMinute)
+                            } else {
+                                notificationEnabled = false
+                            }
+                        }
+                    } else {
+                        notificationManager.cancelDailyReminder()
+                    }
+                }
+
+            if notificationEnabled {
+                Divider()
+                    .overlay(Color.primaryPurple.opacity(0.16))
+
+                HStack(spacing: 10) {
+                    Text(String(localized: "settings_notif_time", defaultValue: "Reminder Time"))
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(Color.textPrimary)
+
+                    Spacer()
+
+                    DatePicker(
+                        "",
+                        selection: reminderTime,
+                        displayedComponents: .hourAndMinute
+                    )
+                    .labelsHidden()
+                    .datePickerStyle(.compact)
+                    .tint(Color.primaryPurple)
+                }
+            }
+        }
+        .padding(18)
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.18))
+    }
+
+    private var appearanceCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            sectionLabel(
+                title: String(localized: "settings_appearance_header", defaultValue: "Appearance"),
+                icon: "circle.lefthalf.filled",
+                tint: .secondaryLavender
+            )
+
+            Picker(String(localized: "settings_theme", defaultValue: "Theme"), selection: $preferredTheme) {
+                Text(String(localized: "settings_theme_system", defaultValue: "System")).tag(0)
+                Text(String(localized: "settings_theme_light", defaultValue: "Light")).tag(1)
+                Text(String(localized: "settings_theme_dark", defaultValue: "Dark")).tag(2)
+            }
+            .pickerStyle(.segmented)
+        }
+        .padding(18)
+        .elevatedCard(stroke: Color.secondaryLavender.opacity(0.22))
+    }
+
+    private var dataCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            sectionLabel(
+                title: String(localized: "settings_data_header", defaultValue: "Data"),
+                icon: "externaldrive.fill",
+                tint: .twistyOrange
+            )
+
+            Text(String(localized: "settings_data_footer", defaultValue: "All your data is stored only on this device."))
+                .font(.footnote)
+                .foregroundStyle(Color.textSecondary)
+
+            Button(role: .destructive) {
+                showDeleteAlert = true
+            } label: {
+                HStack {
+                    Image(systemName: "trash")
+                    Text(String(localized: "settings_delete_data", defaultValue: "Delete All Data"))
+                        .fontWeight(.semibold)
+                    Spacer()
+                }
+                .foregroundStyle(Color.crisisWarning)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 12)
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Color.crisisWarning.opacity(0.10))
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(Color.crisisWarning.opacity(0.24), lineWidth: 1)
+                )
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(18)
+        .elevatedCard(stroke: Color.twistyOrange.opacity(0.22))
+    }
+
+    private var aboutCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            sectionLabel(
+                title: String(localized: "settings_about_header", defaultValue: "About"),
+                icon: "info.circle.fill",
+                tint: .successGreen
+            )
+
+            NavigationLink {
+                DisclaimerView()
+            } label: {
+                settingsLinkRow(
+                    icon: "doc.text.fill",
+                    title: String(localized: "settings_disclaimer", defaultValue: "Disclaimer"),
+                    tint: .successGreen
+                )
+            }
+            .buttonStyle(.plain)
+
+            NavigationLink {
+                CrisisView()
+            } label: {
+                settingsLinkRow(
+                    icon: "cross.case.fill",
+                    title: String(localized: "settings_emergency", defaultValue: "Emergency Contacts"),
+                    tint: .crisisWarning
+                )
+            }
+            .buttonStyle(.plain)
+
+            HStack {
+                Text(String(localized: "settings_version", defaultValue: "Version"))
+                    .font(.subheadline)
+                    .foregroundStyle(Color.textSecondary)
+                Spacer()
+                Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0")
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(Color.textPrimary)
+            }
+            .padding(.top, 2)
+        }
+        .padding(18)
+        .elevatedCard(stroke: Color.successGreen.opacity(0.20))
+    }
+
+    private func sectionLabel(title: String, icon: String, tint: Color) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.caption.weight(.bold))
+                .foregroundStyle(tint)
+            Text(title)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Color.textPrimary)
+        }
+    }
+
+    private func settingsLinkRow(icon: String, title: String, tint: Color) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: icon)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(tint)
+                .frame(width: 34, height: 34)
+                .background(tint.opacity(0.14), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+
+            Text(title)
+                .font(.subheadline.weight(.medium))
+                .foregroundStyle(Color.textPrimary)
+
+            Spacer(minLength: 0)
+
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(Color.textSecondary)
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color.appBackground.opacity(0.90))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .stroke(tint.opacity(0.16), lineWidth: 1)
+        )
     }
 
     private func deleteAllData() {

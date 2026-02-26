@@ -22,20 +22,31 @@ struct InsightsView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
-                if moodEntries.isEmpty && thoughtRecords.isEmpty && breathingSessions.isEmpty {
-                    emptyStateView
-                } else {
-                    if !last7DaysMoods.isEmpty {
-                        moodChartSection
+        ZStack {
+            AppScreenBackground(
+                primaryTint: Color.primaryPurple.opacity(0.16),
+                secondaryTint: Color.successGreen.opacity(0.14),
+                tertiaryTint: Color.twistyOrange.opacity(0.12)
+            )
+
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 16) {
+                    if moodEntries.isEmpty && thoughtRecords.isEmpty && breathingSessions.isEmpty {
+                        emptyStateView
+                    } else {
+                        headerSummaryCard
+
+                        if !last7DaysMoods.isEmpty {
+                            moodChartSection
+                        }
+                        statsSection
                     }
-                    statsSection
                 }
+                .padding(.horizontal, 20)
+                .padding(.top, 14)
+                .padding(.bottom, 120)
             }
-            .padding()
         }
-        .background(Color.appBackground)
         .navigationTitle(String(localized: "insights_title", defaultValue: "Insights"))
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -43,18 +54,66 @@ struct InsightsView: View {
     // MARK: - Empty State
 
     private var emptyStateView: some View {
-        VStack(spacing: 16) {
-            Spacer()
-                .frame(height: 60)
-
+        VStack(spacing: 14) {
             TwistyView(mood: .thinking, size: 140)
 
             Text(String(localized: "insights_no_data", defaultValue: "Start recording to see your trends"))
                 .font(.subheadline)
                 .foregroundStyle(Color.textSecondary)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 32)
+                .padding(.horizontal, 20)
         }
+        .padding(24)
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.18), shadowColor: Color.primaryPurple.opacity(0.12))
+    }
+
+    private var headerSummaryCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text(String(localized: "insights_header_title", defaultValue: "Your weekly snapshot"))
+                .font(.headline.weight(.semibold))
+                .foregroundStyle(Color.textPrimary)
+
+            Text(String(localized: "insights_header_sub", defaultValue: "Small steps count. This is your progress this week."))
+                .font(.subheadline)
+                .foregroundStyle(Color.textSecondary)
+
+            HStack(spacing: 12) {
+                summaryPill(
+                    value: "\(moodEntries.count)",
+                    label: String(localized: "insights_mood_checks", defaultValue: "Mood Checks"),
+                    color: .primaryPurple
+                )
+
+                summaryPill(
+                    value: "\(thoughtRecords.count)",
+                    label: String(localized: "insights_thought_records", defaultValue: "Thought Records"),
+                    color: .secondaryLavender
+                )
+
+                summaryPill(
+                    value: "\(breathingSessions.count)",
+                    label: String(localized: "insights_breathing_sessions", defaultValue: "Breathing Sessions"),
+                    color: .successGreen
+                )
+            }
+        }
+        .padding(18)
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.16), shadowColor: Color.primaryPurple.opacity(0.12))
+    }
+
+    private func summaryPill(value: String, label: String, color: Color) -> some View {
+        VStack(spacing: 2) {
+            Text(value)
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(color)
+            Text(label)
+                .font(.caption2)
+                .foregroundStyle(Color.textSecondary)
+                .lineLimit(1)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 9)
+        .background(color.opacity(0.10), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
     }
 
     // MARK: - Mood Chart
@@ -93,9 +152,8 @@ struct InsightsView: View {
                 }
             }
             .frame(height: 200)
-            .padding()
-            .background(Color.cardBackground)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .padding(16)
+            .elevatedCard(stroke: Color.primaryPurple.opacity(0.16), shadowColor: Color.primaryPurple.opacity(0.11))
         }
     }
 
@@ -130,6 +188,8 @@ struct InsightsView: View {
                 )
             }
         }
+        .padding(18)
+        .elevatedCard(stroke: Color.secondaryLavender.opacity(0.24), shadowColor: .black.opacity(0.08))
     }
 
     private func statCard(count: Int, label: String, icon: String, color: Color) -> some View {

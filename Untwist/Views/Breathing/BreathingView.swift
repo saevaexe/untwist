@@ -34,20 +34,31 @@ struct BreathingView: View {
     }
 
     var body: some View {
-        VStack(spacing: 32) {
-            Spacer()
+        ZStack {
+            AppScreenBackground(
+                primaryTint: Color.successGreen.opacity(0.18),
+                secondaryTint: Color.primaryPurple.opacity(0.14),
+                tertiaryTint: Color.twistyOrange.opacity(0.12)
+            )
 
-            if completed {
-                completedView
-            } else if isActive {
-                activeView
-            } else {
-                startView
+            VStack(spacing: 16) {
+                headerCard
+                Spacer(minLength: 0)
+
+                if completed {
+                    completedView
+                } else if isActive {
+                    activeView
+                } else {
+                    startView
+                }
+
+                Spacer(minLength: 0)
             }
-
-            Spacer()
+            .padding(.horizontal, 20)
+            .padding(.top, 14)
+            .padding(.bottom, 26)
         }
-        .background(Color.appBackground)
         .navigationTitle(String(localized: "breathing_title", defaultValue: "Breathing Exercise"))
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -66,7 +77,7 @@ struct BreathingView: View {
                 .font(.subheadline)
                 .foregroundStyle(Color.textSecondary)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 32)
+                .padding(.horizontal, 20)
 
             Button {
                 startBreathing()
@@ -76,30 +87,58 @@ struct BreathingView: View {
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.successGreen)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.successGreen, Color.primaryPurple],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
                     .clipShape(RoundedRectangle(cornerRadius: 14))
             }
-            .padding(.horizontal, 40)
+            .shadow(color: Color.successGreen.opacity(0.18), radius: 10, y: 4)
         }
+        .padding(24)
+        .elevatedCard(stroke: Color.successGreen.opacity(0.25), shadowColor: Color.successGreen.opacity(0.16))
     }
 
     // MARK: - Active
 
     private var activeView: some View {
         VStack(spacing: 24) {
-            Text("Round \(currentRound) of \(totalRounds)")
-                .font(.subheadline)
+            Text(
+                String(
+                    format: String(localized: "breathing_round", defaultValue: "Round %lld of %lld"),
+                    locale: Locale.current,
+                    Int64(currentRound),
+                    Int64(totalRounds)
+                )
+            )
+                .font(.subheadline.weight(.medium))
                 .foregroundStyle(Color.textSecondary)
+
+            HStack(spacing: 8) {
+                ForEach(0..<totalRounds, id: \.self) { index in
+                    Capsule(style: .continuous)
+                        .fill(index < currentRound ? Color.successGreen : Color.successGreen.opacity(0.18))
+                        .frame(width: 24, height: 6)
+                }
+            }
 
             ZStack {
                 Circle()
                     .fill(Color.successGreen.opacity(0.15))
-                    .frame(width: 200, height: 200)
+                    .frame(width: 224, height: 224)
 
                 Circle()
                     .fill(Color.successGreen.opacity(0.3))
-                    .frame(width: 200, height: 200)
+                    .frame(width: 224, height: 224)
                     .scaleEffect(circleScale)
+
+                Circle()
+                    .stroke(Color.successGreen.opacity(0.35), lineWidth: 1)
+                    .frame(width: 224, height: 224)
+                    .scaleEffect(circleScale * 0.74)
 
                 Text(phase.label)
                     .font(.title2.weight(.medium))
@@ -108,12 +147,25 @@ struct BreathingView: View {
 
             Button {
                 stopBreathing()
-            } label: {
-                Text(String(localized: "breathing_stop", defaultValue: "Stop"))
-                    .font(.subheadline)
-                    .foregroundStyle(Color.textSecondary)
-            }
+                } label: {
+                    Text(String(localized: "breathing_stop", defaultValue: "Stop"))
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(Color.textSecondary)
+                        .padding(.horizontal, 18)
+                        .padding(.vertical, 9)
+                        .background(
+                            Capsule(style: .continuous)
+                                .fill(Color.cardBackground.opacity(0.85))
+                        )
+                        .overlay(
+                            Capsule(style: .continuous)
+                                .stroke(Color.textSecondary.opacity(0.2), lineWidth: 1)
+                        )
+                }
+                .buttonStyle(.plain)
         }
+        .padding(24)
+        .elevatedCard(stroke: Color.successGreen.opacity(0.25), shadowColor: Color.successGreen.opacity(0.16))
         .onAppear { runCycle() }
     }
 
@@ -139,11 +191,42 @@ struct BreathingView: View {
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.primaryPurple)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.primaryPurple, Color.secondaryLavender],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
                     .clipShape(RoundedRectangle(cornerRadius: 14))
             }
-            .padding(.horizontal, 40)
+            .shadow(color: Color.primaryPurple.opacity(0.16), radius: 10, y: 4)
         }
+        .padding(24)
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.20), shadowColor: Color.primaryPurple.opacity(0.14))
+    }
+
+    private var headerCard: some View {
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(String(localized: "breathing_header_title", defaultValue: "Calm your body"))
+                    .font(.headline.weight(.semibold))
+                    .foregroundStyle(Color.textPrimary)
+                Text(String(localized: "breathing_header_sub", defaultValue: "4-7-8 rhythm for a quick reset"))
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary)
+            }
+
+            Spacer()
+
+            Image(systemName: "wind")
+                .font(.title3.weight(.semibold))
+                .foregroundStyle(Color.successGreen)
+                .frame(width: 42, height: 42)
+                .background(Color.successGreen.opacity(0.14), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        }
+        .padding(16)
+        .elevatedCard(stroke: Color.successGreen.opacity(0.18), shadowColor: .black.opacity(0.07))
     }
 
     // MARK: - Breathing Logic

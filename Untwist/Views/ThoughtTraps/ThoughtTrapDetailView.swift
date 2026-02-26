@@ -4,57 +4,74 @@ struct ThoughtTrapDetailView: View {
     let trap: ThoughtTrapType
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                // Header
-                VStack(spacing: 12) {
-                    Image(trap.imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 80)
+        ZStack {
+            AppScreenBackground(
+                primaryTint: Color.twistyOrange.opacity(0.16),
+                secondaryTint: Color.primaryPurple.opacity(0.14),
+                tertiaryTint: Color.successGreen.opacity(0.10)
+            )
 
-                    Text(trap.name)
-                        .font(.title2.weight(.bold))
-                        .foregroundStyle(Color.textPrimary)
-                        .multilineTextAlignment(.center)
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 18) {
+                    // Header with icon
+                    VStack(spacing: 14) {
+                        Image(trap.imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 80)
+
+                        Text(trap.name)
+                            .font(.title2.weight(.bold))
+                            .foregroundStyle(Color.textPrimary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(22)
+                    .elevatedCard(stroke: Color.twistyOrange.opacity(0.20), shadowColor: Color.twistyOrange.opacity(0.12))
+
+                    // Description
+                    infoSection(
+                        icon: "doc.text.fill",
+                        title: String(localized: "trap_detail_what", defaultValue: "What is it?"),
+                        content: trap.description,
+                        tint: .primaryPurple
+                    )
+
+                    // Example
+                    infoSection(
+                        icon: "quote.bubble.fill",
+                        title: String(localized: "trap_detail_example", defaultValue: "Example"),
+                        content: trap.example,
+                        tint: .secondaryLavender
+                    )
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.top, 20)
-
-                // Description
-                infoSection(
-                    title: String(localized: "trap_detail_what", defaultValue: "What is it?"),
-                    content: trap.description
-                )
-
-                // Example
-                infoSection(
-                    title: String(localized: "trap_detail_example", defaultValue: "Example"),
-                    content: trap.example
-                )
+                .padding(.horizontal, 20)
+                .padding(.top, 14)
+                .padding(.bottom, 120)
             }
-            .padding(.horizontal)
-            .padding(.bottom, 32)
         }
-        .background(Color.appBackground)
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    private func infoSection(title: String, content: String) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title)
-                .font(.headline)
-                .foregroundStyle(Color.primaryPurple)
+    private func infoSection(icon: String, title: String, content: String, tint: Color) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(tint)
+                Text(title)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.textPrimary)
+            }
 
             Text(content)
                 .font(.body)
-                .foregroundStyle(Color.textPrimary)
+                .foregroundStyle(Color.textSecondary)
                 .fixedSize(horizontal: false, vertical: true)
         }
-        .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.cardBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .padding(18)
+        .elevatedCard(stroke: tint.opacity(0.18), shadowColor: .black.opacity(0.07))
     }
 }
 
