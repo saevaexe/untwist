@@ -3,8 +3,6 @@ import SwiftUI
 struct ContentView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @AppStorage("preferredTheme") private var preferredTheme = 0
-    @State private var showCrisis = false
-
     private var colorScheme: ColorScheme? {
         switch preferredTheme {
         case 1: .light
@@ -14,7 +12,7 @@ struct ContentView: View {
     }
 
     var body: some View {
-        ZStack {
+        Group {
             if hasCompletedOnboarding {
                 NavigationStack {
                     HomeView()
@@ -22,30 +20,6 @@ struct ContentView: View {
             } else {
                 OnboardingView()
             }
-
-            // Crisis floating button — accessible from every screen
-            if hasCompletedOnboarding {
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Button {
-                            showCrisis = true
-                        } label: {
-                            Image(systemName: "heart.circle.fill")
-                                .font(.system(size: 52))
-                                .foregroundStyle(Color.crisisWarning)
-                                .shadow(color: .black.opacity(0.15), radius: 4, y: 2)
-                        }
-                        .accessibilityLabel(String(localized: "crisis_button", defaultValue: "Emergency Help"))
-                        .padding(.trailing, 20)
-                        .padding(.bottom, 20)
-                    }
-                }
-            }
-        }
-        .fullScreenCover(isPresented: $showCrisis) {
-            CrisisView()
         }
         .preferredColorScheme(colorScheme)
     }

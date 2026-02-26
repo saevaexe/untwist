@@ -2,25 +2,50 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var showUnwinding = false
+    @State private var showCrisis = false
 
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 18) {
-                headerCard
-                unwindHeroCard
-                sectionTitle
-                quickActionGrid
-                insightsCard
+        ZStack {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 18) {
+                    headerCard
+                    unwindHeroCard
+                    sectionTitle
+                    quickActionGrid
+                    insightsCard
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 16)
+                .padding(.bottom, 120)
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 16)
-            .padding(.bottom, 120)
+
+            // Crisis floating button
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button {
+                        showCrisis = true
+                    } label: {
+                        Image(systemName: "heart.circle.fill")
+                            .font(.system(size: 52))
+                            .foregroundStyle(Color.crisisWarning)
+                            .shadow(color: .black.opacity(0.15), radius: 4, y: 2)
+                    }
+                    .accessibilityLabel(String(localized: "crisis_button", defaultValue: "Emergency Help"))
+                    .padding(.trailing, 20)
+                    .padding(.bottom, 20)
+                }
+            }
         }
         .background(backgroundLayer)
         .fullScreenCover(isPresented: $showUnwinding) {
             NavigationStack {
                 UnwindingNowView()
             }
+        }
+        .fullScreenCover(isPresented: $showCrisis) {
+            CrisisView()
         }
         .navigationTitle(String(localized: "app_name", defaultValue: "Untwist"))
         .toolbar {
@@ -118,7 +143,7 @@ struct HomeView: View {
                     .foregroundStyle(Color.textSecondary)
 
                 HStack(spacing: 10) {
-                    TwistyView(mood: .breathing, size: 48, animated: false)
+                    TwistyView(mood: .breathing, size: 80, animated: false)
 
                     Text(String(localized: "home_unwinding_now_hint", defaultValue: "A short guided reset in under 2 minutes"))
                         .font(.footnote.weight(.medium))
