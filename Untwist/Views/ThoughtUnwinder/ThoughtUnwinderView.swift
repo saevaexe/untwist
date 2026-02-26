@@ -16,6 +16,8 @@ struct ThoughtUnwinderView: View {
     @State private var showTip = false
     @FocusState private var isTextFieldFocused: Bool
 
+    @State private var placeholderSet = PlaceholderSet.all[0]
+
     var body: some View {
         ZStack {
             AppScreenBackground(
@@ -47,6 +49,13 @@ struct ThoughtUnwinderView: View {
         .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(isPresented: $showCrisis) {
             CrisisView()
+        }
+        .onAppear {
+            let sets = PlaceholderSet.all
+            let lastIndex = UserDefaults.standard.integer(forKey: "lastPlaceholderIndex")
+            let nextIndex = (lastIndex + 1) % sets.count
+            UserDefaults.standard.set(nextIndex, forKey: "lastPlaceholderIndex")
+            placeholderSet = sets[nextIndex]
         }
         .onChange(of: step) {
             isTextFieldFocused = false
@@ -215,6 +224,8 @@ struct ThoughtUnwinderView: View {
     private var stepEvent: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 16) {
+                TwistyView(mood: .thinking, size: 64, animated: false)
+
                 Text(String(localized: "unwinder_step1_title", defaultValue: "What happened?"))
                     .font(.title2.weight(.semibold))
                     .foregroundStyle(Color.textPrimary)
@@ -224,7 +235,7 @@ struct ThoughtUnwinderView: View {
                     .foregroundStyle(Color.textSecondary)
 
                 styledInputField(
-                    placeholder: String(localized: "unwinder_event_placeholder", defaultValue: "e.g., My friend didn't reply to my message"),
+                    placeholder: placeholderSet.event,
                     text: $event
                 )
 
@@ -243,12 +254,14 @@ struct ThoughtUnwinderView: View {
     private var stepThought: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 16) {
+                TwistyView(mood: .thinking, size: 64, animated: false)
+
                 Text(String(localized: "unwinder_step2_title", defaultValue: "What went through your mind?"))
                     .font(.title2.weight(.semibold))
                     .foregroundStyle(Color.textPrimary)
 
                 styledInputField(
-                    placeholder: String(localized: "unwinder_thought_placeholder", defaultValue: "e.g., They must be angry at me"),
+                    placeholder: placeholderSet.thought,
                     text: $automaticThought
                 )
 
@@ -388,12 +401,14 @@ struct ThoughtUnwinderView: View {
     private var stepAlternative: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 16) {
+                TwistyView(mood: .celebrating, size: 64, animated: false)
+
                 Text(String(localized: "unwinder_step4_title", defaultValue: "What's another way to see this?"))
                     .font(.title2.weight(.semibold))
                     .foregroundStyle(Color.textPrimary)
 
                 styledInputField(
-                    placeholder: String(localized: "unwinder_alternative_placeholder", defaultValue: "e.g., Maybe they're just busy"),
+                    placeholder: placeholderSet.alternative,
                     text: $alternativeThought
                 )
 
@@ -497,6 +512,30 @@ struct ThoughtUnwinderView: View {
         modelContext.insert(record)
         dismiss()
     }
+}
+
+private struct PlaceholderSet {
+    let event: String
+    let thought: String
+    let alternative: String
+
+    static let all: [PlaceholderSet] = [
+        PlaceholderSet(
+            event: String(localized: "unwinder_event_placeholder", defaultValue: "e.g., My friend didn't reply to my message"),
+            thought: String(localized: "unwinder_thought_placeholder", defaultValue: "e.g., They must be angry at me"),
+            alternative: String(localized: "unwinder_alternative_placeholder", defaultValue: "e.g., Maybe they're just busy")
+        ),
+        PlaceholderSet(
+            event: String(localized: "unwinder_event_placeholder_2", defaultValue: "e.g., I got negative feedback at work"),
+            thought: String(localized: "unwinder_thought_placeholder_2", defaultValue: "e.g., I'm not good enough for this job"),
+            alternative: String(localized: "unwinder_alternative_placeholder_2", defaultValue: "e.g., One mistake doesn't define my ability")
+        ),
+        PlaceholderSet(
+            event: String(localized: "unwinder_event_placeholder_3", defaultValue: "e.g., I had an argument with my partner"),
+            thought: String(localized: "unwinder_thought_placeholder_3", defaultValue: "e.g., This relationship is falling apart"),
+            alternative: String(localized: "unwinder_alternative_placeholder_3", defaultValue: "e.g., One argument doesn't mean we can't work it out")
+        )
+    ]
 }
 
 #Preview {

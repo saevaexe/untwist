@@ -79,29 +79,64 @@ enum ThoughtTrapType: String, Codable, CaseIterable, Identifiable {
         }
     }
 
-    var example: String {
+    var examples: [String] {
         switch self {
-        case .allOrNothing:
-            String(localized: "trap_all_or_nothing_ex", defaultValue: "\"I got a B on the exam. I'm a complete failure.\"")
-        case .overgeneralization:
-            String(localized: "trap_overgeneralization_ex", defaultValue: "\"I didn't get the job. I'll never find work.\"")
-        case .mentalFilter:
-            String(localized: "trap_mental_filter_ex", defaultValue: "\"One person criticized my presentation. The whole thing was terrible.\"")
-        case .disqualifyingPositive:
-            String(localized: "trap_disqualifying_positive_ex", defaultValue: "\"They only said that to be nice. They didn't really mean it.\"")
-        case .jumpingToConclusions:
-            String(localized: "trap_jumping_conclusions_ex", defaultValue: "\"My friend didn't text back. They must be angry at me.\"")
-        case .magnification:
-            String(localized: "trap_magnification_ex", defaultValue: "\"I made a small mistake at work. I'll probably get fired.\"")
-        case .emotionalReasoning:
-            String(localized: "trap_emotional_reasoning_ex", defaultValue: "\"I feel anxious about flying, so it must be dangerous.\"")
-        case .shouldStatements:
-            String(localized: "trap_should_statements_ex", defaultValue: "\"I should always be productive. Resting means I'm lazy.\"")
-        case .labeling:
-            String(localized: "trap_labeling_ex", defaultValue: "\"I forgot to reply. I'm such a terrible person.\"")
-        case .personalization:
-            String(localized: "trap_personalization_ex", defaultValue: "\"My team lost the project. It's all my fault.\"")
+        case .allOrNothing: [
+            String(localized: "trap_all_or_nothing_ex", defaultValue: "\"I got a B on the exam. I'm a complete failure.\""),
+            String(localized: "trap_all_or_nothing_ex2", defaultValue: "\"If I can't do it perfectly, there's no point in trying.\""),
+            String(localized: "trap_all_or_nothing_ex3", defaultValue: "\"My diet is ruined because I ate one cookie.\"")
+        ]
+        case .overgeneralization: [
+            String(localized: "trap_overgeneralization_ex", defaultValue: "\"I didn't get the job. I'll never find work.\""),
+            String(localized: "trap_overgeneralization_ex2", defaultValue: "\"This relationship failed. I'm destined to be alone.\""),
+            String(localized: "trap_overgeneralization_ex3", defaultValue: "\"I failed the test again. I always mess things up.\"")
+        ]
+        case .mentalFilter: [
+            String(localized: "trap_mental_filter_ex", defaultValue: "\"One person criticized my presentation. The whole thing was terrible.\""),
+            String(localized: "trap_mental_filter_ex2", defaultValue: "\"I got great feedback from 9 people, but I can only think about the one negative comment.\""),
+            String(localized: "trap_mental_filter_ex3", defaultValue: "\"The trip was amazing but I keep thinking about the one rainy day.\"")
+        ]
+        case .disqualifyingPositive: [
+            String(localized: "trap_disqualifying_positive_ex", defaultValue: "\"They only said that to be nice. They didn't really mean it.\""),
+            String(localized: "trap_disqualifying_positive_ex2", defaultValue: "\"I got the promotion, but it's only because nobody else wanted it.\""),
+            String(localized: "trap_disqualifying_positive_ex3", defaultValue: "\"She smiled at me, but she probably does that with everyone.\"")
+        ]
+        case .jumpingToConclusions: [
+            String(localized: "trap_jumping_conclusions_ex", defaultValue: "\"My friend didn't text back. They must be angry at me.\""),
+            String(localized: "trap_jumping_conclusions_ex2", defaultValue: "\"My boss wants to meet. I'm definitely getting fired.\""),
+            String(localized: "trap_jumping_conclusions_ex3", defaultValue: "\"They looked at me and whispered. They're talking about me.\"")
+        ]
+        case .magnification: [
+            String(localized: "trap_magnification_ex", defaultValue: "\"I made a small mistake at work. I'll probably get fired.\""),
+            String(localized: "trap_magnification_ex2", defaultValue: "\"I stuttered during the speech. Everyone thinks I'm incompetent.\""),
+            String(localized: "trap_magnification_ex3", defaultValue: "\"I forgot their birthday. Our entire friendship is over.\"")
+        ]
+        case .emotionalReasoning: [
+            String(localized: "trap_emotional_reasoning_ex", defaultValue: "\"I feel anxious about flying, so it must be dangerous.\""),
+            String(localized: "trap_emotional_reasoning_ex2", defaultValue: "\"I feel guilty, so I must have done something wrong.\""),
+            String(localized: "trap_emotional_reasoning_ex3", defaultValue: "\"I feel stupid, so I must actually be stupid.\"")
+        ]
+        case .shouldStatements: [
+            String(localized: "trap_should_statements_ex", defaultValue: "\"I should always be productive. Resting means I'm lazy.\""),
+            String(localized: "trap_should_statements_ex2", defaultValue: "\"I shouldn't feel sad. Other people have it worse.\""),
+            String(localized: "trap_should_statements_ex3", defaultValue: "\"A good parent should never lose their patience.\"")
+        ]
+        case .labeling: [
+            String(localized: "trap_labeling_ex", defaultValue: "\"I forgot to reply. I'm such a terrible person.\""),
+            String(localized: "trap_labeling_ex2", defaultValue: "\"I didn't finish on time. I'm a total loser.\""),
+            String(localized: "trap_labeling_ex3", defaultValue: "\"I made a mistake. I'm an idiot.\"")
+        ]
+        case .personalization: [
+            String(localized: "trap_personalization_ex", defaultValue: "\"My team lost the project. It's all my fault.\""),
+            String(localized: "trap_personalization_ex2", defaultValue: "\"My friend seems upset. I must have done something wrong.\""),
+            String(localized: "trap_personalization_ex3", defaultValue: "\"The kids are struggling at school. I'm a bad parent.\"")
+        ]
         }
+    }
+
+    /// Backwards compatibility
+    var example: String {
+        examples.first ?? ""
     }
 
     /// Keywords for rule-based trap detection (EN)

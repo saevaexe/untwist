@@ -37,13 +37,8 @@ struct ThoughtTrapDetailView: View {
                         tint: .primaryPurple
                     )
 
-                    // Example
-                    infoSection(
-                        icon: "quote.bubble.fill",
-                        title: String(localized: "trap_detail_example", defaultValue: "Example"),
-                        content: trap.example,
-                        tint: .secondaryLavender
-                    )
+                    // Examples
+                    examplesSection
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 14)
@@ -51,6 +46,36 @@ struct ThoughtTrapDetailView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private var examplesSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 8) {
+                Image(systemName: "quote.bubble.fill")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Color.secondaryLavender)
+                Text(String(localized: "trap_detail_examples", defaultValue: "Examples"))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.textPrimary)
+            }
+
+            ForEach(Array(trap.examples.enumerated()), id: \.offset) { _, example in
+                HStack(alignment: .top, spacing: 10) {
+                    Image(systemName: "text.quote")
+                        .font(.caption2)
+                        .foregroundStyle(Color.secondaryLavender.opacity(0.7))
+                        .padding(.top, 3)
+                    Text(example)
+                        .font(.body)
+                        .italic()
+                        .foregroundStyle(Color.textSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(18)
+        .elevatedCard(stroke: Color.secondaryLavender.opacity(0.18), shadowColor: .black.opacity(0.07))
     }
 
     private func infoSection(icon: String, title: String, content: String, tint: Color) -> some View {

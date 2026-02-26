@@ -2998,6 +2998,470 @@
           }
         }
       }
+    },
+    "traps_header_title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thought Traps"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düşünce Tuzakları"
+          }
+        }
+      }
+    },
+    "traps_header_sub": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Learn about common thinking patterns"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yaygın düşünce kalıplarını öğren"
+          }
+        }
+      }
+    },
+    "trap_detail_examples": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Examples"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örnekler"
+          }
+        }
+      }
+    },
+    "trap_all_or_nothing_ex2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"If I can't do it perfectly, there's no point in trying.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Mükemmel yapamayacaksam hiç denemenin anlamı yok.\""
+          }
+        }
+      }
+    },
+    "trap_all_or_nothing_ex3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"My diet is ruined because I ate one cookie.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Bir kurabiye yediğim için diyetim tamamen bozuldu.\""
+          }
+        }
+      }
+    },
+    "trap_overgeneralization_ex2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"This relationship failed. I'm destined to be alone.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Bu ilişki bitti. Yalnız kalmaya mahkumum.\""
+          }
+        }
+      }
+    },
+    "trap_overgeneralization_ex3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"I failed the test again. I always mess things up.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Sınavı yine geçemedim. Her şeyi hep berbat ederim.\""
+          }
+        }
+      }
+    },
+    "trap_mental_filter_ex2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"I got great feedback from 9 people, but I can only think about the one negative comment.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"9 kişiden harika geri bildirim aldım ama aklıma sadece o bir olumsuz yorum geliyor.\""
+          }
+        }
+      }
+    },
+    "trap_mental_filter_ex3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"The trip was amazing but I keep thinking about the one rainy day.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Tatil harikaydı ama aklıma hep o yağmurlu gün geliyor.\""
+          }
+        }
+      }
+    },
+    "trap_disqualifying_positive_ex2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"I got the promotion, but it's only because nobody else wanted it.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Terfi aldım ama sadece başka kimse istemediği için.\""
+          }
+        }
+      }
+    },
+    "trap_disqualifying_positive_ex3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"She smiled at me, but she probably does that with everyone.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Bana gülümsedi ama muhtemelen herkese öyle yapıyordur.\""
+          }
+        }
+      }
+    },
+    "trap_jumping_conclusions_ex2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"My boss wants to meet. I'm definitely getting fired.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Patronum görüşmek istiyor. Kesin kovulacağım.\""
+          }
+        }
+      }
+    },
+    "trap_jumping_conclusions_ex3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"They looked at me and whispered. They're talking about me.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Bana bakıp fısıldaştılar. Kesin beni konuşuyorlar.\""
+          }
+        }
+      }
+    },
+    "trap_magnification_ex2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"I stuttered during the speech. Everyone thinks I'm incompetent.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Konuşmada kekeledim. Herkes beni yetersiz buluyor.\""
+          }
+        }
+      }
+    },
+    "trap_magnification_ex3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"I forgot their birthday. Our entire friendship is over.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Doğum gününü unuttum. Arkadaşlığımız tamamen bitti.\""
+          }
+        }
+      }
+    },
+    "trap_emotional_reasoning_ex2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"I feel guilty, so I must have done something wrong.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Suçlu hissediyorum, demek ki yanlış bir şey yapmışımdır.\""
+          }
+        }
+      }
+    },
+    "trap_emotional_reasoning_ex3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"I feel stupid, so I must actually be stupid.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Kendimi aptal hissediyorum, demek ki gerçekten aptalım.\""
+          }
+        }
+      }
+    },
+    "trap_should_statements_ex2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"I shouldn't feel sad. Other people have it worse.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Üzülmemem lazım. Başkalarının durumu daha kötü.\""
+          }
+        }
+      }
+    },
+    "trap_should_statements_ex3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"A good parent should never lose their patience.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"İyi bir ebeveyn asla sabrını kaybetmemeli.\""
+          }
+        }
+      }
+    },
+    "trap_labeling_ex2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"I didn't finish on time. I'm a total loser.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Zamanında bitiremedim. Tam bir kaybedenım.\""
+          }
+        }
+      }
+    },
+    "trap_labeling_ex3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"I made a mistake. I'm an idiot.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Hata yaptım. Ben bir aptalım.\""
+          }
+        }
+      }
+    },
+    "trap_personalization_ex2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"My friend seems upset. I must have done something wrong.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Arkadaşım üzgün görünüyor. Mutlaka yanlış bir şey yapmışımdır.\""
+          }
+        }
+      }
+    },
+    "trap_personalization_ex3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"The kids are struggling at school. I'm a bad parent.\""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Çocuklar okulda zorlanıyor. Kötü bir ebeveyn olmalıyım.\""
+          }
+        }
+      }
+    },
+    "unwinder_event_placeholder_2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e.g., I got negative feedback at work"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ör. İşte olumsuz geri bildirim aldım"
+          }
+        }
+      }
+    },
+    "unwinder_event_placeholder_3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e.g., I had an argument with my partner"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ör. Eşimle tartıştım"
+          }
+        }
+      }
+    },
+    "unwinder_thought_placeholder_2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e.g., I'm not good enough for this job"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ör. Bu iş için yeterince iyi değilim"
+          }
+        }
+      }
+    },
+    "unwinder_thought_placeholder_3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e.g., This relationship is falling apart"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ör. Bu ilişki yıkılıyor"
+          }
+        }
+      }
+    },
+    "unwinder_alternative_placeholder_2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e.g., One mistake doesn't define my ability"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ör. Bir hata yetkinliğimi belirlemez"
+          }
+        }
+      }
+    },
+    "unwinder_alternative_placeholder_3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e.g., One argument doesn't mean we can't work it out"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ör. Bir tartışma her şeyin bittiği anlamına gelmez"
+          }
+        }
+      }
     }
   },
   "version": "1.1"
