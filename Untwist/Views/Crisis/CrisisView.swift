@@ -44,7 +44,7 @@ struct CrisisView: View {
                     VStack(spacing: 16) {
                         // Calm Twisty
                         VStack(spacing: 10) {
-                            TwistyView(mood: .calm, size: 132)
+                            TwistyView(mood: .calm, size: 160)
 
                             Text(String(localized: "crisis_title", defaultValue: "You're not alone"))
                                 .font(.title2.weight(.semibold))

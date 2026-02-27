@@ -5,8 +5,7 @@ struct HomeView: View {
     @State private var showUnwinding = false
     @State private var showThoughtWriter = false
     @State private var showCrisis = false
-    @State private var showMoodCheck = false
-    @State private var quickMoodScore: Double = 50
+    @State private var moodCheckRequest: MoodCheckRequest?
 
     var body: some View {
         ZStack {
@@ -65,9 +64,10 @@ struct HomeView: View {
         .fullScreenCover(isPresented: $showCrisis) {
             CrisisView()
         }
-        .sheet(isPresented: $showMoodCheck) {
+        .sheet(item: $moodCheckRequest) { request in
             NavigationStack {
-                MoodCheckView(initialScore: quickMoodScore)
+                MoodCheckView(initialScore: request.initialScore)
+                    .id(request.id)
             }
         }
         .onAppear {
@@ -171,8 +171,8 @@ struct HomeView: View {
 
     private func quickMoodButton(mood: TwistyMood, label: String, score: Int) -> some View {
         Button {
-            quickMoodScore = Double(score)
-            showMoodCheck = true
+            guard moodCheckRequest == nil else { return }
+            moodCheckRequest = MoodCheckRequest(initialScore: Double(score))
         } label: {
             VStack(spacing: 3) {
                 Image(mood.imageName)
@@ -346,6 +346,11 @@ struct HomeView: View {
             GridItem(.flexible(), spacing: 12),
             GridItem(.flexible(), spacing: 12)
         ]
+    }
+
+    private struct MoodCheckRequest: Identifiable {
+        let id = UUID()
+        let initialScore: Double
     }
 }
 

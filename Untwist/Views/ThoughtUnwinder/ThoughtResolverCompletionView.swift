@@ -59,7 +59,7 @@ struct ThoughtResolverCompletionView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
                     // Twisty celebrating
-                    TwistyView(mood: .celebrating, size: 100)
+                    TwistyView(mood: .celebrating, size: 200)
                         .padding(.top, 8)
 
                     // Title
@@ -211,8 +211,10 @@ struct ThoughtResolverCompletionView: View {
     // MARK: - Traps Summary
 
     private var trapsSummaryCard: some View {
-        VStack(spacing: 12) {
-            HStack(spacing: 8) {
+        let trapColumns = [GridItem(.adaptive(minimum: 32, maximum: 36), spacing: 8)]
+
+        return VStack(spacing: 12) {
+            LazyVGrid(columns: trapColumns, alignment: .center, spacing: 8) {
                 ForEach(selectedTraps, id: \.self) { trap in
                     Image(trap.imageName)
                         .resizable()
@@ -220,6 +222,7 @@ struct ThoughtResolverCompletionView: View {
                         .frame(width: 36, height: 36)
                 }
             }
+            .frame(maxWidth: .infinity)
 
             Text(String(
                 format: String(localized: "completion_traps_found", defaultValue: "You spotted %lld thought trap(s)"),

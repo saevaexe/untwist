@@ -107,15 +107,15 @@ struct InsightsView: View {
     private var activityCounts: [Date: Int] {
         let calendar = Calendar.current
         var counts: [Date: Int] = [:]
-        for entry in moodEntries {
+        for entry in filteredMoods {
             let day = calendar.startOfDay(for: entry.date)
             counts[day, default: 0] += 1
         }
-        for record in thoughtRecords {
+        for record in filteredRecords {
             let day = calendar.startOfDay(for: record.date)
             counts[day, default: 0] += 1
         }
-        for session in breathingSessions {
+        for session in filteredSessions {
             let day = calendar.startOfDay(for: session.date)
             counts[day, default: 0] += 1
         }
@@ -124,37 +124,54 @@ struct InsightsView: View {
 
     private func heatmapColor(for count: Int) -> Color {
         switch count {
-        case 0: return Color.primaryPurple.opacity(0.06)
-        case 1: return Color.primaryPurple.opacity(0.25)
-        case 2: return Color.primaryPurple.opacity(0.50)
+        case 0: return Color.primaryPurple.opacity(0.10)
+        case 1: return Color.primaryPurple.opacity(0.30)
+        case 2: return Color.primaryPurple.opacity(0.55)
         default: return Color.primaryPurple
         }
     }
 
-    private var heatmapWeeks: [[Date]] {
+    private var activityCalendarAnchorDate: Date {
+        let dates = activityCounts.keys.sorted()
+        return dates.last ?? Date()
+    }
+
+    private var activityCalendarMonthName: String {
+        let month = activityCalendarAnchorDate.formatted(.dateTime.month(.wide))
+        return month.capitalized(with: .autoupdatingCurrent)
+    }
+
+    private var activityCalendarTitle: String {
+        let isTurkish = Locale.autoupdatingCurrent.identifier.lowercased().hasPrefix("tr")
+        let baseTitle = isTurkish ? "Aktivite Takvimi" : "Activity Calendar"
+        return "\(baseTitle) — \(activityCalendarMonthName)"
+    }
+
+    private var activityCalendarWeeks: [[Date?]] {
         let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
+        let anchor = activityCalendarAnchorDate
+        guard
+            let monthStart = calendar.date(from: calendar.dateComponents([.year, .month], from: anchor)),
+            let daysInMonth = calendar.range(of: .day, in: .month, for: monthStart)?.count
+        else { return [] }
 
-        // Find the Monday of this week
-        let weekday = calendar.component(.weekday, from: today)
-        let daysToMonday = (weekday + 5) % 7 // Monday = 2, so offset
-        guard let thisMonday = calendar.date(byAdding: .day, value: -daysToMonday, to: today) else { return [] }
+        let firstWeekdayInMonth = calendar.component(.weekday, from: monthStart)
+        let leadingEmptyDays = (firstWeekdayInMonth - calendar.firstWeekday + 7) % 7
 
-        // Go back 11 more weeks (12 total)
-        guard let startMonday = calendar.date(byAdding: .weekOfYear, value: -11, to: thisMonday) else { return [] }
-
-        var weeks: [[Date]] = []
-        var currentMonday = startMonday
-
-        for _ in 0..<12 {
-            var week: [Date] = []
-            for dayOffset in 0..<7 {
-                if let day = calendar.date(byAdding: .day, value: dayOffset, to: currentMonday) {
-                    week.append(day)
-                }
+        var slots: [Date?] = Array(repeating: nil, count: leadingEmptyDays)
+        for offset in 0..<daysInMonth {
+            if let date = calendar.date(byAdding: .day, value: offset, to: monthStart) {
+                slots.append(date)
             }
-            weeks.append(week)
-            currentMonday = calendar.date(byAdding: .weekOfYear, value: 1, to: currentMonday) ?? currentMonday
+        }
+
+        while slots.count % 7 != 0 {
+            slots.append(nil)
+        }
+
+        var weeks: [[Date?]] = []
+        for index in stride(from: 0, to: slots.count, by: 7) {
+            weeks.append(Array(slots[index..<min(index + 7, slots.count)]))
         }
         return weeks
     }
@@ -425,7 +442,7 @@ struct InsightsView: View {
 
     private var activityHeatmapSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(String(localized: "stats_activity", defaultValue: "Activity"))
+            Text(activityCalendarTitle)
                 .font(.headline)
                 .foregroundStyle(Color.textPrimary)
 
@@ -436,22 +453,36 @@ struct InsightsView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 20)
             } else {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 4) {
-                        ForEach(heatmapWeeks, id: \.first) { week in
-                            VStack(spacing: 4) {
-                                ForEach(week, id: \.self) { day in
-                                    let isFuture = day > Date()
-                                    let count = activityCounts[day] ?? 0
-                                    let isToday = Calendar.current.isDateInToday(day)
-                                    RoundedRectangle(cornerRadius: 3, style: .continuous)
-                                        .fill(isFuture ? Color.clear : heatmapColor(for: count))
-                                        .frame(width: 14, height: 14)
-                                        .overlay(
-                                            isToday ? RoundedRectangle(cornerRadius: 3, style: .continuous)
-                                                .stroke(Color.primaryPurple, lineWidth: 1.5) : nil
-                                        )
+                VStack(spacing: 8) {
+                    ForEach(Array(activityCalendarWeeks.enumerated()), id: \.offset) { _, week in
+                        HStack(spacing: 8) {
+                            ForEach(Array(week.enumerated()), id: \.offset) { _, day in
+                                Group {
+                                    if let day {
+                                        let count = activityCounts[day] ?? 0
+                                        let isToday = Calendar.current.isDateInToday(day)
+                                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                            .fill(heatmapColor(for: count))
+                                            .overlay {
+                                                if isToday {
+                                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                                        .stroke(Color.cardBackground, lineWidth: 2)
+                                                        .padding(1)
+                                                }
+                                            }
+                                            .overlay {
+                                                if isToday {
+                                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                                        .stroke(Color.primaryPurple, lineWidth: 2)
+                                                }
+                                            }
+                                    } else {
+                                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                            .fill(Color.clear)
+                                    }
                                 }
+                                .frame(maxWidth: .infinity)
+                                .aspectRatio(1, contentMode: .fit)
                             }
                         }
                     }
@@ -459,7 +490,7 @@ struct InsightsView: View {
             }
         }
         .padding(18)
-        .elevatedCard(stroke: Color.successGreen.opacity(0.16), shadowColor: .black.opacity(0.06))
+        .elevatedCard(cornerRadius: 22, stroke: Color.primaryPurple.opacity(0.14), shadowColor: .black.opacity(0.08))
     }
 
     // MARK: - Stats (original 3-column grid, preserved)

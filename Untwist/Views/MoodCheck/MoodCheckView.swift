@@ -49,7 +49,7 @@ struct MoodCheckView: View {
 
             VStack(spacing: 18) {
                 TwistyView(mood: moodTwisty, size: moodTwistySize, animated: false)
-                    .frame(width: 160, height: 160)
+                    .frame(width: 240, height: 240)
                     .animation(.easeInOut(duration: 0.3), value: moodTwisty)
 
                 Text("\(Int(score))")
@@ -124,7 +124,7 @@ struct MoodCheckView: View {
 
     private var savedRedirectView: some View {
         VStack(spacing: 18) {
-            TwistyView(mood: .thinking, size: 140)
+            TwistyView(mood: .thinking, size: 200)
 
             Text(String(localized: "mood_saved", defaultValue: "Mood saved!"))
                 .font(.title2.weight(.semibold))
@@ -191,15 +191,16 @@ struct MoodCheckView: View {
 
     private var moodTwisty: TwistyMood {
         switch Int(score) {
-        case 0..<30: .sad
-        case 30..<60: .neutral
+        case 0..<20: .sad
+        case 20..<40: .neutral
+        case 40..<60: .calm
         case 60..<80: .happy
         default: .celebrating
         }
     }
 
     private var moodTwistySize: CGFloat {
-        140
+        200
     }
 
     private var moodLabel: String {

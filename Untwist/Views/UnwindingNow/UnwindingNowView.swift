@@ -169,7 +169,7 @@ struct UnwindingNowView: View {
 
     private var calmingView: some View {
         VStack(spacing: 12) {
-            TwistyView(mood: .calm, size: 132)
+            TwistyView(mood: .calm, size: 200)
 
             Text(String(localized: "unwind_calming_title", defaultValue: "Let's slow down together"))
                 .font(.title3.weight(.bold))
@@ -229,7 +229,7 @@ struct UnwindingNowView: View {
 
     private var redirectView: some View {
         VStack(spacing: 18) {
-            TwistyView(mood: .celebrating, size: 124)
+            TwistyView(mood: .celebrating, size: 200)
 
             Text(String(localized: "unwind_redirect_title", defaultValue: "You're doing great"))
                 .font(.title2.weight(.semibold))

@@ -87,7 +87,7 @@ struct ThoughtUnwinderView: View {
 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 16) {
-                        TwistyView(mood: .reading, size: 72, animated: false)
+                        TwistyView(mood: .reading, size: 160, animated: false)
                             .padding(.top, 4)
 
                         Text(String(localized: "tip_intro", defaultValue: "The Thought Unwinder helps you step back from overwhelming thoughts and see them from a new angle."))
@@ -235,7 +235,8 @@ struct ThoughtUnwinderView: View {
     private var stepEvent: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 16) {
-                TwistyView(mood: .thinking, size: 64, animated: false)
+                TwistyView(mood: .thinking, size: 180, animated: false)
+                    .offset(y: 26)
 
                 Text(String(localized: "unwinder_step1_title", defaultValue: "What happened?"))
                     .font(.title2.weight(.semibold))
@@ -265,7 +266,8 @@ struct ThoughtUnwinderView: View {
     private var stepThought: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 16) {
-                TwistyView(mood: .thinking, size: 64, animated: false)
+                TwistyView(mood: .thinking, size: 180, animated: false)
+                    .offset(y: 26)
 
                 Text(String(localized: "unwinder_step2_title", defaultValue: "What went through your mind?"))
                     .font(.title2.weight(.semibold))
@@ -412,7 +414,8 @@ struct ThoughtUnwinderView: View {
     private var stepAlternative: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 16) {
-                TwistyView(mood: .celebrating, size: 64, animated: false)
+                TwistyView(mood: .celebrating, size: 180, animated: false)
+                    .offset(y: 26)
 
                 Text(String(localized: "unwinder_step4_title", defaultValue: "What's another way to see this?"))
                     .font(.title2.weight(.semibold))
