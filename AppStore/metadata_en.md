@@ -42,7 +42,7 @@ Twisty is your yarn ball companion who reacts to your mood. Happy, sad, calm, or
 
 IMPORTANT DISCLAIMER
 
-Untwist is a wellness and self-help tool. It is NOT a substitute for professional therapy, diagnosis, or medical advice. If you are in crisis, please contact a mental health professional or call emergency services. Emergency hotlines (988 US, 182 TR) are always accessible within the app.
+Untwist is a wellness and self-help tool. It is NOT a substitute for professional therapy, diagnosis, or medical advice. If you are in crisis, please contact a mental health professional or call emergency services. Emergency hotlines are always accessible within the app.
 
 ## Keywords (≤100 chars)
 cbt,mood,journal,thought,anxiety,mental health,breathing,mindfulness,self help,cognitive
@@ -63,4 +63,4 @@ https://saevaexe.github.io/untwist/privacy.html
 2026 Osman Seven
 
 ## Notes for Review
-This app is a free self-help tool based on CBT principles. There are no accounts, no subscriptions, and no in-app purchases in v1.0. All data is stored on-device using SwiftData. The crisis screen provides direct links to emergency hotlines (988 in US, 182 in Turkey) — these use the standard tel:// URL scheme. The app contains a disclaimer on first launch and in settings.
+This app is a free self-help tool based on CBT principles. There are no accounts, no subscriptions, and no in-app purchases in v1.0. All data is stored on-device using SwiftData. The crisis screen provides direct links to emergency hotlines based on the user's region — these use the standard tel:// URL scheme. If the region is not recognized, the app falls back to findahelpline.com. The app contains a disclaimer on first launch and in settings.

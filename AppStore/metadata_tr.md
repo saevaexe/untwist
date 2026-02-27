@@ -42,7 +42,7 @@ Twisty, ruh haline göre tepki veren iplik yumağı arkadaşın. Mutlu, üzgün,
 
 ÖNEMLİ UYARI
 
-Untwist bir sağlıklı yaşam ve kişisel gelişim aracıdır. Profesyonel terapi, teşhis veya tıbbi tavsiye yerine GEÇMEZ. Kriz durumundaysanız lütfen bir ruh sağlığı uzmanına başvurun veya acil servisleri arayın. Acil yardım hatları (988 ABD, 182 TR) uygulama içinden her zaman erişilebilir.
+Untwist bir sağlıklı yaşam ve kişisel gelişim aracıdır. Profesyonel terapi, teşhis veya tıbbi tavsiye yerine GEÇMEZ. Kriz durumundaysanız lütfen bir ruh sağlığı uzmanına başvurun veya acil servisleri arayın. Acil yardım hatları uygulama içinden her zaman erişilebilir.
 
 ## Anahtar Kelimeler (≤100 chars)
 bdt,duygu,günlük,düşünce,kaygı,ruh sağlığı,nefes,farkındalık,kişisel gelişim,bilişsel
