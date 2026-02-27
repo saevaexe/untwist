@@ -5,7 +5,6 @@ struct HomeView: View {
     @State private var showUnwinding = false
     @State private var showThoughtWriter = false
     @State private var showCrisis = false
-    @State private var showThoughtWriterExitConfirmation = false
     @State private var showMoodCheck = false
     @State private var quickMoodScore: Double = 50
 
@@ -55,37 +54,11 @@ struct HomeView: View {
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button(String(localized: "onboarding_close_unwinder", defaultValue: "Close")) {
-                                showThoughtWriterExitConfirmation = true
+                                showThoughtWriter = false
                             }
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(Color.textSecondary)
                         }
-                    }
-                    .confirmationDialog(
-                        String(localized: "onboarding_close_unwinder_confirm_title", defaultValue: "Exit without saving?"),
-                        isPresented: $showThoughtWriterExitConfirmation,
-                        titleVisibility: .visible
-                    ) {
-                        Button(
-                            String(localized: "onboarding_close_unwinder_confirm_discard", defaultValue: "Exit without saving"),
-                            role: .destructive
-                        ) {
-                            showThoughtWriterExitConfirmation = false
-                            showThoughtWriter = false
-                        }
-                        Button(
-                            String(localized: "onboarding_close_unwinder_confirm_continue", defaultValue: "Continue editing"),
-                            role: .cancel
-                        ) {
-                            showThoughtWriterExitConfirmation = false
-                        }
-                    } message: {
-                        Text(
-                            String(
-                                localized: "onboarding_close_unwinder_confirm_message",
-                                defaultValue: "Your progress in this session will be lost."
-                            )
-                        )
                     }
             }
         }
@@ -106,7 +79,6 @@ struct HomeView: View {
         }
         .onChange(of: showThoughtWriter) {
             guard !showThoughtWriter else { return }
-            showThoughtWriterExitConfirmation = false
         }
         .navigationTitle(String(localized: "app_name", defaultValue: "Untwist"))
         .toolbar {
