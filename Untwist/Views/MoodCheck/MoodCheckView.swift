@@ -198,13 +198,8 @@ struct MoodCheckView: View {
         }
     }
 
-    /// Sad image fills more of the frame (no protruding threads), so scale it down slightly
     private var moodTwistySize: CGFloat {
-        switch moodTwisty {
-        case .sad: 120
-        case .neutral: 130
-        default: 140
-        }
+        140
     }
 
     private var moodLabel: String {

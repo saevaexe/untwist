@@ -238,7 +238,11 @@ struct ThoughtResolverCompletionView: View {
 
     // MARK: - Streak
 
-    private let weekdayLabels = ["Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pz"]
+    private var weekdayLabels: [String] {
+        let symbols = Calendar.current.veryShortWeekdaySymbols
+        // Calendar returns Sun=0, reorder to Mon=0
+        return Array(symbols[1...]) + [symbols[0]]
+    }
 
     private var streakPill: some View {
         VStack(spacing: 10) {

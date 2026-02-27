@@ -19,6 +19,21 @@ enum TwistyMood {
         case .reading: "TwistyReading"
         }
     }
+
+    // Normalizes perceived mascot size because each PNG has different transparent padding.
+    var sizeNormalization: CGFloat {
+        switch self {
+        case .happy: 0.95
+        case .neutral: 1.18
+        case .sad: 1.02
+        case .calm: 0.96
+        case .waving: 0.95
+        case .thinking: 1.02
+        case .celebrating: 1.18
+        case .breathing: 1.22
+        case .reading: 0.86
+        }
+    }
 }
 
 // MARK: - TwistyView
@@ -32,10 +47,12 @@ struct TwistyView: View {
     @State private var bounce = false
 
     var body: some View {
+        let normalizedSize = size * mood.sizeNormalization
+
         Image(mood.imageName)
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: size)
+            .frame(width: normalizedSize)
             .offset(y: bounce ? -3 : 3)
             .onAppear {
                 guard animated, !reduceMotion else { return }
