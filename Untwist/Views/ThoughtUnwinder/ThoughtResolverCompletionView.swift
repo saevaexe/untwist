@@ -117,16 +117,18 @@ struct ThoughtResolverCompletionView: View {
             HStack(spacing: 16) {
                 moodColumn(
                     label: String(localized: "completion_mood_before", defaultValue: "Before"),
-                    value: moodBefore
+                    value: moodBefore,
+                    color: Color.twistyOrange
                 )
 
-                Image(systemName: moodDelta > 0 ? "arrow.right" : "arrow.right")
+                Image(systemName: "arrow.right")
                     .font(.title3.weight(.semibold))
                     .foregroundStyle(moodDelta > 0 ? Color.successGreen : Color.twistyOrange)
 
                 moodColumn(
                     label: String(localized: "completion_mood_after", defaultValue: "After"),
-                    value: moodAfter
+                    value: moodAfter,
+                    color: Color.successGreen
                 )
             }
 
@@ -175,7 +177,7 @@ struct ThoughtResolverCompletionView: View {
         .accessibilityLabel(String(localized: "completion_accessibility_mood", defaultValue: "Mood changed from \(moodBefore) to \(moodAfter)"))
     }
 
-    private func moodColumn(label: String, value: Int) -> some View {
+    private func moodColumn(label: String, value: Int, color: Color) -> some View {
         VStack(spacing: 6) {
             Text(label)
                 .font(.caption.weight(.medium))
@@ -183,7 +185,7 @@ struct ThoughtResolverCompletionView: View {
 
             Text("\(value)")
                 .font(.system(size: 36, weight: .bold, design: .rounded))
-                .foregroundStyle(Color.primaryPurple)
+                .foregroundStyle(color)
         }
         .frame(maxWidth: .infinity)
     }

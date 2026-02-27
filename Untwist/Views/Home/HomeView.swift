@@ -209,58 +209,46 @@ struct HomeView: View {
         Button {
             showUnwinding = true
         } label: {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(spacing: 8) {
+            HStack(spacing: 12) {
+                Image(systemName: "bolt.fill")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(.white)
+                    .frame(width: 36, height: 36)
+                    .background(Color.primaryPurple.opacity(0.8), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+
+                VStack(alignment: .leading, spacing: 2) {
                     Text(String(localized: "home_unwinding_now", defaultValue: "Unwinding Now"))
-                        .font(.title3.weight(.bold))
+                        .font(.subheadline.weight(.bold))
                         .foregroundStyle(Color.textPrimary)
-
-                    Spacer()
-
-                    Image(systemName: "bolt.fill")
-                        .font(.caption.weight(.bold))
-                        .foregroundStyle(Color.primaryPurple)
-                        .padding(7)
-                        .background(Color.cardBackground.opacity(0.7), in: Circle())
-                }
-
-                Text(String(localized: "home_unwinding_now_sub", defaultValue: "Feeling overwhelmed?"))
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(Color.textSecondary)
-
-                HStack(spacing: 8) {
-                    TwistyView(mood: .breathing, size: 90, animated: false)
 
                     Text(String(localized: "home_unwinding_now_hint", defaultValue: "A short guided reset in under 2 minutes"))
-                        .font(.footnote.weight(.medium))
-                        .foregroundStyle(Color.textPrimary)
-                        .lineLimit(2)
-
-                    Spacer()
-
-                    Image(systemName: "arrow.right.circle.fill")
-                        .font(.title3)
-                        .foregroundStyle(Color.primaryPurple)
+                        .font(.caption)
+                        .foregroundStyle(Color.textSecondary)
+                        .lineLimit(1)
                 }
+
+                Spacer()
+
+                Image(systemName: "arrow.right.circle.fill")
+                    .font(.title3)
+                    .foregroundStyle(Color.primaryPurple)
             }
             .padding(.horizontal, 14)
-            .padding(.top, 14)
-            .padding(.bottom, 1)
+            .padding(.vertical, 12)
             .background(
-                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(
                         LinearGradient(
-                            colors: [Color.twistyOrange.opacity(0.34), Color.primaryPurple.opacity(0.24)],
+                            colors: [Color.twistyOrange.opacity(0.20), Color.primaryPurple.opacity(0.14)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 24, style: .continuous)
-                    .stroke(Color.primaryPurple.opacity(0.20), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .stroke(Color.primaryPurple.opacity(0.16), lineWidth: 1)
             )
-            .shadow(color: Color.primaryPurple.opacity(0.14), radius: 12, y: 4)
         }
         .buttonStyle(.plain)
     }
@@ -374,35 +362,34 @@ struct HomeActionCard<Destination: View>: View {
         NavigationLink {
             destination()
         } label: {
-            VStack(alignment: .leading, spacing: 8) {
-                Image(systemName: icon)
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(color)
-                    .frame(width: 42, height: 42)
-                    .background(color.opacity(0.12))
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-
-                Text(title)
-                    .font(.headline.weight(.semibold))
-                    .foregroundStyle(Color.textPrimary)
-                    .lineLimit(2)
-
-                Text(subtitle)
-                    .font(.footnote)
-                    .foregroundStyle(Color.textSecondary)
-                    .lineLimit(2)
-
-                Spacer(minLength: 2)
-
+            VStack(alignment: .leading, spacing: 6) {
                 HStack {
-                    Spacer(minLength: 0)
+                    Image(systemName: icon)
+                        .font(.title3.weight(.semibold))
+                        .foregroundStyle(color)
+                        .frame(width: 38, height: 38)
+                        .background(color.opacity(0.12))
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+
+                    Spacer()
+
                     Image(systemName: "arrow.right.circle.fill")
                         .font(.title3)
                         .foregroundStyle(color.opacity(0.9))
                 }
-                .padding(.bottom, 26)
+
+                Text(title)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.textPrimary)
+                    .lineLimit(2)
+
+                Text(subtitle)
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary)
+                    .lineLimit(2)
+                    .frame(minHeight: 32, alignment: .top)
             }
-            .frame(maxWidth: .infinity, minHeight: 148, alignment: .topLeading)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
             .padding(12)
             .background(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
