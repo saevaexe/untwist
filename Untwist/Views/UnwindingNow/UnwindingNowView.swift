@@ -30,7 +30,7 @@ struct UnwindingNowView: View {
         ZStack {
             backgroundLayer
 
-            VStack(spacing: 18) {
+            VStack(spacing: 14) {
                 topBar
                 phaseProgress
 
@@ -62,8 +62,8 @@ struct UnwindingNowView: View {
                 }
             }
             .padding(.horizontal, 20)
-            .padding(.top, 12)
-            .padding(.bottom, 24)
+            .padding(.top, 8)
+            .padding(.bottom, 16)
         }
         .onAppear { startCalming() }
     }
@@ -92,7 +92,7 @@ struct UnwindingNowView: View {
     }
 
     private var topBar: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 10) {
             VStack(alignment: .leading, spacing: 2) {
                 Text(String(localized: "home_unwinding_now", defaultValue: "Unwinding Now"))
                     .font(.headline.weight(.semibold))
@@ -128,8 +128,8 @@ struct UnwindingNowView: View {
         Text(label)
             .font(.caption.weight(.semibold))
             .foregroundStyle(isActive ? Color.cardBackground : Color.textSecondary)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 7)
             .frame(maxWidth: .infinity)
             .background(
                 Capsule(style: .continuous)
@@ -142,7 +142,7 @@ struct UnwindingNowView: View {
     }
 
     private var contentCard: some View {
-        VStack(spacing: 22) {
+        VStack(spacing: 16) {
             switch phase {
             case .calming:
                 calmingView
@@ -153,40 +153,40 @@ struct UnwindingNowView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.horizontal, 22)
-        .padding(.vertical, 28)
+        .padding(.horizontal, 18)
+        .padding(.vertical, 20)
         .background(
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .fill(Color.cardBackground.opacity(0.94))
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .stroke(Color.primaryPurple.opacity(0.16), lineWidth: 1)
         )
-        .shadow(color: .black.opacity(0.12), radius: 18, y: 8)
+        .shadow(color: .black.opacity(0.12), radius: 14, y: 6)
         .animation(.spring(response: 0.42, dampingFraction: 0.84), value: phase)
     }
 
     private var calmingView: some View {
-        VStack(spacing: 16) {
-            TwistyView(mood: .calm, size: 152)
+        VStack(spacing: 12) {
+            TwistyView(mood: .calm, size: 132)
 
             Text(String(localized: "unwind_calming_title", defaultValue: "Let's slow down together"))
-                .font(.title2.weight(.bold))
+                .font(.title3.weight(.bold))
                 .foregroundStyle(Color.textPrimary)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 14)
 
             Text(String(localized: "unwind_calming_sub", defaultValue: "You're safe. We'll move gently, one breath at a time."))
                 .font(.subheadline)
                 .foregroundStyle(Color.textSecondary)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 14)
         }
     }
 
     private var breathingView: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 18) {
             Text(
                 String(
                     format: String(localized: "unwind_breathing_round", defaultValue: "Breath %lld of 3"),
@@ -201,35 +201,35 @@ struct UnwindingNowView: View {
                 ForEach(0..<3, id: \.self) { index in
                     Capsule(style: .continuous)
                         .fill(index < breathCount ? Color.successGreen : Color.successGreen.opacity(0.20))
-                        .frame(width: 32, height: 6)
+                        .frame(width: 28, height: 5)
                 }
             }
 
             ZStack {
                 Circle()
                     .fill(Color.successGreen.opacity(0.15))
-                    .frame(width: 224, height: 224)
+                    .frame(width: 196, height: 196)
 
                 Circle()
                     .fill(Color.successGreen.opacity(0.3))
-                    .frame(width: 224, height: 224)
+                    .frame(width: 196, height: 196)
                     .scaleEffect(circleScale)
 
                 Circle()
                     .stroke(Color.successGreen.opacity(0.38), lineWidth: 1)
-                    .frame(width: 224, height: 224)
+                    .frame(width: 196, height: 196)
                     .scaleEffect(circleScale * 0.72)
 
                 Text(breathPhase.label)
-                    .font(.title2.weight(.medium))
+                    .font(.title3.weight(.medium))
                     .foregroundStyle(Color.textPrimary)
             }
         }
     }
 
     private var redirectView: some View {
-        VStack(spacing: 24) {
-            TwistyView(mood: .celebrating, size: 140)
+        VStack(spacing: 18) {
+            TwistyView(mood: .celebrating, size: 124)
 
             Text(String(localized: "unwind_redirect_title", defaultValue: "You're doing great"))
                 .font(.title2.weight(.semibold))
@@ -242,7 +242,8 @@ struct UnwindingNowView: View {
                     .font(.headline)
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
-                    .padding()
+                    .padding(.vertical, 12)
+                    .padding(.horizontal, 16)
                     .background(
                         LinearGradient(
                             colors: [Color.primaryPurple, Color.secondaryLavender],

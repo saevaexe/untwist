@@ -19,7 +19,7 @@ struct HomeView: View {
                     insightsCard
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 16)
+                .padding(.top, -8)
                 .padding(.bottom, 120)
             }
 
@@ -80,17 +80,7 @@ struct HomeView: View {
         .onChange(of: showThoughtWriter) {
             guard !showThoughtWriter else { return }
         }
-        .navigationTitle(String(localized: "app_name", defaultValue: "Untwist"))
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    LazyView { SettingsView() }
-                } label: {
-                    Image(systemName: "gearshape")
-                        .foregroundStyle(Color.textSecondary)
-                }
-            }
-        }
+        .toolbar(.hidden, for: .navigationBar)
     }
 
     private var backgroundLayer: some View {
@@ -117,9 +107,9 @@ struct HomeView: View {
     }
 
     private var heroSection: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 1) {
             HStack {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 2) {
                     Text(greetingText)
                         .font(.title3.weight(.bold))
                         .foregroundStyle(.white)
@@ -131,20 +121,41 @@ struct HomeView: View {
                         .tracking(0.8)
                 }
                 Spacer()
+
+                NavigationLink {
+                    LazyView { SettingsView() }
+                } label: {
+                    Image(systemName: "gearshape")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(Color.primaryPurple)
+                        .frame(width: 44, height: 44)
+                        .background(.white.opacity(0.88), in: Circle())
+                }
+                .accessibilityLabel(String(localized: "settings_title", defaultValue: "Settings"))
             }
 
-            TwistyView(mood: .happy, size: 100)
+            TwistyView(mood: .happy, size: 116)
+                .offset(y: -12)
 
-            // Quick mood widget
-            HStack(spacing: 12) {
-                quickMoodButton(mood: .sad, label: String(localized: "home_mood_awful", defaultValue: "Awful"), score: 10)
-                quickMoodButton(mood: .neutral, label: String(localized: "home_mood_low", defaultValue: "Low"), score: 30)
-                quickMoodButton(mood: .thinking, label: String(localized: "home_mood_okay", defaultValue: "Okay"), score: 50)
+            Text(String(localized: "home_mood_check_sub", defaultValue: "How are you feeling today?"))
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.white.opacity(0.92))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, -27)
+
+            // Quick mood answer row
+            HStack(spacing: 8) {
+                quickMoodButton(mood: .sad, label: String(localized: "home_mood_awful", defaultValue: "Very Bad"), score: 10)
+                quickMoodButton(mood: .neutral, label: String(localized: "home_mood_low", defaultValue: "Bad"), score: 30)
+                quickMoodButton(mood: .calm, label: String(localized: "home_mood_okay", defaultValue: "Okay"), score: 50)
                 quickMoodButton(mood: .happy, label: String(localized: "home_mood_good", defaultValue: "Good"), score: 70)
                 quickMoodButton(mood: .celebrating, label: String(localized: "home_mood_great", defaultValue: "Great"), score: 90)
             }
+            .padding(.top, -4)
         }
-        .padding(20)
+        .padding(.horizontal, 16)
+        .padding(.top, 5)
+        .padding(.bottom, 9)
         .background(
             RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .fill(
@@ -163,12 +174,12 @@ struct HomeView: View {
             quickMoodScore = Double(score)
             showMoodCheck = true
         } label: {
-            VStack(spacing: 4) {
+            VStack(spacing: 3) {
                 Image(mood.imageName)
                     .resizable()
                     .scaledToFit()
                     .padding(5)
-                    .frame(width: 44, height: 44)
+                    .frame(width: 62, height: 62)
                     .background(.white.opacity(0.20), in: Circle())
 
                 Text(label)
@@ -184,13 +195,13 @@ struct HomeView: View {
         let hour = Calendar.current.component(.hour, from: Date())
         switch hour {
         case 5..<12:
-            return String(localized: "home_greeting_morning", defaultValue: "Good morning!")
+            return String(localized: "home_greeting_morning", defaultValue: "Good Morning!")
         case 12..<17:
-            return String(localized: "home_greeting_afternoon", defaultValue: "Good afternoon!")
+            return String(localized: "home_greeting_afternoon", defaultValue: "Good Afternoon!")
         case 17..<22:
-            return String(localized: "home_greeting_evening", defaultValue: "Good evening!")
+            return String(localized: "home_greeting_evening", defaultValue: "Good Evening!")
         default:
-            return String(localized: "home_greeting_night", defaultValue: "Hey there!")
+            return String(localized: "home_greeting_night", defaultValue: "Good Night!")
         }
     }
 
@@ -198,8 +209,8 @@ struct HomeView: View {
         Button {
             showUnwinding = true
         } label: {
-            VStack(alignment: .leading, spacing: 14) {
-                HStack(spacing: 10) {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(spacing: 8) {
                     Text(String(localized: "home_unwinding_now", defaultValue: "Unwinding Now"))
                         .font(.title3.weight(.bold))
                         .foregroundStyle(Color.textPrimary)
@@ -209,16 +220,16 @@ struct HomeView: View {
                     Image(systemName: "bolt.fill")
                         .font(.caption.weight(.bold))
                         .foregroundStyle(Color.primaryPurple)
-                        .padding(8)
+                        .padding(7)
                         .background(Color.cardBackground.opacity(0.7), in: Circle())
                 }
 
                 Text(String(localized: "home_unwinding_now_sub", defaultValue: "Feeling overwhelmed?"))
-                    .font(.subheadline.weight(.medium))
+                    .font(.footnote.weight(.semibold))
                     .foregroundStyle(Color.textSecondary)
 
-                HStack(spacing: 10) {
-                    TwistyView(mood: .breathing, size: 80, animated: false)
+                HStack(spacing: 8) {
+                    TwistyView(mood: .breathing, size: 90, animated: false)
 
                     Text(String(localized: "home_unwinding_now_hint", defaultValue: "A short guided reset in under 2 minutes"))
                         .font(.footnote.weight(.medium))
@@ -228,11 +239,13 @@ struct HomeView: View {
                     Spacer()
 
                     Image(systemName: "arrow.right.circle.fill")
-                        .font(.title2)
+                        .font(.title3)
                         .foregroundStyle(Color.primaryPurple)
                 }
             }
-            .padding(18)
+            .padding(.horizontal, 14)
+            .padding(.top, 14)
+            .padding(.bottom, 1)
             .background(
                 RoundedRectangle(cornerRadius: 24, style: .continuous)
                     .fill(
@@ -247,7 +260,7 @@ struct HomeView: View {
                 RoundedRectangle(cornerRadius: 24, style: .continuous)
                     .stroke(Color.primaryPurple.opacity(0.20), lineWidth: 1)
             )
-            .shadow(color: Color.primaryPurple.opacity(0.14), radius: 16, y: 6)
+            .shadow(color: Color.primaryPurple.opacity(0.14), radius: 12, y: 4)
         }
         .buttonStyle(.plain)
     }
@@ -266,7 +279,7 @@ struct HomeView: View {
             HomeActionCard(
                 icon: "face.smiling",
                 title: String(localized: "home_mood_check", defaultValue: "Mood Check"),
-                subtitle: String(localized: "home_mood_check_sub", defaultValue: "How are you feeling right now?"),
+                subtitle: String(localized: "home_mood_check_sub", defaultValue: "How are you feeling today?"),
                 color: .primaryPurple
             ) { MoodCheckView() }
 
@@ -361,7 +374,7 @@ struct HomeActionCard<Destination: View>: View {
         NavigationLink {
             destination()
         } label: {
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 8) {
                 Image(systemName: icon)
                     .font(.title3.weight(.semibold))
                     .foregroundStyle(color)
@@ -379,7 +392,7 @@ struct HomeActionCard<Destination: View>: View {
                     .foregroundStyle(Color.textSecondary)
                     .lineLimit(2)
 
-                Spacer(minLength: 0)
+                Spacer(minLength: 2)
 
                 HStack {
                     Spacer(minLength: 0)
@@ -387,9 +400,10 @@ struct HomeActionCard<Destination: View>: View {
                         .font(.title3)
                         .foregroundStyle(color.opacity(0.9))
                 }
+                .padding(.bottom, 26)
             }
-            .frame(maxWidth: .infinity, minHeight: 156, alignment: .topLeading)
-            .padding(16)
+            .frame(maxWidth: .infinity, minHeight: 148, alignment: .topLeading)
+            .padding(12)
             .background(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
                     .fill(Color.cardBackground.opacity(0.96))
