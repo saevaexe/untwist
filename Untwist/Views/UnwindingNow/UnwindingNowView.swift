@@ -6,7 +6,10 @@ struct UnwindingNowView: View {
     @State private var phase: UnwindPhase = .calming
     @State private var breathCount = 0
     @State private var breathPhase: BreathStep = .inhale
-    @State private var circleScale: CGFloat = 0.56
+    @State private var scaleTarget: CGFloat = 0.56
+    @State private var countdown: Int = 4
+    @State private var progress: CGFloat = 1.0
+    @State private var countdownTimer: Timer?
 
     enum UnwindPhase: Int {
         case calming, breathing, redirect
@@ -205,25 +208,14 @@ struct UnwindingNowView: View {
                 }
             }
 
-            ZStack {
-                Circle()
-                    .fill(Color.successGreen.opacity(0.15))
-                    .frame(width: 196, height: 196)
-
-                Circle()
-                    .fill(Color.successGreen.opacity(0.3))
-                    .frame(width: 196, height: 196)
-                    .scaleEffect(circleScale)
-
-                Circle()
-                    .stroke(Color.successGreen.opacity(0.38), lineWidth: 1)
-                    .frame(width: 196, height: 196)
-                    .scaleEffect(circleScale * 0.72)
-
-                Text(breathPhase.label)
-                    .font(.title3.weight(.medium))
-                    .foregroundStyle(Color.textPrimary)
-            }
+            BreathingCircleView(
+                phase: breathingCirclePhase,
+                circleSize: 196,
+                countdown: countdown,
+                progress: progress,
+                scaleTarget: scaleTarget,
+                scaleDuration: reduceMotion ? 0.3 : 4.0
+            )
         }
     }
 
@@ -264,11 +256,36 @@ struct UnwindingNowView: View {
         }
     }
 
+    private var breathingCirclePhase: BreathingCircleView.Phase {
+        switch breathPhase {
+        case .inhale: .inhale
+        case .hold: .hold
+        case .exhale: .exhale
+        }
+    }
+
+    private func startCountdown(seconds: Int) {
+        countdown = seconds
+        progress = 1.0
+        let total = Double(seconds)
+        countdownTimer?.invalidate()
+        countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            if countdown > 1 {
+                countdown -= 1
+                withAnimation { progress = CGFloat(countdown - 1) / CGFloat(total) }
+            } else {
+                countdownTimer?.invalidate()
+                countdown = 0
+                withAnimation { progress = 0 }
+            }
+        }
+    }
+
     private func startCalming() {
         phase = .calming
         breathCount = 0
         breathPhase = .inhale
-        circleScale = 0.56
+        scaleTarget = 0.56
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             guard phase == .calming else { return }
@@ -282,34 +299,36 @@ struct UnwindingNowView: View {
 
         // Inhale
         breathPhase = .inhale
-        let animDuration = reduceMotion ? 0.3 : 4.0
-        withAnimation(.easeInOut(duration: animDuration)) {
-            circleScale = 1.0
-        }
+        scaleTarget = 1.0
+        startCountdown(seconds: 4)
+        BreathingCircleView.triggerHaptic(for: .inhale, reduceMotion: reduceMotion)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             guard phase == .breathing else { return }
 
             // Hold
             breathPhase = .hold
+            startCountdown(seconds: 4)
+            BreathingCircleView.triggerHaptic(for: .hold, reduceMotion: reduceMotion)
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                 guard phase == .breathing else { return }
 
                 // Exhale
                 breathPhase = .exhale
-                let exhaleDuration = reduceMotion ? 0.3 : 4.0
-                withAnimation(.easeInOut(duration: exhaleDuration)) {
-                    circleScale = 0.5
-                }
+                scaleTarget = 0.5
+                startCountdown(seconds: 4)
+                BreathingCircleView.triggerHaptic(for: .exhale, reduceMotion: reduceMotion)
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                     guard phase == .breathing else { return }
 
                     breathCount += 1
+                    countdownTimer?.invalidate()
                     if breathCount >= 3 {
                         withAnimation { phase = .redirect }
                     } else {
+                        BreathingCircleView.triggerRoundCompleteHaptic(reduceMotion: reduceMotion)
                         runBreathCycle()
                     }
                 }
