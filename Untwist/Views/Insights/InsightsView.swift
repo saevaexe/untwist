@@ -258,7 +258,7 @@ struct InsightsView: View {
 
     private var emptyStateView: some View {
         VStack(spacing: 14) {
-            TwistyView(mood: .thinking, size: 140)
+            TwistyView(mood: .thinking, size: 200)
 
             Text(String(localized: "insights_no_data", defaultValue: "Start recording to see your trends"))
                 .font(.subheadline)

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
     @AppStorage("launchThoughtWriterAfterOnboarding") private var launchThoughtWriterAfterOnboarding = false
+    @AppStorage("onboardingDisplayName") private var onboardingDisplayName = ""
     @State private var showUnwinding = false
     @State private var showThoughtWriter = false
     @State private var showCrisis = false
@@ -114,11 +115,18 @@ struct HomeView: View {
                         .font(.title3.weight(.bold))
                         .foregroundStyle(.white)
 
+                    if let displayName {
+                        Text(displayName)
+                            .font(.title3.weight(.semibold))
+                            .foregroundStyle(.white.opacity(0.92))
+                    }
+
                     Text(todayLabel)
                         .font(.caption.weight(.medium))
                         .foregroundStyle(.white.opacity(0.75))
                         .textCase(.uppercase)
                         .tracking(0.8)
+                        .padding(.top, 3)
                 }
                 Spacer()
 
@@ -196,9 +204,9 @@ struct HomeView: View {
         switch hour {
         case 5..<12:
             return String(localized: "home_greeting_morning", defaultValue: "Good Morning!")
-        case 12..<17:
+        case 12..<18:
             return String(localized: "home_greeting_afternoon", defaultValue: "Good Afternoon!")
-        case 17..<22:
+        case 18..<22:
             return String(localized: "home_greeting_evening", defaultValue: "Good Evening!")
         default:
             return String(localized: "home_greeting_night", defaultValue: "Good Night!")
@@ -224,7 +232,8 @@ struct HomeView: View {
                     Text(String(localized: "home_unwinding_now_hint", defaultValue: "A short guided reset in under 2 minutes"))
                         .font(.caption)
                         .foregroundStyle(Color.textSecondary)
-                        .lineLimit(1)
+                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
 
                 Spacer()
@@ -339,6 +348,11 @@ struct HomeView: View {
         let formatter = DateFormatter()
         formatter.setLocalizedDateFormatFromTemplate("EEE d MMM")
         return formatter.string(from: Date())
+    }
+
+    private var displayName: String? {
+        let trimmed = onboardingDisplayName.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
     }
 
     private var gridColumns: [GridItem] {
