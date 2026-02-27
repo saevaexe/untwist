@@ -1,4 +1,5 @@
 # Xcode
+.DerivedData/
 *.xcodeproj/xcuserdata/
 *.xcworkspace/xcuserdata/
 DerivedData/
@@ -15,6 +16,21 @@ build/
 
 # Generated
 *.xcodeproj
+
+# Temporary
+tmp/
+AppStore/tmp/
+
+# Iteration screenshots (keep only final previews + named source shots)
+AppStore/screenshots/Simulator Screenshot*
+AppStore/screenshots/shot_test_*
+AppStore/screenshots/home_*
+!AppStore/screenshots/home_tr.png
+AppStore/screenshots/launch_*
+AppStore/screenshots/healthcheck*
+AppStore/screenshots/trap*
+AppStore/screenshots/traps*
+AppStore/screenshots/twisty_breathing_*
 
 # macOS
 .DS_Store

@@ -379,7 +379,7 @@ struct HomeActionCard<Destination: View>: View {
 
     var body: some View {
         NavigationLink {
-            destination()
+            LazyView { destination() }
         } label: {
             VStack(alignment: .leading, spacing: 6) {
                 HStack {

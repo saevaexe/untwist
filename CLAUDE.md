@@ -7,8 +7,8 @@ Mascot: Twisty (yarn ball character, level 2.5 — present but not dominant).
 ## Architecture
 - SwiftUI + MVVM + SwiftData + @Observable, iOS 17+
 - Localization: TR + EN via Localizable.xcstrings
-- Subscription: TBD (StoreKit 2 or RevenueCat)
-- AI: None — on-device rule-based analysis only, no cloud API
+- Subscription: RevenueCat (cross-platform, Android planned)
+- AI: Hybrid — free: on-device rule-based, premium: Claude Haiku API (opt-in only)
 - Analytics: Apple Analytics only — zero 3rd party SDKs
 - Data: 100% on-device (SwiftData). No server. No cloud unless user opts into iCloud sync.
 
@@ -93,13 +93,38 @@ Mascot: Twisty (yarn ball character, level 2.5 — present but not dominant).
 - Crisis detection: same engine, separate method, HIGH threshold — only clear crisis language
 - No context analysis — accepts false positives as trade-off for no AI dependency
 
-## Post-MVP (v1.1+)
-- Progress / statistics graphs
-- Activity Forecast
-- Pros & Cons analysis
-- Paywall / subscription
+## Post-MVP Roadmap
+
+### v1.1 — AI Reframe + Paywall (NEXT)
+- **RevenueCat:** $4.99/mo, $39.99/yr, 3 gün trial, TR bölgesel fiyat
+- **Entitlement:** `"pro"`
+- **Hybrid AI Reframe:**
+  - Free → on-device şablon öneriler (trap'e göre 3-5 hazır alternatif düşünce, TR+EN)
+  - Premium → Claude Haiku API kişisel öneriler (opt-in, privacy consent gerekli)
+- **UI:** Thought Unwinder Step 4'e "Öneri al" butonu, free→şablon, premium→AI, non-premium→paywall gate
+- **Gating:** `feature.isPremium && !subscriptionManager.hasFullAccess`
+- **Privacy policy güncelleme:** "Data Not Collected" → "Data Used to Provide the App" (AI opt-in)
+- **Yeni dosyalar:**
+  - `App/SubscriptionManager.swift` — @Observable, hasFullAccess, isSubscribed (SPCTools pattern)
+  - `Views/Subscription/PaywallView.swift` — custom SwiftUI (SPCTools PaywallWrapperView referans)
+  - `Engines/ReframeSuggestionEngine.swift` — on-device şablon öneriler
+  - `Services/AIReframeService.swift` — Claude Haiku API servisi
+- **Değişen dosyalar:** ThoughtUnwinderView (Step 4 AI butonu), UntwistApp (RevenueCat init), docs/privacy.html
+- **Referans:** SPCTools SubscriptionManager + PaywallWrapperView
+
+### v1.2 — Gelişmiş İstatistik + Sync
+- Haftalık/aylık rapor, PDF export
+- Trap Mastery profili (en çok düşülen 3 tuzak + ilerleme)
 - iCloud Sync
-- Advanced notifications (insight-based)
+- Ekstra nefes teknikleri (Box breathing, 4-4-4)
+- Özelleştirilebilir bildirimler
+
+### v1.3 — Programlar + İleri Özellikler
+- Yapılandırılmış 4 haftalık CBT programları (Sosyal Kaygı, Mükemmeliyetçilik, Öfke Yönetimi)
+- Therapist export (PDF)
+- Günlük CBT mikro dersleri
+- Twisty kişiselleştirme (renkler/kostümler)
+- Android portu (Kotlin + Jetpack Compose)
 
 ## Color Palette
 - **Primary:** #7C6BC4 (soft purple), dark mode #9B8FD8
@@ -126,6 +151,6 @@ Mascot: Twisty (yarn ball character, level 2.5 — present but not dominant).
 - Do NOT store sensitive data in UserDefaults — SwiftData only
 - Do NOT skip disclaimer screens — App Store will reject
 - Do NOT use "Reframe" anywhere — name is taken
-- Do NOT send thought content to any server, ever
+- Do NOT send thought content to any server WITHOUT explicit user opt-in (AI Reframe only, premium, consent required)
 - Do NOT use 3rd party analytics/crash SDKs — Apple only
 - Do NOT make medical claims in App Store description or in-app copy
