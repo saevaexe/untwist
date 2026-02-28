@@ -257,19 +257,13 @@ struct ThoughtResolverCompletionView: View {
                     .foregroundStyle(Color.twistyOrange)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    if currentStreak == 1 {
-                        Text(String(localized: "completion_streak_first", defaultValue: "First entry — the journey begins!"))
-                            .font(.subheadline.weight(.bold))
-                            .foregroundStyle(.white)
-                    } else {
-                        Text(String(
-                            format: String(localized: "completion_streak", defaultValue: "%lld day streak"),
-                            locale: Locale.current,
-                            Int64(currentStreak)
-                        ))
-                        .font(.subheadline.weight(.bold))
-                        .foregroundStyle(.white)
-                    }
+                    Text(String(
+                        format: String(localized: "completion_streak", defaultValue: "%lld day streak"),
+                        locale: Locale.current,
+                        Int64(currentStreak)
+                    ))
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(.white)
 
                     Text(String(localized: "completion_streak_today", defaultValue: "Completed today"))
                         .font(.caption2)

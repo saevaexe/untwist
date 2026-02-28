@@ -1275,7 +1275,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "İyi geceler!"
+            "value" : "İyi Geceler!"
           }
         }
       }
@@ -5760,6 +5760,502 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"İyi bir ebeveyn asla sabrını kaybetmemeli.\""
+          }
+        }
+      }
+    },
+    "trap_spot_all_or_nothing" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch for words like \"always\" or \"never.\" If you only see two options, this trap may be active."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"Hep\" veya \"asla\" gibi kelimelere dikkat et. Sadece iki seçenek görüyorsan bu tuzak aktif olabilir."
+          }
+        }
+      }
+    },
+    "trap_spot_disqualifying_positive" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notice if you're explaining away compliments or good outcomes with \"but\" or \"that doesn't count.\""
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İltifatları veya iyi sonuçları \"ama\" ya da \"bu sayılmaz\" diyerek geçiştirip geçiştirmediğine dikkat et."
+          }
+        }
+      }
+    },
+    "trap_spot_emotional_reasoning" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ask: am I treating a feeling as proof? \"I feel it, so it must be true\" is a clue."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sor: bir duyguyu kanıt olarak mı kullanıyorum? \"Hissediyorum, o hâlde doğru olmalı\" bir ipucu."
+          }
+        }
+      }
+    },
+    "trap_spot_jumping_conclusions" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you assuming what others think or predicting the future without real evidence?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başkalarının ne düşündüğünü varsayıyor ya da kanıt olmadan geleceği tahmin ediyor olabilir misin?"
+          }
+        }
+      }
+    },
+    "trap_spot_labeling" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you calling yourself a name instead of describing what happened? \"I'm a failure\" vs. \"I made a mistake.\""
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Olanı anlatmak yerine kendine etiket mi takıyorsun? \"Ben başarısızım\" yerine \"Bir hata yaptım.\""
+          }
+        }
+      }
+    },
+    "trap_spot_magnification" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check if you're making a small problem feel enormous, or shrinking something positive."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Küçük bir sorunu devasa mi yapıyorsun, ya da olumlu bir şeyi küçümsüyor olabilir misin?"
+          }
+        }
+      }
+    },
+    "trap_spot_mental_filter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ask yourself: am I ignoring positive details and focusing only on the negative?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kendine sor: olumlu detayları görmezden gelip sadece olumsuzlara mı odaklanıyorum?"
+          }
+        }
+      }
+    },
+    "trap_spot_overgeneralization" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notice phrases like \"every time\" or \"nothing ever.\" One event is being turned into a universal rule."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"Her seferinde\" veya \"hiçbir zaman\" gibi ifadelere dikkat et. Tek bir olay genel bir kurala dönüştürülüyor."
+          }
+        }
+      }
+    },
+    "trap_spot_personalization" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check if you're taking responsibility for something that isn't entirely in your control."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tamamen senin kontrolünde olmayan bir şeyin sorumluluğunu üstlenip üstlenmediğini kontrol et."
+          }
+        }
+      }
+    },
+    "trap_spot_should_statements" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listen for \"should,\" \"must,\" or \"have to.\" These rigid rules create unnecessary pressure."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"Yapmalıyım\", \"zorundayım\" veya \"etmeliyim\" ifadelerine dikkat et. Bu katı kurallar gereksiz baskı yaratır."
+          }
+        }
+      }
+    },
+    "reframe_all_or_nothing_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maybe there's a middle ground between perfect and failure..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Belki mükemmel ile başarısızlık arasında bir orta yol vardır..."
+          }
+        }
+      }
+    },
+    "reframe_all_or_nothing_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Progress matters, even if the result isn't flawless..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sonuç kusursuz olmasa bile ilerleme önemlidir..."
+          }
+        }
+      }
+    },
+    "reframe_disqualifying_positive_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What if this compliment or success is genuine?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya bu iltifat veya başarı gerçekten samimiyse?"
+          }
+        }
+      }
+    },
+    "reframe_disqualifying_positive_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good things can happen because I deserve them..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İyi şeyler hak ettiğim için de olabilir..."
+          }
+        }
+      }
+    },
+    "reframe_emotional_reasoning_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feelings aren't facts — what does the evidence actually say?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duygular gerçek değildir — kanıtlar aslında ne söylüyor?"
+          }
+        }
+      }
+    },
+    "reframe_emotional_reasoning_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I feel this way, but that doesn't make it true..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Böyle hissediyorum ama bu onu gerçek yapmaz..."
+          }
+        }
+      }
+    },
+    "reframe_jumping_conclusions_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I don't actually know what they're thinking..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aslında ne düşündüklerini bilmiyorum..."
+          }
+        }
+      }
+    },
+    "reframe_jumping_conclusions_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There could be many explanations I haven't considered..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Düşünmediğim birçok açıklama olabilir..."
+          }
+        }
+      }
+    },
+    "reframe_labeling_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One action doesn't define who I am..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tek bir davranış kim olduğumu tanımlamaz..."
+          }
+        }
+      }
+    },
+    "reframe_labeling_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I made a mistake — that's different from being a mistake..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir hata yaptım — bu hata olmaktan farklı..."
+          }
+        }
+      }
+    },
+    "reframe_magnification_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How big will this feel in a week? A month?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir hafta sonra bu ne kadar büyük hissedilecek? Bir ay sonra?"
+          }
+        }
+      }
+    },
+    "reframe_magnification_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I'm making this bigger than it really is..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bunu olduğundan büyük yapıyorum..."
+          }
+        }
+      }
+    },
+    "reframe_mental_filter_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What positive details am I overlooking right now?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şu an hangi olumlu detayları gözden kaçırıyorum?"
+          }
+        }
+      }
+    },
+    "reframe_mental_filter_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The full picture includes both good and bad parts..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Büyük resim hem iyi hem kötü yanları içerir..."
+          }
+        }
+      }
+    },
+    "reframe_overgeneralization_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is one situation, not a pattern that defines everything..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu tek bir durum, her şeyi tanımlayan bir kalıp değil..."
+          }
+        }
+      }
+    },
+    "reframe_overgeneralization_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One event doesn't determine the future..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tek bir olay geleceği belirlemez..."
+          }
+        }
+      }
+    },
+    "reframe_personalization_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Many factors contributed to this, not just me..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buna birçok faktör katkıda bulundu, sadece ben değil..."
+          }
+        }
+      }
+    },
+    "reframe_personalization_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I'm only responsible for what's within my control..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sadece kontrolüm dahilindeki şeylerden sorumluyum..."
+          }
+        }
+      }
+    },
+    "reframe_should_statements_1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It would be nice, but it's not a requirement..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Güzel olurdu ama bu bir zorunluluk değil..."
+          }
+        }
+      }
+    },
+    "reframe_should_statements_2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I can prefer this without demanding it of myself..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bunu kendimden talep etmeden tercih edebilirim..."
+          }
+        }
+      }
+    },
+    "unwinder_reframe_inspire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get inspired:"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlham al:"
           }
         }
       }

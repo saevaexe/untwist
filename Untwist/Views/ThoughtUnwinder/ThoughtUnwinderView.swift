@@ -59,16 +59,8 @@ struct ThoughtUnwinderView: View {
             UserDefaults.standard.set(nextIndex, forKey: "lastPlaceholderIndex")
             placeholderSet = sets[nextIndex]
         }
-        .onChange(of: step) { oldStep, newStep in
+        .onChange(of: step) {
             isTextFieldFocused = false
-            if newStep > oldStep {
-                let canAdvance: Bool = switch oldStep {
-                case 0: !event.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                case 1: !automaticThought.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                default: true
-                }
-                if !canAdvance { step = oldStep }
-            }
         }
         .sheet(isPresented: $showTip) {
             unwinderTipSheet
@@ -315,8 +307,10 @@ struct ThoughtUnwinderView: View {
     // MARK: - Step 3
 
     private var reframeChips: [String] {
-        let traps = Array(selectedTraps.prefix(3))
-        return traps.map { $0.reframeSuggestions.first ?? "" }.filter { !$0.isEmpty }
+        let chips = Array(selectedTraps.prefix(3))
+            .map { $0.reframeSuggestions.first ?? "" }
+            .filter { !$0.isEmpty }
+        return chips.sorted { $0.count < $1.count }
     }
 
     private var suggestedTraps: [ThoughtTrapType] {
@@ -465,14 +459,16 @@ struct ThoughtUnwinderView: View {
                                 .foregroundStyle(Color.textSecondary)
                         }
 
-                        FlowLayout(spacing: 8) {
-                            ForEach(reframeChips, id: \.self) { chip in
+                        VStack(spacing: 8) {
+                            ForEach(Array(reframeChips.enumerated()), id: \.element) { index, chip in
                                 Button {
                                     alternativeThought = chip
                                 } label: {
                                     Text(chip)
                                         .font(.caption)
                                         .foregroundStyle(Color.primaryPurple)
+                                        .lineLimit(index < reframeChips.count - 1 ? 1 : nil)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                         .padding(.horizontal, 12)
                                         .padding(.vertical, 8)
                                         .background(Color.primaryPurple.opacity(0.08), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
