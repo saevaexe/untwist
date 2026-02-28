@@ -139,6 +139,76 @@ enum ThoughtTrapType: String, Codable, CaseIterable, Identifiable {
         examples.first ?? ""
     }
 
+    var howToSpot: String {
+        switch self {
+        case .allOrNothing:
+            String(localized: "trap_spot_all_or_nothing", defaultValue: "Watch for words like \"always\" or \"never.\" If you only see two options, this trap may be active.")
+        case .overgeneralization:
+            String(localized: "trap_spot_overgeneralization", defaultValue: "Notice phrases like \"every time\" or \"nothing ever.\" One event is being turned into a universal rule.")
+        case .mentalFilter:
+            String(localized: "trap_spot_mental_filter", defaultValue: "Ask yourself: am I ignoring positive details and focusing only on the negative?")
+        case .disqualifyingPositive:
+            String(localized: "trap_spot_disqualifying_positive", defaultValue: "Notice if you're explaining away compliments or good outcomes with \"but\" or \"that doesn't count.\"")
+        case .jumpingToConclusions:
+            String(localized: "trap_spot_jumping_conclusions", defaultValue: "Are you assuming what others think or predicting the future without real evidence?")
+        case .magnification:
+            String(localized: "trap_spot_magnification", defaultValue: "Check if you're making a small problem feel enormous, or shrinking something positive.")
+        case .emotionalReasoning:
+            String(localized: "trap_spot_emotional_reasoning", defaultValue: "Ask: am I treating a feeling as proof? \"I feel it, so it must be true\" is a clue.")
+        case .shouldStatements:
+            String(localized: "trap_spot_should_statements", defaultValue: "Listen for \"should,\" \"must,\" or \"have to.\" These rigid rules create unnecessary pressure.")
+        case .labeling:
+            String(localized: "trap_spot_labeling", defaultValue: "Are you calling yourself a name instead of describing what happened? \"I'm a failure\" vs. \"I made a mistake.\"")
+        case .personalization:
+            String(localized: "trap_spot_personalization", defaultValue: "Check if you're taking responsibility for something that isn't entirely in your control.")
+        }
+    }
+
+    var reframeSuggestions: [String] {
+        switch self {
+        case .allOrNothing: [
+            String(localized: "reframe_all_or_nothing_1", defaultValue: "Maybe there's a middle ground between perfect and failure..."),
+            String(localized: "reframe_all_or_nothing_2", defaultValue: "Progress matters, even if the result isn't flawless...")
+        ]
+        case .overgeneralization: [
+            String(localized: "reframe_overgeneralization_1", defaultValue: "This is one situation, not a pattern that defines everything..."),
+            String(localized: "reframe_overgeneralization_2", defaultValue: "One event doesn't determine the future...")
+        ]
+        case .mentalFilter: [
+            String(localized: "reframe_mental_filter_1", defaultValue: "What positive details am I overlooking right now?"),
+            String(localized: "reframe_mental_filter_2", defaultValue: "The full picture includes both good and bad parts...")
+        ]
+        case .disqualifyingPositive: [
+            String(localized: "reframe_disqualifying_positive_1", defaultValue: "What if this compliment or success is genuine?"),
+            String(localized: "reframe_disqualifying_positive_2", defaultValue: "Good things can happen because I deserve them...")
+        ]
+        case .jumpingToConclusions: [
+            String(localized: "reframe_jumping_conclusions_1", defaultValue: "I don't actually know what they're thinking..."),
+            String(localized: "reframe_jumping_conclusions_2", defaultValue: "There could be many explanations I haven't considered...")
+        ]
+        case .magnification: [
+            String(localized: "reframe_magnification_1", defaultValue: "How big will this feel in a week? A month?"),
+            String(localized: "reframe_magnification_2", defaultValue: "I'm making this bigger than it really is...")
+        ]
+        case .emotionalReasoning: [
+            String(localized: "reframe_emotional_reasoning_1", defaultValue: "Feelings aren't facts — what does the evidence actually say?"),
+            String(localized: "reframe_emotional_reasoning_2", defaultValue: "I feel this way, but that doesn't make it true...")
+        ]
+        case .shouldStatements: [
+            String(localized: "reframe_should_statements_1", defaultValue: "It would be nice, but it's not a requirement..."),
+            String(localized: "reframe_should_statements_2", defaultValue: "I can prefer this without demanding it of myself...")
+        ]
+        case .labeling: [
+            String(localized: "reframe_labeling_1", defaultValue: "One action doesn't define who I am..."),
+            String(localized: "reframe_labeling_2", defaultValue: "I made a mistake — that's different from being a mistake...")
+        ]
+        case .personalization: [
+            String(localized: "reframe_personalization_1", defaultValue: "Many factors contributed to this, not just me..."),
+            String(localized: "reframe_personalization_2", defaultValue: "I'm only responsible for what's within my control...")
+        ]
+        }
+    }
+
     /// Keywords for rule-based trap detection (EN)
     var keywordsEN: [String] {
         switch self {

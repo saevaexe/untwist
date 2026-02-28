@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(SubscriptionManager.self) private var subscriptionManager
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @AppStorage("onboardingFlowVersion") private var onboardingFlowVersion = 0
     @AppStorage("preferredTheme") private var preferredTheme = 0
@@ -34,5 +35,6 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(SubscriptionManager.shared)
         .modelContainer(for: [MoodEntry.self, ThoughtRecord.self, BreathingSession.self], inMemory: true)
 }

@@ -7,6 +7,7 @@ struct InsightsView: View {
     @Query private var thoughtRecords: [ThoughtRecord]
     @Query private var breathingSessions: [BreathingSession]
 
+    @AppStorage("rc_insights_viewed") private var hasTrackedInsights = false
     @State private var selectedPeriod = 1 // 0=7d, 1=month, 2=all
 
     private enum Period: Int, CaseIterable {
@@ -293,6 +294,12 @@ struct InsightsView: View {
         }
         .navigationTitle(String(localized: "insights_title", defaultValue: "Insights"))
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if !hasTrackedInsights {
+                AnalyticsManager.trackMilestone(.insightsViewed)
+                hasTrackedInsights = true
+            }
+        }
     }
 
     // MARK: - Period Tabs

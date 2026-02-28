@@ -4,6 +4,7 @@ import SwiftData
 struct ThoughtUnwinderView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @AppStorage("rc_first_thought") private var hasTrackedFirstThought = false
     @State private var step = 0
     @State private var event = ""
     @State private var automaticThought = ""
@@ -58,8 +59,16 @@ struct ThoughtUnwinderView: View {
             UserDefaults.standard.set(nextIndex, forKey: "lastPlaceholderIndex")
             placeholderSet = sets[nextIndex]
         }
-        .onChange(of: step) {
+        .onChange(of: step) { oldStep, newStep in
             isTextFieldFocused = false
+            if newStep > oldStep {
+                let canAdvance: Bool = switch oldStep {
+                case 0: !event.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                case 1: !automaticThought.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                default: true
+                }
+                if !canAdvance { step = oldStep }
+            }
         }
         .sheet(isPresented: $showTip) {
             unwinderTipSheet
@@ -305,6 +314,11 @@ struct ThoughtUnwinderView: View {
 
     // MARK: - Step 3
 
+    private var reframeChips: [String] {
+        let traps = Array(selectedTraps.prefix(3))
+        return traps.map { $0.reframeSuggestions.first ?? "" }.filter { !$0.isEmpty }
+    }
+
     private var suggestedTraps: [ThoughtTrapType] {
         suggestions.map(\.trap)
     }
@@ -363,44 +377,63 @@ struct ThoughtUnwinderView: View {
     }
 
     private func trapSelectionRow(_ trap: ThoughtTrapType, isSuggested: Bool) -> some View {
-        Button {
-            if selectedTraps.contains(trap) {
-                selectedTraps.remove(trap)
-            } else {
-                selectedTraps.insert(trap)
+        let isSelected = selectedTraps.contains(trap)
+        return Button {
+            withAnimation(.easeInOut(duration: 0.25)) {
+                if isSelected {
+                    selectedTraps.remove(trap)
+                } else {
+                    selectedTraps.insert(trap)
+                }
             }
         } label: {
-            HStack(spacing: 12) {
-                Image(trap.imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 36, height: 36)
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(spacing: 12) {
+                    Image(trap.imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 36, height: 36)
 
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(trap.name)
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Color.textPrimary)
-                    Text(trap.description)
-                        .font(.caption2)
-                        .foregroundStyle(Color.textSecondary)
-                        .lineLimit(2)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(trap.name)
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Color.textPrimary)
+                        Text(trap.description)
+                            .font(.caption2)
+                            .foregroundStyle(Color.textSecondary)
+                            .lineLimit(2)
+                    }
+
+                    Spacer(minLength: 0)
+
+                    Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                        .font(.title3)
+                        .foregroundStyle(isSelected ? Color.primaryPurple : Color.textSecondary.opacity(0.5))
                 }
 
-                Spacer(minLength: 0)
-
-                Image(systemName: selectedTraps.contains(trap) ? "checkmark.circle.fill" : "circle")
-                    .font(.title3)
-                    .foregroundStyle(selectedTraps.contains(trap) ? Color.primaryPurple : Color.textSecondary.opacity(0.5))
+                if isSelected {
+                    HStack(alignment: .top, spacing: 6) {
+                        Image(systemName: "lightbulb.fill")
+                            .font(.caption2)
+                            .foregroundStyle(Color.twistyOrange)
+                        Text(trap.howToSpot)
+                            .font(.caption2)
+                            .foregroundStyle(Color.textSecondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .padding(.top, 10)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+                }
             }
             .padding(12)
             .background(
                 RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .fill(selectedTraps.contains(trap) ? Color.primaryPurple.opacity(0.08) : Color.appBackground.opacity(0.92))
+                    .fill(isSelected ? Color.primaryPurple.opacity(0.08) : Color.appBackground.opacity(0.92))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 14, style: .continuous)
                     .stroke(
-                        selectedTraps.contains(trap) ? Color.primaryPurple.opacity(0.30) :
+                        isSelected ? Color.primaryPurple.opacity(0.30) :
                             (isSuggested ? Color.primaryPurple.opacity(0.20) : Color.clear),
                         lineWidth: 1
                     )
@@ -420,6 +453,39 @@ struct ThoughtUnwinderView: View {
                 Text(String(localized: "unwinder_step4_title", defaultValue: "What's another way to see this?"))
                     .font(.title2.weight(.semibold))
                     .foregroundStyle(Color.textPrimary)
+
+                if !reframeChips.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "lightbulb.fill")
+                                .font(.caption2)
+                                .foregroundStyle(Color.twistyOrange)
+                            Text(String(localized: "unwinder_reframe_inspire", defaultValue: "Get inspired:"))
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(Color.textSecondary)
+                        }
+
+                        FlowLayout(spacing: 8) {
+                            ForEach(reframeChips, id: \.self) { chip in
+                                Button {
+                                    alternativeThought = chip
+                                } label: {
+                                    Text(chip)
+                                        .font(.caption)
+                                        .foregroundStyle(Color.primaryPurple)
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 8)
+                                        .background(Color.primaryPurple.opacity(0.08), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                                .stroke(Color.primaryPurple.opacity(0.20), lineWidth: 1)
+                                        )
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                    }
+                }
 
                 styledInputField(
                     placeholder: placeholderSet.alternative,
@@ -524,6 +590,12 @@ struct ThoughtUnwinderView: View {
             alternativeThought: alternativeThought
         )
         modelContext.insert(record)
+
+        if !hasTrackedFirstThought {
+            AnalyticsManager.trackMilestone(.firstThoughtRecord)
+            hasTrackedFirstThought = true
+        }
+
         showCompletion = true
     }
 }
@@ -550,6 +622,48 @@ private struct PlaceholderSet {
             alternative: String(localized: "unwinder_alternative_placeholder_3", defaultValue: "e.g., One argument doesn't mean we can't work it out")
         )
     ]
+}
+
+private struct FlowLayout: Layout {
+    var spacing: CGFloat = 8
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let maxWidth = proposal.width ?? .infinity
+        var currentX: CGFloat = 0
+        var currentY: CGFloat = 0
+        var rowHeight: CGFloat = 0
+
+        for subview in subviews {
+            let size = subview.sizeThatFits(.unspecified)
+            if currentX + size.width > maxWidth, currentX > 0 {
+                currentY += rowHeight + spacing
+                currentX = 0
+                rowHeight = 0
+            }
+            currentX += size.width + spacing
+            rowHeight = max(rowHeight, size.height)
+        }
+
+        return CGSize(width: maxWidth, height: currentY + rowHeight)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        var currentX: CGFloat = bounds.minX
+        var currentY: CGFloat = bounds.minY
+        var rowHeight: CGFloat = 0
+
+        for subview in subviews {
+            let size = subview.sizeThatFits(.unspecified)
+            if currentX + size.width > bounds.maxX, currentX > bounds.minX {
+                currentY += rowHeight + spacing
+                currentX = bounds.minX
+                rowHeight = 0
+            }
+            subview.place(at: CGPoint(x: currentX, y: currentY), proposal: .unspecified)
+            currentX += size.width + spacing
+            rowHeight = max(rowHeight, size.height)
+        }
+    }
 }
 
 #Preview {

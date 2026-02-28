@@ -6,6 +6,11 @@ options:
   xcodeVersion: "16.0"
   generateEmptyDirectories: true
 
+packages:
+  RevenueCat:
+    url: https://github.com/RevenueCat/purchases-ios-spm.git
+    majorVersion: 5.0.0
+
 settings:
   base:
     PRODUCT_NAME: "$(TARGET_NAME)"
@@ -22,6 +27,11 @@ targets:
     platform: iOS
     sources:
       - path: Untwist
+    dependencies:
+      - package: RevenueCat
+        product: RevenueCat
+      - package: RevenueCat
+        product: RevenueCatUI
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.osmanseven.untwist
