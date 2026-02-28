@@ -154,9 +154,6 @@ struct CrisisView: View {
                     }
                 }
             }
-            .onAppear {
-                AnalyticsManager.trackMilestone(.crisisScreenOpened)
-            }
         }
     }
 

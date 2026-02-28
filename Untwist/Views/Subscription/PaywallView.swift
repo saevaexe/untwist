@@ -103,7 +103,7 @@ struct PaywallView: View {
 
     private var headerSection: some View {
         VStack(spacing: 12) {
-            TwistyView(mood: .waving, size: 100)
+            TwistyView(mood: .waving, size: 160)
 
             Text(String(localized: "paywall_title", defaultValue: "Unlock Untwist Pro"))
                 .font(.title2.bold())
@@ -125,16 +125,19 @@ struct PaywallView: View {
             featureRow(
                 icon: "sparkles",
                 text: String(localized: "paywall_feature_ai", defaultValue: "AI-powered reframe suggestions"),
+                subtitle: String(localized: "paywall_feature_ai_sub", defaultValue: "Personalized alternatives for your thoughts"),
                 tint: .primaryPurple
             )
             featureRow(
                 icon: "infinity",
                 text: String(localized: "paywall_feature_unlimited", defaultValue: "Unlimited thought records"),
+                subtitle: String(localized: "paywall_feature_unlimited_sub", defaultValue: "No daily limits on journaling"),
                 tint: .successGreen
             )
             featureRow(
                 icon: "star.fill",
                 text: String(localized: "paywall_feature_priority", defaultValue: "Priority access to new features"),
+                subtitle: String(localized: "paywall_feature_priority_sub", defaultValue: "Be the first to try what's next"),
                 tint: .twistyOrange
             )
         }
@@ -149,7 +152,7 @@ struct PaywallView: View {
         )
     }
 
-    private func featureRow(icon: String, text: String, tint: Color) -> some View {
+    private func featureRow(icon: String, text: String, subtitle: String, tint: Color) -> some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.subheadline.weight(.semibold))
@@ -157,9 +160,15 @@ struct PaywallView: View {
                 .frame(width: 32, height: 32)
                 .background(tint.opacity(0.14), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
 
-            Text(text)
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(Color.textPrimary)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(text)
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(Color.textPrimary)
+
+                Text(subtitle)
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary)
+            }
         }
     }
 
@@ -206,6 +215,12 @@ struct PaywallView: View {
                 Text(period)
                     .font(.caption)
                     .foregroundStyle(Color.textSecondary)
+
+                if isYearly, let perDay = perDayPrice {
+                    Text(perDay)
+                        .font(.caption2.weight(.medium))
+                        .foregroundStyle(Color.successGreen)
+                }
             }
             .frame(maxWidth: .infinity, minHeight: 110)
             .padding()
@@ -241,43 +256,49 @@ struct PaywallView: View {
     // MARK: - Purchase Button
 
     private var purchaseButton: some View {
-        Button {
-            Task { await purchase() }
-        } label: {
-            VStack(spacing: 4) {
-                Group {
-                    if isPurchasing {
-                        ProgressView()
-                            .tint(.white)
-                    } else {
-                        Text(String(localized: "paywall_cta", defaultValue: "Start Free Trial"))
+        VStack(spacing: 8) {
+            Button {
+                Task { await purchase() }
+            } label: {
+                VStack(spacing: 4) {
+                    Group {
+                        if isPurchasing {
+                            ProgressView()
+                                .tint(.white)
+                        } else {
+                            Text(String(localized: "paywall_cta", defaultValue: "Start Free Trial"))
+                        }
+                    }
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+
+                    if !isPurchasing {
+                        Text(String(localized: "paywall_trial_detail", defaultValue: "3-day free trial, then auto-renews"))
+                            .font(.caption)
+                            .foregroundStyle(.white.opacity(0.88))
                     }
                 }
-                .font(.headline)
                 .frame(maxWidth: .infinity)
-
-                if !isPurchasing {
-                    Text(String(localized: "paywall_trial_detail", defaultValue: "3-day free trial, then auto-renews"))
-                        .font(.caption)
-                        .foregroundStyle(.white.opacity(0.88))
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
-            .padding(.horizontal, 24)
-            .background(
-                LinearGradient(
-                    colors: [Color.primaryPurple, Color.primaryPurple.opacity(0.85)],
-                    startPoint: .leading,
-                    endPoint: .trailing
+                .padding(.vertical, 16)
+                .padding(.horizontal, 24)
+                .background(
+                    LinearGradient(
+                        colors: [Color.primaryPurple, Color.primaryPurple.opacity(0.85)],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
                 )
-            )
-            .foregroundStyle(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .shadow(color: Color.primaryPurple.opacity(0.30), radius: 10, y: 4)
+                .foregroundStyle(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .shadow(color: Color.primaryPurple.opacity(0.30), radius: 10, y: 4)
+            }
+            .disabled(isPurchasing || selectedPackage == nil)
+            .opacity(selectedPackage == nil ? 0.6 : 1.0)
+
+            Text(String(localized: "paywall_no_charge", defaultValue: "No charge today · Cancel anytime"))
+                .font(.caption)
+                .foregroundStyle(Color.textSecondary)
         }
-        .disabled(isPurchasing || selectedPackage == nil)
-        .opacity(selectedPackage == nil ? 0.6 : 1.0)
     }
 
     // MARK: - Restore
@@ -333,6 +354,24 @@ struct PaywallView: View {
         let savings = ((annualMonthlyCost - yearlyPrice) / annualMonthlyCost) * 100
         let roundedSavings = Int(NSDecimalNumber(decimal: savings).doubleValue.rounded())
         return roundedSavings > 0 ? roundedSavings : nil
+    }
+
+    private var perDayPrice: String? {
+        guard let yearly = yearlyPackage else { return nil }
+        let yearlyPrice = NSDecimalNumber(decimal: yearly.storeProduct.price as Decimal).doubleValue
+        guard yearlyPrice > 0 else { return nil }
+        let daily = yearlyPrice / 365.0
+
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = yearly.storeProduct.priceFormatter?.locale ?? .current
+        formatter.maximumFractionDigits = 2
+
+        guard let formatted = formatter.string(from: NSNumber(value: daily)) else { return nil }
+        return String(
+            format: String(localized: "paywall_per_day %@", defaultValue: "%@/day"),
+            formatted
+        )
     }
 
     // MARK: - Actions
