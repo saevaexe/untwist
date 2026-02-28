@@ -176,6 +176,68 @@ struct InsightsView: View {
         return weeks
     }
 
+    // MARK: - Weekly Summary Computed Properties
+
+    private var weeklySummaryData: (moodTrend: String, topTrap: String?, activityCount: Int, twistyMood: TwistyMood) {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        guard let weekAgo = calendar.date(byAdding: .day, value: -7, to: today) else {
+            return ("stable", nil, 0, .neutral)
+        }
+
+        let weekMoods = moodEntries.filter { $0.date >= weekAgo }
+        let weekRecords = thoughtRecords.filter { $0.date >= weekAgo }
+        let weekSessions = breathingSessions.filter { $0.date >= weekAgo }
+        let activityCount = weekMoods.count + weekRecords.count + weekSessions.count
+
+        // Mood trend: compare first half vs second half
+        let midpoint = calendar.date(byAdding: .day, value: -3, to: today)!
+        let firstHalf = weekMoods.filter { $0.date >= weekAgo && $0.date < midpoint }
+        let secondHalf = weekMoods.filter { $0.date >= midpoint }
+
+        let firstAvg = firstHalf.isEmpty ? 50.0 : Double(firstHalf.map(\.score).reduce(0, +)) / Double(firstHalf.count)
+        let secondAvg = secondHalf.isEmpty ? 50.0 : Double(secondHalf.map(\.score).reduce(0, +)) / Double(secondHalf.count)
+        let diff = secondAvg - firstAvg
+
+        let trend: String
+        let twistyMood: TwistyMood
+        if diff > 5 {
+            trend = "up"
+            twistyMood = .happy
+        } else if diff < -5 {
+            trend = "down"
+            twistyMood = .sad
+        } else {
+            trend = "stable"
+            twistyMood = .neutral
+        }
+
+        // Top trap
+        var trapCounts: [ThoughtTrapType: Int] = [:]
+        for record in weekRecords {
+            for trap in record.selectedTraps {
+                trapCounts[trap, default: 0] += 1
+            }
+        }
+        let topTrap = trapCounts.max(by: { $0.value < $1.value })?.key.name
+
+        return (trend, topTrap, activityCount, twistyMood)
+    }
+
+    // MARK: - Breathing Stats Data
+
+    private var breathingTotalMinutes: Double {
+        filteredSessions.map(\.duration).reduce(0, +) / 60.0
+    }
+
+    private var breathingTotalRounds: Int {
+        filteredSessions.map(\.rounds).reduce(0, +)
+    }
+
+    private var breathingLongestMinutes: Double {
+        (filteredSessions.map(\.duration).max() ?? 0) / 60.0
+    }
+
     private var last7DaysMoods: [(date: Date, average: Double)] {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
@@ -207,11 +269,17 @@ struct InsightsView: View {
 
                         overallMetricsSection
 
+                        weeklySummarySection
+
                         if !last7DaysMoods.isEmpty {
                             moodChartSection
                         }
 
                         trapFrequencySection
+
+                        if !filteredSessions.isEmpty {
+                            breathingStatsSection
+                        }
 
                         activityHeatmapSection
 
@@ -491,6 +559,114 @@ struct InsightsView: View {
         }
         .padding(18)
         .elevatedCard(cornerRadius: 22, stroke: Color.primaryPurple.opacity(0.14), shadowColor: .black.opacity(0.08))
+    }
+
+    // MARK: - Weekly Summary
+
+    private var weeklySummarySection: some View {
+        let data = weeklySummaryData
+        let trendText: String = switch data.moodTrend {
+        case "up": String(localized: "insights_weekly_mood_up", defaultValue: "Your mood is trending up this week")
+        case "down": String(localized: "insights_weekly_mood_down", defaultValue: "Your mood dipped a bit this week")
+        default: String(localized: "insights_weekly_mood_stable", defaultValue: "Your mood has been steady this week")
+        }
+
+        return VStack(alignment: .leading, spacing: 12) {
+            Text(String(localized: "insights_weekly_summary", defaultValue: "Weekly Summary"))
+                .font(.headline)
+                .foregroundStyle(Color.textPrimary)
+
+            HStack(spacing: 14) {
+                TwistyView(mood: data.twistyMood, size: 56)
+
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(trendText)
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(Color.textPrimary)
+
+                    HStack(spacing: 12) {
+                        Label("\(data.activityCount) \(String(localized: "insights_weekly_activities", defaultValue: "activities this week"))", systemImage: "chart.bar.fill")
+                            .font(.caption)
+                            .foregroundStyle(Color.textSecondary)
+                    }
+
+                    if let topTrap = data.topTrap {
+                        Label("\(String(localized: "insights_weekly_top_trap", defaultValue: "Most common trap")): \(topTrap)", systemImage: "exclamationmark.triangle.fill")
+                            .font(.caption)
+                            .foregroundStyle(Color.twistyOrange)
+                    }
+                }
+            }
+        }
+        .padding(18)
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.16), shadowColor: Color.primaryPurple.opacity(0.11))
+    }
+
+    // MARK: - Breathing Stats
+
+    private var breathingStatsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(String(localized: "insights_breathing_stats", defaultValue: "Breathing Stats"))
+                .font(.headline)
+                .foregroundStyle(Color.textPrimary)
+
+            HStack(spacing: 12) {
+                breathingMetricCard(
+                    value: String(format: "%.0f", breathingTotalMinutes),
+                    unit: String(localized: "insights_min", defaultValue: "min"),
+                    label: String(localized: "insights_total_time", defaultValue: "Total Time"),
+                    icon: "clock.fill",
+                    color: .successGreen
+                )
+
+                breathingMetricCard(
+                    value: "\(breathingTotalRounds)",
+                    unit: "",
+                    label: String(localized: "insights_total_rounds", defaultValue: "Total Rounds"),
+                    icon: "arrow.2.circlepath",
+                    color: .primaryPurple
+                )
+
+                breathingMetricCard(
+                    value: String(format: "%.1f", breathingLongestMinutes),
+                    unit: String(localized: "insights_min", defaultValue: "min"),
+                    label: String(localized: "insights_longest_session", defaultValue: "Longest"),
+                    icon: "trophy.fill",
+                    color: .twistyOrange
+                )
+            }
+        }
+        .padding(18)
+        .elevatedCard(stroke: Color.successGreen.opacity(0.16), shadowColor: .black.opacity(0.07))
+    }
+
+    private func breathingMetricCard(value: String, unit: String, label: String, icon: String, color: Color) -> some View {
+        VStack(spacing: 6) {
+            Image(systemName: icon)
+                .font(.callout)
+                .foregroundStyle(color)
+
+            HStack(alignment: .firstTextBaseline, spacing: 2) {
+                Text(value)
+                    .font(.title3.weight(.bold))
+                    .foregroundStyle(Color.textPrimary)
+                if !unit.isEmpty {
+                    Text(unit)
+                        .font(.caption2)
+                        .foregroundStyle(Color.textSecondary)
+                }
+            }
+            .lineLimit(1)
+            .minimumScaleFactor(0.7)
+
+            Text(label)
+                .font(.caption2)
+                .foregroundStyle(Color.textSecondary)
+                .lineLimit(1)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .background(color.opacity(0.08), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 
     // MARK: - Stats (original 3-column grid, preserved)
