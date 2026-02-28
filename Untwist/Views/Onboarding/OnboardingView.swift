@@ -36,6 +36,7 @@ struct OnboardingView: View {
                     stepReady.tag(4)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
+                .scrollDisabled(true)
                 .animation(.easeInOut(duration: 0.28), value: currentPage)
 
                 bottomBar

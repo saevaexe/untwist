@@ -38,6 +38,7 @@ struct ThoughtUnwinderView: View {
                     stepAlternative.tag(3)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
+                .scrollDisabled(true)
                 .animation(.easeInOut, value: step)
             }
             .padding(.horizontal, 20)
@@ -551,7 +552,7 @@ struct ThoughtUnwinderView: View {
                 return
             }
             action?()
-            withAnimation { step += 1 }
+            withAnimation { step = min(step + 1, 3) }
         } label: {
             Text(String(localized: "unwinder_next", defaultValue: "Next"))
                 .font(.headline)
