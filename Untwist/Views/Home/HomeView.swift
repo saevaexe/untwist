@@ -3,9 +3,11 @@ import SwiftUI
 struct HomeView: View {
     @AppStorage("launchThoughtWriterAfterOnboarding") private var launchThoughtWriterAfterOnboarding = false
     @AppStorage("onboardingDisplayName") private var onboardingDisplayName = ""
+    @Environment(SubscriptionManager.self) private var subscriptionManager
     @State private var showUnwinding = false
     @State private var showThoughtWriter = false
     @State private var showCrisis = false
+    @State private var showPaywall = false
     @State private var moodCheckRequest: MoodCheckRequest?
 
     var body: some View {
@@ -17,6 +19,9 @@ struct HomeView: View {
                     sectionTitle
                     quickActionGrid
                     insightsCard
+                    if !subscriptionManager.hasFullAccess {
+                        upgradeBanner
+                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, -8)
@@ -64,6 +69,10 @@ struct HomeView: View {
         }
         .fullScreenCover(isPresented: $showCrisis) {
             CrisisView()
+        }
+        .fullScreenCover(isPresented: $showPaywall) {
+            PaywallView()
+                .environment(subscriptionManager)
         }
         .sheet(item: $moodCheckRequest) { request in
             NavigationStack {
@@ -344,6 +353,51 @@ struct HomeView: View {
         .buttonStyle(.plain)
     }
 
+    private var upgradeBanner: some View {
+        Button {
+            showPaywall = true
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "sparkles")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(Color.primaryPurple)
+                    .frame(width: 36, height: 36)
+                    .background(Color.primaryPurple.opacity(0.14), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(String(localized: "home_unlock_pro", defaultValue: "Unlock Pro"))
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(Color.textPrimary)
+
+                    Text(String(localized: "home_unlock_pro_sub", defaultValue: "AI reframe & unlimited records"))
+                        .font(.caption)
+                        .foregroundStyle(Color.textSecondary)
+                }
+
+                Spacer()
+
+                Text(String(localized: "home_try_free", defaultValue: "Try Free"))
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color.primaryPurple, in: Capsule())
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color.cardBackground.opacity(0.96))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .stroke(Color.primaryPurple.opacity(0.16), lineWidth: 1)
+            )
+            .shadow(color: .black.opacity(0.06), radius: 8, y: 3)
+        }
+        .buttonStyle(.plain)
+    }
+
     private var todayLabel: String {
         let formatter = DateFormatter()
         formatter.setLocalizedDateFormatFromTemplate("EEE d MMM")
@@ -442,4 +496,5 @@ private struct LazyView<Content: View>: View {
     NavigationStack {
         HomeView()
     }
+    .environment(SubscriptionManager.shared)
 }

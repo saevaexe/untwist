@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(SubscriptionManager.self) private var subscriptionManager
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @AppStorage("onboardingFlowVersion") private var onboardingFlowVersion = 0
     @AppStorage("preferredTheme") private var preferredTheme = 0
+    @Environment(SubscriptionManager.self) private var subscriptionManager
     private let requiredOnboardingFlowVersion = 2
 
     private var shouldShowOnboarding: Bool {

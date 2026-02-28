@@ -4,7 +4,7 @@ import SwiftData
 struct MoodCheckView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    @AppStorage("rc_first_mood") private var hasTrackedFirstMood = false
+    @AppStorage("hasTrackedFirstMoodEntry") private var hasTrackedFirstMoodEntry = false
     @State private var score: Double
     @State private var note = ""
     @State private var saved = false
@@ -219,9 +219,9 @@ struct MoodCheckView: View {
         modelContext.insert(entry)
         saved = true
 
-        if !hasTrackedFirstMood {
-            AnalyticsManager.trackMilestone(.firstMoodCheck)
-            hasTrackedFirstMood = true
+        if !hasTrackedFirstMoodEntry {
+            hasTrackedFirstMoodEntry = true
+            AnalyticsManager.shared.trackFirstMoodEntry()
         }
 
         // Crisis check on note text

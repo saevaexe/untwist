@@ -4,7 +4,6 @@ import SwiftData
 struct ThoughtUnwinderView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    @AppStorage("rc_first_thought") private var hasTrackedFirstThought = false
     @State private var step = 0
     @State private var event = ""
     @State private var automaticThought = ""
@@ -16,6 +15,7 @@ struct ThoughtUnwinderView: View {
     @State private var showCrisis = false
     @State private var showTip = false
     @State private var showCompletion = false
+    @AppStorage("hasTrackedFirstThoughtRecord") private var hasTrackedFirstThoughtRecord = false
     @FocusState private var isTextFieldFocused: Bool
 
     @State private var placeholderSet = PlaceholderSet.all[0]
@@ -587,9 +587,9 @@ struct ThoughtUnwinderView: View {
         )
         modelContext.insert(record)
 
-        if !hasTrackedFirstThought {
-            AnalyticsManager.trackMilestone(.firstThoughtRecord)
-            hasTrackedFirstThought = true
+        if !hasTrackedFirstThoughtRecord {
+            hasTrackedFirstThoughtRecord = true
+            AnalyticsManager.shared.trackFirstThoughtRecord()
         }
 
         showCompletion = true

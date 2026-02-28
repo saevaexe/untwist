@@ -5,7 +5,6 @@ struct BreathingView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @AppStorage("rc_first_breathing") private var hasTrackedFirstBreathing = false
     @State private var isActive = false
     @State private var phase: BreathPhase = .inhale
     @State private var currentRound = 1
@@ -15,6 +14,7 @@ struct BreathingView: View {
     @State private var progress: CGFloat = 1.0
     @State private var countdownTimer: Timer?
     @State private var startTime: Date?
+    @AppStorage("hasTrackedFirstBreathingSession") private var hasTrackedFirstBreathingSession = false
     @State private var completed = false
 
     enum BreathPhase: String {
@@ -312,9 +312,9 @@ struct BreathingView: View {
         let session = BreathingSession(rounds: currentRound, duration: duration)
         modelContext.insert(session)
 
-        if !hasTrackedFirstBreathing {
-            AnalyticsManager.trackMilestone(.firstBreathingSession)
-            hasTrackedFirstBreathing = true
+        if !hasTrackedFirstBreathingSession {
+            hasTrackedFirstBreathingSession = true
+            AnalyticsManager.shared.trackFirstBreathingSession()
         }
     }
 }

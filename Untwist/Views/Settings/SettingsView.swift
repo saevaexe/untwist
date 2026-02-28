@@ -9,7 +9,9 @@ struct SettingsView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = true
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(SubscriptionManager.self) private var subscriptionManager
     @State private var showDeleteAlert = false
+    @State private var showPaywall = false
     private let notificationManager = NotificationManager.shared
 
     private var reminderTime: Binding<Date> {
@@ -42,6 +44,7 @@ struct SettingsView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 16) {
                     headerCard
+                    subscriptionCard
                     notificationsCard
                     appearanceCard
                     dataCard
@@ -67,6 +70,10 @@ struct SettingsView: View {
                     // Don't auto-enable — let user toggle manually
                 }
             }
+        }
+        .fullScreenCover(isPresented: $showPaywall) {
+            PaywallView()
+                .environment(subscriptionManager)
         }
         .alert(String(localized: "settings_delete_title", defaultValue: "Delete All Data?"), isPresented: $showDeleteAlert) {
             Button(String(localized: "settings_cancel", defaultValue: "Cancel"), role: .cancel) {}
@@ -100,6 +107,86 @@ struct SettingsView: View {
         }
         .padding(16)
         .elevatedCard(stroke: Color.primaryPurple.opacity(0.16), shadowColor: .black.opacity(0.07))
+    }
+
+    private var subscriptionCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            sectionLabel(
+                title: String(localized: "settings_subscription_header", defaultValue: "Subscription"),
+                icon: "crown.fill",
+                tint: .primaryPurple
+            )
+
+            if subscriptionManager.hasFullAccess {
+                if subscriptionManager.isTrialActive {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(String(localized: "settings_trial_active", defaultValue: "Free Trial Active"))
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(Color.textPrimary)
+
+                            Text(String(
+                                format: String(localized: "settings_trial_remaining %lld", defaultValue: "%lld days remaining"),
+                                Int64(subscriptionManager.trialDaysRemaining)
+                            ))
+                            .font(.caption)
+                            .foregroundStyle(Color.textSecondary)
+                        }
+                        Spacer()
+                        manageSubscriptionLink
+                    }
+                } else {
+                    HStack {
+                        HStack(spacing: 6) {
+                            Image(systemName: "checkmark.seal.fill")
+                                .foregroundStyle(Color.primaryPurple)
+                            Text(String(localized: "settings_pro_member", defaultValue: "Pro Member"))
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(Color.textPrimary)
+                        }
+                        Spacer()
+                        manageSubscriptionLink
+                    }
+                }
+            } else {
+                Button {
+                    showPaywall = true
+                } label: {
+                    HStack {
+                        Text(String(localized: "settings_upgrade_now", defaultValue: "Upgrade to Pro"))
+                            .font(.subheadline.weight(.bold))
+                        Spacer()
+                        Image(systemName: "arrow.right.circle.fill")
+                            .font(.title3)
+                    }
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 14)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.primaryPurple, Color.primaryPurple.opacity(0.85)],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        ),
+                        in: RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    )
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(18)
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.20))
+    }
+
+    private var manageSubscriptionLink: some View {
+        Link(destination: URL(string: "https://apps.apple.com/account/subscriptions")!) {
+            Text(String(localized: "settings_manage", defaultValue: "Manage"))
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(Color.primaryPurple)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(Color.primaryPurple.opacity(0.12), in: Capsule())
+        }
     }
 
     private var notificationsCard: some View {
@@ -308,5 +395,6 @@ struct SettingsView: View {
     NavigationStack {
         SettingsView()
     }
+    .environment(SubscriptionManager.shared)
     .modelContainer(for: [MoodEntry.self, ThoughtRecord.self, BreathingSession.self], inMemory: true)
 }

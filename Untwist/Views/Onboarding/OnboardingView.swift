@@ -584,7 +584,7 @@ struct OnboardingView: View {
                 hasCompletedOnboarding = true
                 onboardingFlowVersion = requiredOnboardingFlowVersion
                 isCompleting = false
-                AnalyticsManager.trackMilestone(.onboardingCompleted)
+                AnalyticsManager.shared.trackOnboardingCompleted()
             }
         }
     }

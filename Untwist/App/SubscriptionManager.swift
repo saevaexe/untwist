@@ -11,6 +11,12 @@ final class SubscriptionManager {
 
     var hasFullAccess: Bool { isSubscribed || isTrialActive }
 
+    var trialDaysRemaining: Int {
+        guard isTrialActive, let expirationDate = trialExpirationDate else { return 0 }
+        let remaining = Int(ceil(expirationDate.timeIntervalSinceNow / 86400))
+        return max(0, remaining)
+    }
+
     private var trialExpirationDate: Date?
     private var isConfigured = false
 

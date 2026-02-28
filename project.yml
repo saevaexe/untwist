@@ -6,20 +6,20 @@ options:
   xcodeVersion: "16.0"
   generateEmptyDirectories: true
 
-packages:
-  RevenueCat:
-    url: https://github.com/RevenueCat/purchases-ios-spm.git
-    majorVersion: 5.0.0
-
 settings:
   base:
     PRODUCT_NAME: "$(TARGET_NAME)"
-    MARKETING_VERSION: "1.0.0"
-    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: "1.1.0"
+    CURRENT_PROJECT_VERSION: "5"
     SWIFT_VERSION: "5.9"
     DEVELOPMENT_TEAM: 5V9A3GUJ32
     ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     INFOPLIST_FILE: Untwist/Info.plist
+
+packages:
+  RevenueCat:
+    url: https://github.com/RevenueCat/purchases-ios-spm.git
+    from: 5.0.0
 
 targets:
   Untwist:
@@ -30,8 +30,6 @@ targets:
     dependencies:
       - package: RevenueCat
         product: RevenueCat
-      - package: RevenueCat
-        product: RevenueCatUI
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.osmanseven.untwist

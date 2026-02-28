@@ -1,24 +1,48 @@
 import Foundation
 import RevenueCat
 
-enum AnalyticsManager {
-    static func trackMilestone(_ milestone: Milestone) {
-        let now = ISO8601DateFormatter().string(from: Date())
+final class AnalyticsManager {
+    static let shared = AnalyticsManager()
+
+    private init() {}
+
+    private var iso8601Now: String {
+        ISO8601DateFormatter().string(from: Date())
+    }
+
+    func trackOnboardingCompleted() {
         Purchases.shared.attribution.setAttributes([
-            milestone.rawValue: now
+            "$onboardingCompleted": iso8601Now
         ])
     }
 
-    static func setUserProperty(_ key: String, value: String) {
-        Purchases.shared.attribution.setAttributes([key: value])
+    func trackFirstMoodEntry() {
+        Purchases.shared.attribution.setAttributes([
+            "$firstMoodEntry": iso8601Now
+        ])
     }
 
-    enum Milestone: String {
-        case onboardingCompleted = "onboarding_completed_at"
-        case firstMoodCheck = "first_mood_check_at"
-        case firstThoughtRecord = "first_thought_record_at"
-        case firstBreathingSession = "first_breathing_at"
-        case insightsViewed = "insights_viewed_at"
-        case crisisScreenOpened = "crisis_opened_at"
+    func trackFirstThoughtRecord() {
+        Purchases.shared.attribution.setAttributes([
+            "$firstThoughtRecord": iso8601Now
+        ])
+    }
+
+    func trackFirstBreathingSession() {
+        Purchases.shared.attribution.setAttributes([
+            "$firstBreathingSession": iso8601Now
+        ])
+    }
+
+    func trackFirstInsightsView() {
+        Purchases.shared.attribution.setAttributes([
+            "$firstInsightsView": iso8601Now
+        ])
+    }
+
+    func trackPaywallShown() {
+        Purchases.shared.attribution.setAttributes([
+            "$lastPaywallShown": iso8601Now
+        ])
     }
 }
