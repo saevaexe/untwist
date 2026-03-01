@@ -1183,18 +1183,17 @@
       }
     },
     "home_breathing_sub": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Take a moment to breathe"
+            "value": "Calm down in 2 minutes"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bir nefes molası ver"
+            "value": "2 dakikada sakinleş"
           }
         }
       }
@@ -1472,18 +1471,17 @@
       }
     },
     "home_thought_traps_sub": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Learn about common thinking patterns"
+            "value": "How your mind tricks you"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yaygın düşünce tuzaklarını keşfet"
+            "value": "Zihnin seni nasıl yanıltıyor?"
           }
         }
       }
@@ -1506,18 +1504,17 @@
       }
     },
     "home_thought_unwinder_sub": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Explore and reframe a thought"
+            "value": "Untwist a thought in 4 steps"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bir düşünceyi keşfet ve yeniden çerçevele"
+            "value": "Bir düşünceyi 4 adımda çöz"
           }
         }
       }
@@ -1557,18 +1554,17 @@
       }
     },
     "home_unlock_pro_sub": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "AI reframe & unlimited records"
+            "value": "Give your mind the care it deserves"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yapay zeka önerileri ve sınırsız kayıt"
+            "value": "Zihnine hak ettiği değeri ver"
           }
         }
       }
@@ -3019,18 +3015,17 @@
       }
     },
     "onboarding_how_title": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Untwist works through thoughts step by step."
+            "value": "Untwist your mind\nin 3 steps"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Untwist düşünceleri adım adım ele alır."
+            "value": "3 adımda\nzihnini çöz"
           }
         }
       }
@@ -4226,46 +4221,43 @@
       }
     },
     "paywall_feature_ai": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "AI-powered reframe suggestions"
+            "value": "Personalized thought suggestions"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yapay zeka destekli yeniden çerçeveleme önerileri"
+            "value": "Sana özel düşünce önerileri"
           }
         }
       }
     },
-    "paywall_feature_priority": {
-      "extractionState": "stale",
+    "paywall_feature_insights": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Priority access to new features"
+            "value": "Full history & weekly insights"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yeni özelliklere öncelikli erişim"
+            "value": "Tam geçmiş ve haftalık özetler"
           }
         }
       }
     },
     "paywall_feature_unlimited": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unlimited thought records"
+            "value": "Unlimited thought & mood records"
           }
         },
         "tr": {
@@ -4413,18 +4405,17 @@
       }
     },
     "paywall_subtitle": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your full CBT toolkit, always with you"
+            "value": "Try free for 3 days, cancel anytime"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tam BDT araç setin, her zaman yanında"
+            "value": "3 gün ücretsiz dene, istediğinde iptal et"
           }
         }
       }
@@ -4447,18 +4438,81 @@
       }
     },
     "paywall_title": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unlock Untwist Pro"
+            "value": "Your mind deserves more"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Untwist Pro'yu Aç"
+            "value": "Zihnine hak ettiği ilgiyi ver"
+          }
+        }
+      }
+    },
+    "paywall_title_1": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your mind deserves\n"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zihnin için\n"
+          }
+        }
+      }
+    },
+    "paywall_title_2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "more."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "daha fazlasını"
+          }
+        }
+      }
+    },
+    "paywall_title_3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\nhak ediyorsun."
+          }
+        }
+      }
+    },
+    "paywall_trial_summary %@ %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 days free · then %1$@%2$@ · cancel anytime"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 gün ücretsiz · sonra %1$@%2$@ · istediğinde iptal"
           }
         }
       }
@@ -7715,13 +7769,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Personalized alternatives for your thoughts"
+            "value": "Alternative perspectives tailored to your situation"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Düşüncelerine özel alternatifler"
+            "value": "Durumuna özel alternatif bakış açıları"
           }
         }
       }
@@ -7731,45 +7785,61 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "No daily limits on journaling"
+            "value": "Log as much as you need, whenever you need it"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Günlük kayıt sınırı yok"
+            "value": "İhtiyacın olduğunda, istediğin kadar kaydet"
           }
         }
       }
     },
-    "paywall_feature_priority_sub": {
+    "paywall_feature_insights_sub": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Be the first to try what's next"
+            "value": "See patterns, track growth, understand your mind"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yeni özellikleri ilk sen dene"
+            "value": "Kalıpları gör, gelişimini takip et, zihnini anla"
           }
         }
       }
     },
-    "paywall_no_charge": {
+    "paywall_guarantee_no_charge": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "No charge today · Cancel anytime"
+            "value": "No charge today"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bugün ücret alınmaz · İstediğin zaman iptal et"
+            "value": "Bugün ücret alınmaz"
+          }
+        }
+      }
+    },
+    "paywall_guarantee_cancel": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel anytime"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İstediğinde iptal et"
           }
         }
       }
@@ -7786,6 +7856,214 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@/gün"
+          }
+        }
+      }
+    },
+    "home_mood_card_sub": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log your mood, spot patterns"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Duygunu kaydet, kalıpları fark et"
+          }
+        }
+      }
+    },
+    "onboarding_header_step_how": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How it works"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nasıl çalışır"
+          }
+        }
+      }
+    },
+    "onboarding_how_step1_title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Write your thought"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düşünceni yaz"
+          }
+        }
+      }
+    },
+    "onboarding_how_step1_sub": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pour out what's on your mind, without judgment"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aklındakini olduğu gibi dışa dök, yargılanmadan"
+          }
+        }
+      }
+    },
+    "onboarding_how_step2_title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spot the trap"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuzağı keşfet"
+          }
+        }
+      }
+    },
+    "onboarding_how_step2_sub": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recognize which thought trap you fell into. Untwist helps you"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hangi düşünce tuzağına düştüğünü tanı. Untwist sana yardım eder"
+          }
+        }
+      }
+    },
+    "onboarding_how_step3_title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Find a new perspective"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Farklı bir bakış bul"
+          }
+        }
+      }
+    },
+    "onboarding_how_step3_sub": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Build a kinder, more balanced thought"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daha nazik, daha dengeli bir düşünce oluştur"
+          }
+        }
+      }
+    },
+    "onboarding_how_footer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Average completion: 4 minutes"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ortalama tamamlanma süresi: 4 dakika"
+          }
+        }
+      }
+    },
+    "onboarding_how_subtitle": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A short process you can do anytime"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dilediğin zaman yapabileceğin kısa bir süreç"
+          }
+        }
+      }
+    },
+    "onboarding_how_tag1": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starting point"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başlangıç noktası"
+          }
+        }
+      }
+    },
+    "onboarding_how_tag2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Awareness"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Farkındalık"
+          }
+        }
+      }
+    },
+    "onboarding_how_tag3": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change begins"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Değişim başlar"
           }
         }
       }

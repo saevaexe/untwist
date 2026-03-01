@@ -13,7 +13,7 @@ struct OnboardingView: View {
     @State private var nameInput = ""
     @FocusState private var isNameFieldFocused: Bool
 
-    private let totalPages = 5
+    private let totalPages = 6
 
     private var needsColumns: [GridItem] {
         [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)]
@@ -31,9 +31,10 @@ struct OnboardingView: View {
                 TabView(selection: $currentPage) {
                     stepWelcome.tag(0)
                     stepName.tag(1)
-                    stepStory.tag(2)
-                    stepNeeds.tag(3)
-                    stepReady.tag(4)
+                    stepHowItWorks.tag(2)
+                    stepStory.tag(3)
+                    stepNeeds.tag(4)
+                    stepReady.tag(5)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .scrollDisabled(true)
@@ -80,7 +81,7 @@ struct OnboardingView: View {
                         .blur(radius: 56)
                         .offset(x: -160, y: 280)
                 }
-            case 4:
+            case 5:
                 ZStack {
                     LinearGradient(
                         colors: [Color.primaryPurple.opacity(0.96), Color.secondaryLavender.opacity(0.94)],
@@ -127,21 +128,21 @@ struct OnboardingView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(String(localized: "app_name", defaultValue: "Untwist"))
                     .font(.headline.weight(.semibold))
-                    .foregroundStyle(currentPage == 4 ? .white : Color.textPrimary)
+                    .foregroundStyle(currentPage == 5 ? .white : Color.textPrimary)
 
                 Text(currentPageTitle)
                     .font(.caption)
-                    .foregroundStyle(currentPage == 4 ? .white.opacity(0.72) : Color.textSecondary)
+                    .foregroundStyle(currentPage == 5 ? .white.opacity(0.72) : Color.textSecondary)
             }
 
             Spacer(minLength: 0)
 
             Text("\(currentPage + 1)/\(totalPages)")
                 .font(.caption.weight(.semibold))
-                .foregroundStyle(currentPage == 4 ? Color.primaryPurple : Color.primaryPurple)
+                .foregroundStyle(currentPage == 5 ? Color.primaryPurple : Color.primaryPurple)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 6)
-                .background((currentPage == 4 ? Color.white : Color.primaryPurple.opacity(0.16)), in: Capsule(style: .continuous))
+                .background((currentPage == 5 ? Color.white : Color.primaryPurple.opacity(0.16)), in: Capsule(style: .continuous))
         }
     }
 
@@ -165,25 +166,25 @@ struct OnboardingView: View {
 
                     if isCompleting {
                         ProgressView()
-                            .tint(currentPage == 4 ? Color.primaryPurple : .white)
+                            .tint(currentPage == 5 ? Color.primaryPurple : .white)
                     }
                 }
-                .foregroundStyle(currentPage == 4 ? Color.primaryPurple : .white)
+                .foregroundStyle(currentPage == 5 ? Color.primaryPurple : .white)
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(currentPage == 4 ? Color.white : Color.primaryPurple)
+                        .fill(currentPage == 5 ? Color.white : Color.primaryPurple)
                 )
             }
             .disabled(!canContinue)
             .opacity(canContinue ? 1 : 0.62)
             .shadow(color: buttonShadowColor, radius: 10, y: 4)
 
-            if currentPage == 2 {
+            if currentPage == 3 {
                 Button {
                     withAnimation {
-                        currentPage = 3
+                        currentPage = 4
                         isNameFieldFocused = false
                     }
                 } label: {
@@ -203,7 +204,7 @@ struct OnboardingView: View {
             return !trimmedName.isEmpty
         }
 
-        if currentPage == 3 {
+        if currentPage == 4 {
             return !selectedNeeds.isEmpty
         }
 
@@ -211,24 +212,24 @@ struct OnboardingView: View {
     }
 
     private var activeDotColor: Color {
-        currentPage == 4 ? .white : .primaryPurple
+        currentPage == 5 ? .white : .primaryPurple
     }
 
     private var inactiveDotColor: Color {
-        currentPage == 4 ? .white.opacity(0.34) : Color.primaryPurple.opacity(0.24)
+        currentPage == 5 ? .white.opacity(0.34) : Color.primaryPurple.opacity(0.24)
     }
 
     private var buttonShadowColor: Color {
-        currentPage == 4 ? Color.black.opacity(0.20) : Color.primaryPurple.opacity(0.22)
+        currentPage == 5 ? Color.black.opacity(0.20) : Color.primaryPurple.opacity(0.22)
     }
 
     private var primaryButtonTitle: String {
         switch currentPage {
         case 0:
             return String(localized: "onboarding_cta_start", defaultValue: "Başlayalım")
-        case 2:
+        case 3:
             return String(localized: "onboarding_story_ack", defaultValue: "Tanıdık geldi")
-        case 4:
+        case 5:
             return String(localized: "onboarding_cta_finish", defaultValue: "Hadi başlayalım")
         default:
             return String(localized: "onboarding_cta_continue", defaultValue: "Devam et")
@@ -240,10 +241,12 @@ struct OnboardingView: View {
         case 1:
             return String(localized: "onboarding_header_step_name", defaultValue: "Tanışma")
         case 2:
-            return String(localized: "onboarding_header_step_story", defaultValue: "Hikaye")
+            return String(localized: "onboarding_header_step_how", defaultValue: "Nasıl çalışır")
         case 3:
-            return String(localized: "onboarding_header_step_need", defaultValue: "İhtiyaç seçimi")
+            return String(localized: "onboarding_header_step_story", defaultValue: "Hikaye")
         case 4:
+            return String(localized: "onboarding_header_step_need", defaultValue: "İhtiyaç seçimi")
+        case 5:
             return String(localized: "onboarding_header_step_ready", defaultValue: "Hazır")
         default:
             return ""
@@ -272,6 +275,7 @@ struct OnboardingView: View {
             Text(String(localized: "onboarding_welcome_title", defaultValue: "Zihnini gevşet."))
                 .font(.title2.weight(.bold))
                 .foregroundStyle(.white.opacity(0.92))
+                .multilineTextAlignment(.center)
 
             Text(String(localized: "onboarding_welcome_sub", defaultValue: "Her gün biraz daha iyi hissetmen için kısa ve etkili adımlar."))
                 .font(.subheadline.weight(.medium))
@@ -349,11 +353,132 @@ struct OnboardingView: View {
             Spacer(minLength: 0)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                isNameFieldFocused = true
+    }
+
+    private var stepHowItWorks: some View {
+        VStack(spacing: 14) {
+            Spacer(minLength: 4)
+
+            TwistyView(mood: .thinking, size: 220, animated: true)
+
+            Text(String(localized: "onboarding_how_title", defaultValue: "Untwist your mind\nin 3 steps"))
+                .font(.system(size: 26, weight: .black, design: .rounded))
+                .foregroundStyle(Color.textPrimary)
+                .multilineTextAlignment(.center)
+
+            Text(String(localized: "onboarding_how_subtitle", defaultValue: "A short process you can do anytime"))
+                .font(.subheadline)
+                .foregroundStyle(Color.textSecondary)
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 4)
+
+            // Steps with connection line
+            VStack(spacing: 10) {
+                howItWorksRow(
+                    number: 1,
+                    color: Color.primaryPurple,
+                    emoji: "\u{270F}\u{FE0F}",
+                    title: String(localized: "onboarding_how_step1_title", defaultValue: "Write your thought"),
+                    subtitle: String(localized: "onboarding_how_step1_sub", defaultValue: "Pour out what's on your mind, without judgment"),
+                    tag: String(localized: "onboarding_how_tag1", defaultValue: "Starting point")
+                )
+
+                howItWorksRow(
+                    number: 2,
+                    color: Color.twistyOrange,
+                    emoji: "\u{1F50D}",
+                    title: String(localized: "onboarding_how_step2_title", defaultValue: "Spot the trap"),
+                    subtitle: String(localized: "onboarding_how_step2_sub", defaultValue: "Recognize which thought trap you fell into. Untwist helps you"),
+                    tag: String(localized: "onboarding_how_tag2", defaultValue: "Awareness")
+                )
+
+                howItWorksRow(
+                    number: 3,
+                    color: Color.successGreen,
+                    emoji: "\u{1F331}",
+                    title: String(localized: "onboarding_how_step3_title", defaultValue: "Find a new perspective"),
+                    subtitle: String(localized: "onboarding_how_step3_sub", defaultValue: "Build a kinder, more balanced thought"),
+                    tag: String(localized: "onboarding_how_tag3", defaultValue: "Change begins")
+                )
             }
+
+            // Footer
+            HStack(spacing: 6) {
+                Image(systemName: "clock")
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(Color.textSecondary)
+                Text(String(localized: "onboarding_how_footer", defaultValue: "Average completion: 4 minutes"))
+                    .font(.caption.weight(.medium))
+                    .foregroundStyle(Color.textSecondary)
+            }
+            .padding(.vertical, 10)
+            .padding(.horizontal, 14)
+            .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+
+            Spacer(minLength: 0)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.horizontal, 2)
+    }
+
+    private func howItWorksRow(number: Int, color: Color, emoji: String, title: String, subtitle: String, tag: String) -> some View {
+        HStack(alignment: .top, spacing: 10) {
+            Text("\(number)")
+                .font(.caption.weight(.black))
+                .foregroundStyle(.white)
+                .frame(width: 28, height: 28)
+                .background(color, in: Circle())
+                .padding(.top, 12)
+
+            howItWorksCard(emoji: emoji, title: title, subtitle: subtitle, tag: tag, color: color)
+        }
+    }
+
+    private func howItWorksLine() -> some View {
+        Rectangle()
+            .fill(Color.primaryPurple.opacity(0.22))
+            .frame(width: 3, height: 28)
+            .padding(.leading, 12.5) // center under 28pt circle
+            .padding(.vertical, -6) // overlap into row spacing to connect
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func howItWorksCard(emoji: String, title: String, subtitle: String, tag: String, color: Color) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 6) {
+                Text(emoji)
+                    .font(.callout)
+                Text(title)
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(Color.textPrimary)
+            }
+
+            Text(subtitle)
+                .font(.caption)
+                .foregroundStyle(Color.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Text(tag)
+                .font(.caption2.weight(.bold))
+                .foregroundStyle(color)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 3)
+                .background(color.opacity(0.10), in: Capsule())
+                .padding(.top, 2)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(alignment: .leading) {
+            color
+                .frame(width: 2)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(color.opacity(0.18), lineWidth: 1)
+        )
     }
 
     private var stepStory: some View {
@@ -372,7 +497,7 @@ struct OnboardingView: View {
                     .lineSpacing(2)
             }
 
-            TwistyView(mood: .thinking, size: 150, animated: false)
+            TwistyView(mood: .thinking, size: 200, animated: false)
                 .frame(maxWidth: .infinity)
 
             VStack(alignment: .leading, spacing: 10) {

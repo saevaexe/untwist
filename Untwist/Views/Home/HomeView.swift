@@ -285,28 +285,28 @@ struct HomeView: View {
             HomeActionCard(
                 icon: "face.smiling",
                 title: String(localized: "home_mood_check", defaultValue: "Mood Check"),
-                subtitle: String(localized: "home_mood_check_sub", defaultValue: "How are you feeling today?"),
+                subtitle: String(localized: "home_mood_card_sub", defaultValue: "Log your mood, spot patterns"),
                 color: .primaryPurple
             ) { MoodCheckView() }
 
             HomeActionCard(
                 icon: "brain.head.profile",
                 title: String(localized: "home_thought_unwinder", defaultValue: "Thought Unwinder"),
-                subtitle: String(localized: "home_thought_unwinder_sub", defaultValue: "Explore and reframe a thought"),
+                subtitle: String(localized: "home_thought_unwinder_sub", defaultValue: "Untwist a thought in 4 steps"),
                 color: .secondaryLavender
             ) { ThoughtUnwinderView() }
 
             HomeActionCard(
                 icon: "wind",
                 title: String(localized: "home_breathing", defaultValue: "Breathing Exercise"),
-                subtitle: String(localized: "home_breathing_sub", defaultValue: "Take a moment to breathe"),
+                subtitle: String(localized: "home_breathing_sub", defaultValue: "Calm down in 2 minutes"),
                 color: .successGreen
             ) { BreathingView() }
 
             HomeActionCard(
                 icon: "lightbulb",
                 title: String(localized: "home_thought_traps", defaultValue: "Thought Traps"),
-                subtitle: String(localized: "home_thought_traps_sub", defaultValue: "Learn about common thinking patterns"),
+                subtitle: String(localized: "home_thought_traps_sub", defaultValue: "How your mind tricks you"),
                 color: .twistyOrange
             ) { ThoughtTrapsListView() }
         }
@@ -316,39 +316,40 @@ struct HomeView: View {
         NavigationLink {
             LazyView { InsightsView() }
         } label: {
-            HStack(spacing: 14) {
+            HStack(spacing: 12) {
                 Image(systemName: "chart.line.uptrend.xyaxis")
-                    .font(.title2)
+                    .font(.title3.weight(.semibold))
                     .foregroundStyle(Color.successGreen)
-                    .frame(width: 48, height: 48)
-                    .background(Color.successGreen.opacity(0.14), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .frame(width: 38, height: 38)
+                    .background(Color.successGreen.opacity(0.12))
+                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
 
-                VStack(alignment: .leading, spacing: 3) {
+                VStack(alignment: .leading, spacing: 2) {
                     Text(String(localized: "home_insights", defaultValue: "Insights"))
-                        .font(.headline.weight(.semibold))
+                        .font(.subheadline.weight(.semibold))
                         .foregroundStyle(Color.textPrimary)
                     Text(String(localized: "home_insights_sub", defaultValue: "See your progress and trends"))
-                        .font(.subheadline)
+                        .font(.caption)
                         .foregroundStyle(Color.textSecondary)
                         .lineLimit(2)
                 }
 
                 Spacer()
 
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.bold))
-                    .foregroundStyle(Color.textSecondary)
+                Image(systemName: "arrow.right.circle.fill")
+                    .font(.title3)
+                    .foregroundStyle(Color.successGreen.opacity(0.9))
             }
-            .padding(16)
+            .padding(12)
             .background(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
                     .fill(Color.cardBackground.opacity(0.96))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
-                    .stroke(Color.successGreen.opacity(0.18), lineWidth: 1)
+                    .stroke(Color.successGreen.opacity(0.16), lineWidth: 1)
             )
-            .shadow(color: .black.opacity(0.08), radius: 12, y: 4)
+            .shadow(color: .black.opacity(0.08), radius: 10, y: 4)
         }
         .buttonStyle(.plain)
     }
@@ -359,17 +360,18 @@ struct HomeView: View {
         } label: {
             HStack(spacing: 12) {
                 Image(systemName: "sparkles")
-                    .font(.subheadline.weight(.bold))
+                    .font(.title3.weight(.semibold))
                     .foregroundStyle(Color.primaryPurple)
-                    .frame(width: 36, height: 36)
-                    .background(Color.primaryPurple.opacity(0.14), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .frame(width: 38, height: 38)
+                    .background(Color.primaryPurple.opacity(0.12))
+                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(String(localized: "home_unlock_pro", defaultValue: "Unlock Pro"))
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(Color.textPrimary)
 
-                    Text(String(localized: "home_unlock_pro_sub", defaultValue: "AI reframe & unlimited records"))
+                    Text(String(localized: "home_unlock_pro_sub", defaultValue: "Give your mind the care it deserves"))
                         .font(.caption)
                         .foregroundStyle(Color.textSecondary)
                 }
@@ -383,17 +385,16 @@ struct HomeView: View {
                     .padding(.vertical, 6)
                     .background(Color.primaryPurple, in: Capsule())
             }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 12)
+            .padding(12)
             .background(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
                     .fill(Color.cardBackground.opacity(0.96))
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                RoundedRectangle(cornerRadius: 22, style: .continuous)
                     .stroke(Color.primaryPurple.opacity(0.16), lineWidth: 1)
             )
-            .shadow(color: .black.opacity(0.06), radius: 8, y: 3)
+            .shadow(color: .black.opacity(0.08), radius: 10, y: 4)
         }
         .buttonStyle(.plain)
     }

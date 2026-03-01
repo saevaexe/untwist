@@ -112,19 +112,25 @@ Mascot: Twisty (yarn ball character, level 2.5 — present but not dominant).
 - **Değişen dosyalar:** ThoughtUnwinderView (Step 4 AI butonu), UntwistApp (RevenueCat init), docs/privacy.html
 - **Referans:** SPCTools SubscriptionManager + PaywallWrapperView
 
-### v1.2 — Gelişmiş İstatistik + Sync
-- Haftalık/aylık rapor, PDF export
+### v1.2 — Derinlik Güncellemesi
+- Haftalık/aylık rapor, PDF export (terapist paylaşımı)
 - Trap Mastery profili (en çok düşülen 3 tuzak + ilerleme)
-- iCloud Sync
-- Ekstra nefes teknikleri (Box breathing, 4-4-4)
-- Özelleştirilebilir bildirimler
+- iCloud Sync (Apple iCloud only, biz görmeyiz)
+- Ekstra nefes teknikleri (Box breathing, 4-4-4, Physiological Sigh)
+- Smart Notifications (Pro) — mood pattern bazlı öneriler, self-optimize saat, sessiz saatler (100% on-device SwiftData query, zero server)
 
-### v1.3 — Programlar + İleri Özellikler
+### v1.3 — Kişiselleştirme + Programlar
 - Yapılandırılmış 4 haftalık CBT programları (Sosyal Kaygı, Mükemmeliyetçilik, Öfke Yönetimi)
-- Therapist export (PDF)
-- Günlük CBT mikro dersleri
-- Twisty kişiselleştirme (renkler/kostümler)
+- Günlük CBT mikro dersleri (programa entegre)
+- Twisty kişiselleştirme (renkler/kostümler, seasonal)
+- iOS Widget (mood tracker + Twisty motivasyon)
+- Twisty görsel evrimi (milestone bazlı — gün değil gerçek ilerleme: 10 thought record, ilk reframe vs. Twisty zamanla daha parlak/mutlu görünür)
 - Android portu (Kotlin + Jetpack Compose)
+
+### Free vs Pro Sınırı (kesinleşecek)
+- **Her zaman free:** Kriz butonu, 10 tuzak kartı, temel nefes (4-7-8), bildirimler
+- **Pro:** AI Reframe (Claude Haiku), sınırsız kayıt, tam istatistik geçmişi, iCloud Sync, PDF export, ek nefes teknikleri, Smart Notifications, Twisty kostümleri, CBT programları
+- **Paywall başlığı:** TR: "Zihnine hak ettiği ilgiyi ver" / EN: "Your mind deserves more"
 
 ## Color Palette
 - **Primary:** #7C6BC4 (soft purple), dark mode #9B8FD8

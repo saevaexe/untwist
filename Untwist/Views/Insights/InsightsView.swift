@@ -603,9 +603,11 @@ struct InsightsView: View {
                             .foregroundStyle(Color.twistyOrange)
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
-        .padding(18)
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .elevatedCard(stroke: Color.primaryPurple.opacity(0.16), shadowColor: Color.primaryPurple.opacity(0.11))
     }
 

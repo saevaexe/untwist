@@ -105,12 +105,16 @@ struct PaywallView: View {
         VStack(spacing: 12) {
             TwistyView(mood: .waving, size: 160)
 
-            Text(String(localized: "paywall_title", defaultValue: "Unlock Untwist Pro"))
-                .font(.title2.bold())
+            (Text(String(localized: "paywall_title_1", defaultValue: "Your mind deserves\n"))
                 .foregroundStyle(Color.textPrimary)
+            + Text(String(localized: "paywall_title_2", defaultValue: "more."))
+                .foregroundStyle(Color.primaryPurple)
+            + Text(String(localized: "paywall_title_3", defaultValue: ""))
+                .foregroundStyle(Color.textPrimary))
+                .font(.system(size: 28, weight: .black, design: .rounded))
                 .multilineTextAlignment(.center)
 
-            Text(String(localized: "paywall_subtitle", defaultValue: "Your full CBT toolkit, always with you"))
+            Text(String(localized: "paywall_subtitle", defaultValue: "Try free for 3 days, cancel anytime"))
                 .font(.subheadline)
                 .foregroundStyle(Color.textSecondary)
                 .multilineTextAlignment(.center)
@@ -121,55 +125,55 @@ struct PaywallView: View {
     // MARK: - Features
 
     private var featuresSection: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            featureRow(
+        VStack(spacing: 8) {
+            featureCard(
                 icon: "sparkles",
-                text: String(localized: "paywall_feature_ai", defaultValue: "AI-powered reframe suggestions"),
-                subtitle: String(localized: "paywall_feature_ai_sub", defaultValue: "Personalized alternatives for your thoughts"),
+                text: String(localized: "paywall_feature_ai", defaultValue: "Personalized thought suggestions"),
+                subtitle: String(localized: "paywall_feature_ai_sub", defaultValue: "Alternative perspectives tailored to your situation"),
                 tint: .primaryPurple
             )
-            featureRow(
+            featureCard(
                 icon: "infinity",
-                text: String(localized: "paywall_feature_unlimited", defaultValue: "Unlimited thought records"),
-                subtitle: String(localized: "paywall_feature_unlimited_sub", defaultValue: "No daily limits on journaling"),
+                text: String(localized: "paywall_feature_unlimited", defaultValue: "Unlimited thought & mood records"),
+                subtitle: String(localized: "paywall_feature_unlimited_sub", defaultValue: "Log as much as you need, whenever you need it"),
                 tint: .successGreen
             )
-            featureRow(
-                icon: "star.fill",
-                text: String(localized: "paywall_feature_priority", defaultValue: "Priority access to new features"),
-                subtitle: String(localized: "paywall_feature_priority_sub", defaultValue: "Be the first to try what's next"),
+            featureCard(
+                icon: "chart.bar.xaxis",
+                text: String(localized: "paywall_feature_insights", defaultValue: "Full history & weekly insights"),
+                subtitle: String(localized: "paywall_feature_insights_sub", defaultValue: "See patterns, track growth, understand your mind"),
                 tint: .twistyOrange
             )
         }
-        .padding(18)
-        .background(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(Color.cardBackground.opacity(0.96))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .stroke(Color.primaryPurple.opacity(0.16), lineWidth: 1)
-        )
     }
 
-    private func featureRow(icon: String, text: String, subtitle: String, tint: Color) -> some View {
+    private func featureCard(icon: String, text: String, subtitle: String, tint: Color) -> some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(tint)
-                .frame(width: 32, height: 32)
-                .background(tint.opacity(0.14), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .frame(width: 36, height: 36)
+                .background(tint.opacity(0.12), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(text)
-                    .font(.subheadline.weight(.medium))
+                    .font(.subheadline.weight(.bold))
                     .foregroundStyle(Color.textPrimary)
 
                 Text(subtitle)
                     .font(.caption)
                     .foregroundStyle(Color.textSecondary)
             }
+
+            Spacer()
+
+            Image(systemName: "checkmark")
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(Color.successGreen)
         }
+        .padding(14)
+        .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .shadow(color: .black.opacity(0.04), radius: 6, y: 2)
     }
 
     // MARK: - Products
@@ -256,7 +260,7 @@ struct PaywallView: View {
     // MARK: - Purchase Button
 
     private var purchaseButton: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 10) {
             Button {
                 Task { await purchase() }
             } label: {
@@ -266,19 +270,18 @@ struct PaywallView: View {
                             ProgressView()
                                 .tint(.white)
                         } else {
-                            Text(String(localized: "paywall_cta", defaultValue: "Start Free Trial"))
+                            Text(String(localized: "paywall_cta", defaultValue: "Start Free Trial →"))
                         }
                     }
                     .font(.headline)
                     .frame(maxWidth: .infinity)
 
                     if !isPurchasing {
-                        Text(String(localized: "paywall_trial_detail", defaultValue: "3-day free trial, then auto-renews"))
+                        Text(trialDetailText)
                             .font(.caption)
-                            .foregroundStyle(.white.opacity(0.88))
+                            .foregroundStyle(.white.opacity(0.75))
                     }
                 }
-                .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
                 .padding(.horizontal, 24)
                 .background(
@@ -295,9 +298,14 @@ struct PaywallView: View {
             .disabled(isPurchasing || selectedPackage == nil)
             .opacity(selectedPackage == nil ? 0.6 : 1.0)
 
-            Text(String(localized: "paywall_no_charge", defaultValue: "No charge today · Cancel anytime"))
-                .font(.caption)
-                .foregroundStyle(Color.textSecondary)
+            HStack(spacing: 16) {
+                Label(String(localized: "paywall_guarantee_no_charge", defaultValue: "No charge today"), systemImage: "checkmark")
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary)
+                Label(String(localized: "paywall_guarantee_cancel", defaultValue: "Cancel anytime"), systemImage: "checkmark")
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary)
+            }
         }
     }
 
@@ -339,6 +347,17 @@ struct PaywallView: View {
     }
 
     // MARK: - Computed
+
+    private var trialDetailText: String {
+        let price = selectedPackage?.storeProduct.localizedPriceString ?? "$39.99"
+        let period = selectedPlan == .yearly
+            ? String(localized: "paywall_per_year", defaultValue: "/year")
+            : String(localized: "paywall_per_month", defaultValue: "/month")
+        return String(
+            format: String(localized: "paywall_trial_summary %@ %@", defaultValue: "3 days free · then %@%@ · cancel anytime"),
+            price, period
+        )
+    }
 
     private var savingsPercent: Int? {
         guard

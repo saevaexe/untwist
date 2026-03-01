@@ -38,7 +38,6 @@ struct ThoughtUnwinderView: View {
                     stepAlternative.tag(3)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
-                .scrollDisabled(true)
                 .animation(.easeInOut, value: step)
             }
             .padding(.horizontal, 20)
@@ -236,6 +235,7 @@ struct ThoughtUnwinderView: View {
 
     private var stepEvent: some View {
         ScrollView(showsIndicators: false) {
+
             VStack(spacing: 16) {
                 TwistyView(mood: .thinking, size: 180, animated: false)
                     .offset(y: 26)
