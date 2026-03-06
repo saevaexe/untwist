@@ -70,7 +70,12 @@ struct ThoughtUnwinderView: View {
                 moodBefore: Int(moodBefore),
                 moodAfter: Int(moodAfter),
                 selectedTraps: Array(selectedTraps),
-                onDismiss: { dismiss() }
+                onDismiss: {
+                    showCompletion = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        dismiss()
+                    }
+                }
             )
             .interactiveDismissDisabled()
             .presentationDetents([.large])
@@ -592,6 +597,7 @@ struct ThoughtUnwinderView: View {
             hasTrackedFirstThoughtRecord = true
             AnalyticsManager.shared.trackFirstThoughtRecord()
         }
+        AnalyticsManager.shared.incrementThoughtRecords()
 
         showCompletion = true
     }

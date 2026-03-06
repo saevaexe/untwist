@@ -14,6 +14,8 @@ struct BreathingView: View {
     @State private var progress: CGFloat = 1.0
     @State private var countdownTimer: Timer?
     @State private var startTime: Date?
+    @State private var pendingWorkItems: [DispatchWorkItem] = []
+    @State private var hapticEngine: BreathingHapticEngine?
     @AppStorage("hasTrackedFirstBreathingSession") private var hasTrackedFirstBreathingSession = false
     @State private var completed = false
 
@@ -65,6 +67,7 @@ struct BreathingView: View {
         }
         .navigationTitle(String(localized: "breathing_title", defaultValue: "Breathing Exercise"))
         .navigationBarTitleDisplayMode(.inline)
+        .onDisappear { cancelAllPendingWork() }
     }
 
     // MARK: - Start
@@ -236,12 +239,29 @@ struct BreathingView: View {
         isActive = true
         currentRound = 1
         startTime = Date()
+        let engine = BreathingHapticEngine(reduceMotion: reduceMotion)
+        engine.prepare()
+        hapticEngine = engine
     }
 
     private func stopBreathing() {
         isActive = false
-        countdownTimer?.invalidate()
+        cancelAllPendingWork()
         saveSession()
+    }
+
+    private func scheduleAfter(deadline: DispatchTime, execute block: @escaping () -> Void) {
+        let item = DispatchWorkItem(block: block)
+        pendingWorkItems.append(item)
+        DispatchQueue.main.asyncAfter(deadline: deadline, execute: item)
+    }
+
+    private func cancelAllPendingWork() {
+        pendingWorkItems.forEach { $0.cancel() }
+        pendingWorkItems.removeAll()
+        countdownTimer?.invalidate()
+        hapticEngine?.tearDown()
+        hapticEngine = nil
     }
 
     private func startCountdown(seconds: Int) {
@@ -268,36 +288,36 @@ struct BreathingView: View {
         phase = .inhale
         scaleTarget = 1.0
         startCountdown(seconds: Int(phase.duration))
-        BreathingCircleView.triggerHaptic(for: .inhale, reduceMotion: reduceMotion)
+        hapticEngine?.playInhale(duration: phase.duration)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + phase.duration) {
+        scheduleAfter(deadline: .now() + phase.duration) {
             guard isActive else { return }
 
             // Hold
             phase = .hold
             startCountdown(seconds: Int(phase.duration))
-            BreathingCircleView.triggerHaptic(for: .hold, reduceMotion: reduceMotion)
+            hapticEngine?.playHold(duration: phase.duration)
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + phase.duration) {
+            scheduleAfter(deadline: .now() + phase.duration) {
                 guard isActive else { return }
 
                 // Exhale
                 phase = .exhale
                 scaleTarget = 0.5
                 startCountdown(seconds: Int(phase.duration))
-                BreathingCircleView.triggerHaptic(for: .exhale, reduceMotion: reduceMotion)
+                hapticEngine?.playExhale(duration: phase.duration)
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + phase.duration) {
+                scheduleAfter(deadline: .now() + phase.duration) {
                     guard isActive else { return }
 
                     if currentRound >= totalRounds {
-                        BreathingCircleView.triggerRoundCompleteHaptic(reduceMotion: reduceMotion)
-                        countdownTimer?.invalidate()
+                        hapticEngine?.playRoundComplete()
+                        cancelAllPendingWork()
                         isActive = false
                         completed = true
                         saveSession()
                     } else {
-                        BreathingCircleView.triggerRoundCompleteHaptic(reduceMotion: reduceMotion)
+                        hapticEngine?.playRoundComplete()
                         currentRound += 1
                         runCycle()
                     }
@@ -316,6 +336,7 @@ struct BreathingView: View {
             hasTrackedFirstBreathingSession = true
             AnalyticsManager.shared.trackFirstBreathingSession()
         }
+        AnalyticsManager.shared.incrementBreathingSessions()
     }
 }
 

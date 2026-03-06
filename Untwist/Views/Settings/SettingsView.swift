@@ -6,6 +6,7 @@ struct SettingsView: View {
     @AppStorage("notificationHour") private var notificationHour = 9
     @AppStorage("notificationMinute") private var notificationMinute = 0
     @AppStorage("preferredTheme") private var preferredTheme = 0
+    @AppStorage("animationsEnabled") private var animationsEnabled = true
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = true
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
@@ -254,6 +255,12 @@ struct SettingsView: View {
                 Text(String(localized: "settings_theme_dark", defaultValue: "Dark")).tag(2)
             }
             .pickerStyle(.segmented)
+
+            Divider()
+                .overlay(Color.secondaryLavender.opacity(0.16))
+
+            Toggle(String(localized: "settings_animations", defaultValue: "Animations"), isOn: $animationsEnabled)
+                .tint(Color.secondaryLavender)
         }
         .padding(18)
         .elevatedCard(stroke: Color.secondaryLavender.opacity(0.22))

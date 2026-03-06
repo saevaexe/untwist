@@ -44,6 +44,7 @@ struct TwistyView: View {
     var animated: Bool = true
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.animationsEnabled) private var animationsEnabled
     @State private var bounce = false
 
     var body: some View {
@@ -54,13 +55,22 @@ struct TwistyView: View {
             .aspectRatio(contentMode: .fit)
             .frame(width: normalizedSize)
             .offset(y: bounce ? -3 : 3)
-            .onAppear {
-                guard animated, !reduceMotion else { return }
-                withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
-                    bounce = true
+            .onAppear { startBounceIfNeeded() }
+            .onChange(of: animationsEnabled) {
+                if animationsEnabled {
+                    startBounceIfNeeded()
+                } else {
+                    withAnimation(.easeInOut(duration: 0.2)) { bounce = false }
                 }
             }
             .accessibilityLabel(accessibilityText)
+    }
+
+    private func startBounceIfNeeded() {
+        guard animated, !reduceMotion, animationsEnabled else { return }
+        withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+            bounce = true
+        }
     }
 
     private var accessibilityText: String {

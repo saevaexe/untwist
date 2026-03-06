@@ -1,10 +1,10 @@
 # App Store Metadata — Türkçe
 
 ## Uygulama Adı
-Untwist
+Untwist CBT
 
 ## Alt Başlık (≤30 chars)
-BDT Düşünce Günlüğü ve Duygu
+Duygu Takibi & Düşünce Günlüğü
 
 ## Birincil Kategori
 Sağlık ve Fitness
@@ -13,28 +13,34 @@ Sağlık ve Fitness
 Yaşam Tarzı
 
 ## Tanıtım Metni (≤170 chars)
-Düşünce tuzaklarını fark et, zor anlarda nefes al, daha sağlıklı düşünme alışkanlıkları edin. 2 dakikadan kısa. Tüm verilerin cihazında kalır.
+Gizlilik odaklı BDT arkadaşın. Düşünce tuzaklarını fark et, olumsuz düşünceleri yeniden çerçevele, ruh halini takip et — 2 dakikadan kısa. Verilerin sadece sende.
 
 ## Açıklama
-Untwist, Bilişsel Davranışçı Terapi (BDT) ilkelerine dayalı bir kişisel gelişim arkadaşıdır. Yaygın düşünce kalıplarını — düşünce tuzaklarını — fark etmeni ve olaylara daha sağlıklı bakmanı sağlar.
+Untwist, Bilişsel Davranışçı Terapi (BDT) ilkelerine dayalı bir kişisel gelişim arkadaşıdır. Düşünce tuzaklarını — olumsuz düşünme kalıplarını — fark etmeni ve daha dengeli bakış açıları geliştirmeni sağlar. Yapay zeka sohbet botu yok. Bulut yok. Sadece sen ve kanıtlanmış BDT teknikleri.
 
 NELER YAPABİLİRSİN
 
-• Duygu Kaydı — Nasıl hissettiğini 0-100 kaydırıcıyla kaydet. İstersen not ekle. 10 saniye sürer.
+• Duygu Takibi — Nasıl hissettiğini 0-100 kaydırıcıyla kaydet. İstersen not ekle. 10 saniye sürer.
 
-• Düşünce Çözücü — 4 adımlı rehberli bir süreçten geç: ne olduğunu anlat, otomatik düşünceni fark et, düşünce tuzaklarını belirle ve alternatif bir bakış açısı yaz. Ruh halindeki değişimi gözlemle.
+• Düşünce Günlüğü — 4 adımlı BDT sürecinden geç: ne olduğunu anlat, otomatik düşünceni fark et, düşünce tuzaklarını belirle ve daha dengeli bir alternatif yaz. Ruh halindeki değişimi gözlemle.
+
+• Duygu ve Düşünce Geçmişi — Geçmiş kayıtlarını istediğin zaman incele. Ruh hali değişimlerini, tespit ettiğin tuzakları ve yeniden çerçevelemenin etkisini gör.
 
 • Şimdi Sakinleş — Bunalmış mı hissediyorsun? Tek dokunuşla anında sakinleşme akışı: bir an duraksama, üç rehberli nefes ve istersen yazmaya yönlendirme.
 
-• Nefes Egzersizi — 4-7-8 nefes tekniği, görsel rehberlik ile. 5 tur, animasyonlu, Hareketi Azalt desteği.
+• Nefes Egzersizi — 4-7-8 nefes tekniği, görsel rehberlik ve hafif titreşim eşliğinde. 5 tur, animasyonlu, Hareketi Azalt desteği.
 
-• 10 Düşünce Tuzağı — Ya hep ya hiç düşüncesi, aşırı genelleme, duygusal akıl yürütme ve 7 tuzak daha. Her birinde net tanım ve günlük hayattan örnek.
+• 10 Düşünce Tuzağı — Ya hep ya hiç düşüncesi, aşırı genelleme, duygusal akıl yürütme ve 7 bilişsel çarpıtma daha. Her birinde net tanım, günlük hayattan örnek ve nasıl fark edileceğine dair ipuçları.
 
-• İstatistikler — Son 7 günün duygu trendini gör, toplam kayıt sayılarını takip et. Seri yok, suçlama yok, baskı yok.
+• İstatistikler — Son 7 günün duygu trendini gör, aktivite takviminde günlük takip yap, en sık düştüğün tuzakları keşfet ve genel ilerlemenizi izle. Seri yok, suçlama yok, baskı yok.
 
-GİZLİLİK ÖNCELİKLİ
+KAYGI VE STRES YÖNETİMİ İÇİN TASARLANDI
 
-Tüm verilerin cihazında kalır. Hesap yok. Bulut yok. Üçüncü parti analitik yok. Hiçbir veri toplanmaz. Nokta.
+Untwist, profesyonel terapide kullanılan yapılandırılmış BDT egzersizlerini kullanır. Düşünce Çözücü, bilişsel yeniden yapılandırma sürecinde seni adım adım yönlendirir — olumsuz düşüncelere meydan okumayı ve daha sakin bakış açıları bulmayı kolaylaştırır.
+
+%100 GİZLİ — VERİLERİN CİHAZINDAN ASLA ÇIKMAZ
+
+Tüm verilerin cihazında kalır. Hesap yok. Bulut yok. Üçüncü parti analitik yok. Hiçbir veri toplanmaz. Nokta. Diğer ruh sağlığı uygulamalarının aksine, düşüncelerini asla okumayız, satmayız veya paylaşmayız.
 
 TWISTY İLE TANIŞIN
 
@@ -42,10 +48,10 @@ Twisty, ruh haline göre tepki veren iplik yumağı arkadaşın. Mutlu, üzgün,
 
 ÖNEMLİ UYARI
 
-Untwist bir sağlıklı yaşam ve kişisel gelişim aracıdır. Profesyonel terapi, teşhis veya tıbbi tavsiye yerine GEÇMEZ. Kriz durumundaysanız lütfen bir ruh sağlığı uzmanına başvurun veya acil servisleri arayın. Acil yardım hatları uygulama içinden her zaman erişilebilir.
+Untwist, BDT ilkelerine dayalı bir sağlıklı yaşam ve kişisel gelişim aracıdır. Profesyonel terapi, teşhis veya tıbbi tavsiye yerine GEÇMEZ. Kriz durumundaysanız lütfen bir ruh sağlığı uzmanına başvurun veya acil servisleri arayın. Acil yardım hatları uygulama içinden her zaman erişilebilir (Türkiye 182, ABD 988).
 
 ## Anahtar Kelimeler (≤100 chars)
-bdt,duygu,günlük,düşünce,kaygı,ruh sağlığı,nefes,farkındalık,kişisel gelişim,bilişsel
+düşünce tuzağı,kaygı,stres,olumsuz düşünce,bilişsel çarpıtma,nefes,günlük,rahatlama,farkındalık
 
 ## Yaş Sınırı
 12+ (Nadir/Hafif Tıbbi/Tedavi Bilgisi)

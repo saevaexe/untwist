@@ -223,6 +223,7 @@ struct MoodCheckView: View {
             hasTrackedFirstMoodEntry = true
             AnalyticsManager.shared.trackFirstMoodEntry()
         }
+        AnalyticsManager.shared.incrementMoodEntries()
 
         // Crisis check on note text
         if !note.isEmpty && ThoughtTrapEngine.detectCrisis(note) {

@@ -41,7 +41,7 @@ final class SubscriptionManager {
 
         do {
             let customerInfo = try await Purchases.shared.customerInfo()
-            updateEntitlementState(from: customerInfo)
+            updateEntitlementState(from: customerInfo, event: "check")
         } catch {
             print("Failed to check subscription: \(error)")
         }
@@ -55,13 +55,13 @@ final class SubscriptionManager {
 
         do {
             let customerInfo = try await Purchases.shared.restorePurchases()
-            updateEntitlementState(from: customerInfo)
+            updateEntitlementState(from: customerInfo, event: "restore")
         } catch {
             print("Failed to restore purchases: \(error)")
         }
     }
 
-    private func updateEntitlementState(from customerInfo: CustomerInfo) {
+    private func updateEntitlementState(from customerInfo: CustomerInfo, event: String? = nil) {
         let entitlement = customerInfo.entitlements[AppConstants.Subscription.entitlementID]
         let isActive = entitlement?.isActive == true
         let isTrial = isActive && entitlement?.periodType == .trial
@@ -69,5 +69,9 @@ final class SubscriptionManager {
         isTrialActive = isTrial
         isSubscribed = isActive && !isTrial
         trialExpirationDate = isTrial ? entitlement?.expirationDate : nil
+
+        if let event {
+            AnalyticsManager.shared.trackSubscriptionEvent(event)
+        }
     }
 }

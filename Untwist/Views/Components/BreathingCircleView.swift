@@ -21,6 +21,7 @@ struct BreathingCircleView: View {
     let scaleDuration: Double
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.animationsEnabled) private var animationsEnabled
     @State private var ringScales: [CGFloat] = [0.5, 0.5, 0.5, 0.5]
 
     private var phaseGradient: LinearGradient {
@@ -33,7 +34,7 @@ struct BreathingCircleView: View {
     var body: some View {
         ZStack {
             // Glow
-            if !reduceMotion {
+            if !reduceMotion && animationsEnabled {
                 Circle()
                     .fill(phaseColor.opacity(0.25))
                     .frame(width: circleSize * 1.4, height: circleSize * 1.4)
@@ -41,7 +42,7 @@ struct BreathingCircleView: View {
             }
 
             // Ripple rings (outermost → innermost)
-            if !reduceMotion {
+            if !reduceMotion && animationsEnabled {
                 ForEach((1...3).reversed(), id: \.self) { i in
                     Circle()
                         .fill(phaseGradient)

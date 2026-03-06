@@ -3,6 +3,7 @@ import SwiftUI
 struct UnwindingNowView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.animationsEnabled) private var animationsEnabled
     @State private var phase: UnwindPhase = .calming
     @State private var breathCount = 0
     @State private var breathPhase: BreathStep = .inhale
@@ -10,6 +11,8 @@ struct UnwindingNowView: View {
     @State private var countdown: Int = 4
     @State private var progress: CGFloat = 1.0
     @State private var countdownTimer: Timer?
+    @State private var pendingWorkItems: [DispatchWorkItem] = []
+    @State private var hapticEngine: BreathingHapticEngine?
 
     enum UnwindPhase: Int {
         case calming, breathing, redirect
@@ -69,6 +72,7 @@ struct UnwindingNowView: View {
             .padding(.bottom, 16)
         }
         .onAppear { startCalming() }
+        .onDisappear { cancelAllPendingWork() }
     }
 
     private var backgroundLayer: some View {
@@ -167,7 +171,7 @@ struct UnwindingNowView: View {
                 .stroke(Color.primaryPurple.opacity(0.16), lineWidth: 1)
         )
         .shadow(color: .black.opacity(0.12), radius: 14, y: 6)
-        .animation(.spring(response: 0.42, dampingFraction: 0.84), value: phase)
+        .animation(animationsEnabled ? .spring(response: 0.42, dampingFraction: 0.84) : .none, value: phase)
     }
 
     private var calmingView: some View {
@@ -281,15 +285,32 @@ struct UnwindingNowView: View {
         }
     }
 
+    private func scheduleAfter(deadline: DispatchTime, execute block: @escaping () -> Void) {
+        let item = DispatchWorkItem(block: block)
+        pendingWorkItems.append(item)
+        DispatchQueue.main.asyncAfter(deadline: deadline, execute: item)
+    }
+
+    private func cancelAllPendingWork() {
+        pendingWorkItems.forEach { $0.cancel() }
+        pendingWorkItems.removeAll()
+        countdownTimer?.invalidate()
+        hapticEngine?.tearDown()
+        hapticEngine = nil
+    }
+
     private func startCalming() {
         phase = .calming
         breathCount = 0
         breathPhase = .inhale
         scaleTarget = 0.56
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        scheduleAfter(deadline: .now() + 5) {
             guard phase == .calming else { return }
             withAnimation { phase = .breathing }
+            let engine = BreathingHapticEngine(reduceMotion: reduceMotion)
+            engine.prepare()
+            hapticEngine = engine
             runBreathCycle()
         }
     }
@@ -301,34 +322,36 @@ struct UnwindingNowView: View {
         breathPhase = .inhale
         scaleTarget = 1.0
         startCountdown(seconds: 4)
-        BreathingCircleView.triggerHaptic(for: .inhale, reduceMotion: reduceMotion)
+        hapticEngine?.playInhale(duration: 4)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+        scheduleAfter(deadline: .now() + 4) {
             guard phase == .breathing else { return }
 
             // Hold
             breathPhase = .hold
             startCountdown(seconds: 4)
-            BreathingCircleView.triggerHaptic(for: .hold, reduceMotion: reduceMotion)
+            hapticEngine?.playHold(duration: 4)
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            scheduleAfter(deadline: .now() + 4) {
                 guard phase == .breathing else { return }
 
                 // Exhale
                 breathPhase = .exhale
                 scaleTarget = 0.5
                 startCountdown(seconds: 4)
-                BreathingCircleView.triggerHaptic(for: .exhale, reduceMotion: reduceMotion)
+                hapticEngine?.playExhale(duration: 4)
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                scheduleAfter(deadline: .now() + 4) {
                     guard phase == .breathing else { return }
 
                     breathCount += 1
                     countdownTimer?.invalidate()
                     if breathCount >= 3 {
+                        hapticEngine?.tearDown()
+                        hapticEngine = nil
                         withAnimation { phase = .redirect }
                     } else {
-                        BreathingCircleView.triggerRoundCompleteHaptic(reduceMotion: reduceMotion)
+                        hapticEngine?.playRoundComplete()
                         runBreathCycle()
                     }
                 }

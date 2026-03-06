@@ -8,6 +8,7 @@ struct InsightsView: View {
     @Query private var breathingSessions: [BreathingSession]
 
     @AppStorage("hasTrackedFirstInsightsView") private var hasTrackedFirstInsightsView = false
+    @Environment(\.animationsEnabled) private var animationsEnabled
     @State private var selectedPeriod = 1 // 0=7d, 1=month, 2=all
 
     private enum Period: Int, CaseIterable {
@@ -285,6 +286,8 @@ struct InsightsView: View {
                         activityHeatmapSection
 
                         statsSection
+
+                        historySection
                     }
                 }
                 .padding(.horizontal, 20)
@@ -308,7 +311,11 @@ struct InsightsView: View {
         HStack(spacing: 4) {
             ForEach(Period.allCases, id: \.rawValue) { p in
                 Button {
-                    withAnimation(.easeInOut(duration: 0.2)) { selectedPeriod = p.rawValue }
+                    if animationsEnabled {
+                        withAnimation(.easeInOut(duration: 0.2)) { selectedPeriod = p.rawValue }
+                    } else {
+                        selectedPeriod = p.rawValue
+                    }
                 } label: {
                     Text(p.label)
                         .font(.caption.weight(.bold))
@@ -711,6 +718,79 @@ struct InsightsView: View {
         }
         .padding(18)
         .elevatedCard(stroke: Color.secondaryLavender.opacity(0.24), shadowColor: .black.opacity(0.08))
+    }
+
+    // MARK: - History Section
+
+    private var historySection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(String(localized: "insights_history_header", defaultValue: "History"))
+                .font(.headline)
+                .foregroundStyle(Color.textPrimary)
+
+            NavigationLink {
+                MoodHistoryView()
+            } label: {
+                historyLinkRow(
+                    icon: "face.smiling",
+                    title: String(localized: "history_mood_title", defaultValue: "Mood History"),
+                    count: moodEntries.count,
+                    color: .primaryPurple
+                )
+            }
+            .buttonStyle(.plain)
+
+            NavigationLink {
+                ThoughtHistoryView()
+            } label: {
+                historyLinkRow(
+                    icon: "brain.head.profile",
+                    title: String(localized: "history_thought_title", defaultValue: "Thought History"),
+                    count: thoughtRecords.count,
+                    color: .secondaryLavender
+                )
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(18)
+        .elevatedCard(stroke: Color.primaryPurple.opacity(0.16), shadowColor: .black.opacity(0.07))
+    }
+
+    private func historyLinkRow(icon: String, title: String, count: Int, color: Color) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(color)
+                .frame(width: 34, height: 34)
+                .background(color.opacity(0.14), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+
+            Text(title)
+                .font(.subheadline.weight(.medium))
+                .foregroundStyle(Color.textPrimary)
+
+            Spacer(minLength: 0)
+
+            Text("\(count)")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(color)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(color.opacity(0.12), in: Capsule())
+
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(Color.textSecondary)
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color.appBackground.opacity(0.90))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .stroke(color.opacity(0.16), lineWidth: 1)
+        )
     }
 
     private func statCard(count: Int, label: String, icon: String, color: Color) -> some View {

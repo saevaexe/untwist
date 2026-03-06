@@ -4,6 +4,7 @@ struct ContentView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @AppStorage("onboardingFlowVersion") private var onboardingFlowVersion = 0
     @AppStorage("preferredTheme") private var preferredTheme = 0
+    @AppStorage("animationsEnabled") private var animationsEnabled = true
     @Environment(SubscriptionManager.self) private var subscriptionManager
     private let requiredOnboardingFlowVersion = 2
 
@@ -30,6 +31,10 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(colorScheme)
+        .environment(\.animationsEnabled, animationsEnabled)
+        .onAppear {
+            AnalyticsManager.shared.updateAppLaunchAttributes()
+        }
     }
 }
 
