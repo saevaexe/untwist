@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Screen 5 — Breathing</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    .preview {
+      background: linear-gradient(180deg, #322355 0%, #1A1230 100%);
+    }
+
+    /* Large ambient circles */
+    .glow-1 {
+      position: absolute;
+      top: 600px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1400px;
+      height: 1400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,107,196,0.1) 0%, transparent 55%);
+    }
+    .glow-2 {
+      position: absolute;
+      top: -200px;
+      left: -300px;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(75,50,140,0.12) 0%, transparent 65%);
+    }
+    .glow-3 {
+      position: absolute;
+      bottom: -100px;
+      right: -200px;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(155,143,216,0.08) 0%, transparent 65%);
+    }
+
+    /* Top pill */
+    .top-pill {
+      position: absolute;
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+    }
+
+    /* Phone — upper center */
+    .phone-wrap {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 240px;
+      width: 750px;
+      z-index: 4;
+    }
+    .phone-wrap img {
+      width: 100%;
+      filter: drop-shadow(0 30px 70px rgba(0,0,0,0.4));
+    }
+
+    /* Bottom text */
+    .bottom-text {
+      position: absolute;
+      bottom: 220px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 5;
+      width: 1100px;
+    }
+    .bottom-text .headline {
+      font-size: 130px;
+      color: var(--white);
+      margin-bottom: 30px;
+    }
+    .bottom-text .sub-text {
+      font-size: 34px;
+      margin-bottom: 50px;
+    }
+
+    /* Technique pills */
+    .tech-pills {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+    .tech-pills .pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(215, 205, 235, 0.9);
+      font-size: 26px;
+      padding: 14px 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview">
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+    <div class="glow-3"></div>
+
+    <!-- Top pill -->
+    <div class="top-pill">
+      <span class="pill pill-glass-light">Relax</span>
+    </div>
+
+    <!-- Phone -->
+    <div class="phone-wrap">
+      <img src="phones/breathing_en.png" alt="Breathing">
+    </div>
+
+    <!-- Bottom headline -->
+    <div class="bottom-text">
+      <div class="headline">
+        Just<br><em>breathe.</em>
+      </div>
+      <div class="sub-text">
+        Calm your mind in 60 seconds.
+      </div>
+      <div class="tech-pills">
+        <span class="pill">4-7-8 technique</span>
+        <span class="pill">60 seconds</span>
+        <span class="pill">No account needed</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

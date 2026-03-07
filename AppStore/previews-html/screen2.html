@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Screen 2 — Thought Unwinder</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    .preview {
+      background: var(--lavender-bg);
+    }
+
+    /* Subtle photo overlay */
+    .bg-wash {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(240,235,252,0) 0%, rgba(240,235,252,0.6) 40%, var(--lavender-bg) 70%);
+    }
+
+    /* Decorative */
+    .deco-1 {
+      position: absolute;
+      top: -100px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(155,143,216,0.12) 0%, transparent 70%);
+    }
+
+    /* Category pill — top */
+    .cat-pill {
+      position: absolute;
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+    }
+
+    /* Headline — top center */
+    .text-block {
+      position: absolute;
+      top: 220px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 5;
+      width: 1000px;
+    }
+    .text-block .headline {
+      font-size: 120px;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
+    .text-block .sub-text-dark {
+      font-size: 34px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Phone — centered, slightly tilted */
+    .phone-wrap {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) rotate(-3deg);
+      top: 640px;
+      width: 720px;
+      z-index: 4;
+    }
+    .phone-wrap img {
+      width: 100%;
+      filter: drop-shadow(0 30px 60px rgba(45,35,68,0.2));
+    }
+
+    /* Feature pills — bottom */
+    .features {
+      position: absolute;
+      bottom: 160px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+    }
+    .features .pill {
+      background: white;
+      border: 1.5px solid rgba(124,107,196,0.15);
+      color: var(--text-dark);
+      font-size: 26px;
+      padding: 14px 28px;
+      box-shadow: 0 4px 16px rgba(45,35,68,0.06);
+    }
+    .feat-row {
+      display: flex;
+      gap: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview">
+    <div class="bg-wash"></div>
+    <div class="deco-1"></div>
+
+    <!-- Category -->
+    <div class="cat-pill">
+      <span class="pill pill-dark">Journal</span>
+    </div>
+
+    <!-- Headline -->
+    <div class="text-block">
+      <div class="headline headline-dark">
+        See the<br><em>pattern.</em>
+      </div>
+      <div class="sub-text sub-text-dark">
+        Spot thought traps before they spot you.
+      </div>
+    </div>
+
+    <!-- Phone -->
+    <div class="phone-wrap">
+      <img src="phones/unwinder_en.png" alt="Thought Unwinder">
+    </div>
+
+    <!-- Feature pills -->
+    <div class="features">
+      <div class="feat-row">
+        <span class="pill">4-step reframing</span>
+        <span class="pill">10 thought traps</span>
+      </div>
+      <span class="pill">Smart suggestions</span>
+    </div>
+  </div>
+</body>
+</html>

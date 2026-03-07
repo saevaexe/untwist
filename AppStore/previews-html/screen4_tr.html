@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Screen 4 — Insights (TR)</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    .preview {
+      background: linear-gradient(175deg, #2A1D45 0%, #372864 50%, #2A1D45 100%);
+    }
+
+    .glow-1 {
+      position: absolute;
+      top: 200px;
+      right: -200px;
+      width: 900px;
+      height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(155,143,216,0.1) 0%, transparent 65%);
+    }
+    .glow-2 {
+      position: absolute;
+      bottom: -200px;
+      left: -100px;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,107,196,0.08) 0%, transparent 65%);
+    }
+
+    .layout {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      z-index: 3;
+    }
+
+    .phone-side {
+      flex: 0 0 55%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .phone-wrap {
+      width: 700px;
+      transform: rotate(-4deg) translateY(40px);
+    }
+    .phone-wrap img {
+      width: 100%;
+      filter: drop-shadow(0 30px 70px rgba(0,0,0,0.35));
+    }
+
+    .text-side {
+      flex: 0 0 45%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 80px;
+      padding-left: 20px;
+    }
+    .text-side .pill {
+      margin-bottom: 40px;
+      align-self: flex-start;
+    }
+    .text-side .headline {
+      font-size: 100px;
+      color: var(--white);
+      margin-bottom: 30px;
+    }
+    .text-side .sub-text {
+      font-size: 32px;
+      margin-bottom: 50px;
+      max-width: 400px;
+    }
+
+    .stat-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 16px 24px;
+      width: fit-content;
+    }
+    .stat-pill-icon {
+      font-size: 28px;
+    }
+    .stat-pill-text {
+      font-size: 26px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="preview">
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <div class="layout">
+      <div class="phone-side">
+        <div class="phone-wrap">
+          <img src="phones/insights_tr.png" alt="İstatistikler">
+        </div>
+      </div>
+
+      <div class="text-side">
+        <span class="pill pill-glass-light">İstatistikler</span>
+
+        <div class="headline">
+          Her gün<br><em>önemli.</em>
+        </div>
+
+        <div class="sub-text">
+          Gelişimini takip et,<br>her kayıt bir adım.
+        </div>
+
+        <div class="stat-pills">
+          <div class="stat-pill">
+            <span class="stat-pill-icon">📈</span>
+            <span class="stat-pill-text">Duygu trendleri</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-icon">🎯</span>
+            <span class="stat-pill-text">Tuzak sıklığı</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-pill-icon">🔥</span>
+            <span class="stat-pill-text">Seriler & geçmiş</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

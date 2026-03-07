@@ -1,0 +1,139 @@
+/* Untwist App Store Previews v2 — Emotional, Kinna-inspired */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 1290px;
+  height: 2796px;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Brand Colors ─────────────────────────────────────────── */
+:root {
+  --purple-deep: #4B328C;
+  --purple: #7C6BC4;
+  --purple-mid: #6B5CA8;
+  --purple-light: #9B8FD8;
+  --lavender: #A89BD4;
+  --lavender-bg: #F0EBFC;
+  --lavender-warm: #F5F0FF;
+  --bg-dark: #1A1528;
+  --bg-deep: #0F0B1E;
+  --white: #FFFFFF;
+  --text-dark: #2D2344;
+  --text-mid: #6B6189;
+  --text-light: #9990B0;
+}
+
+/* ── Typography ────────────────────────────────────────────── */
+.font-serif {
+  font-family: 'DM Serif Display', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+}
+
+/* ── Preview Container ─────────────────────────────────────── */
+.preview {
+  width: 1290px;
+  height: 2796px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'DM Sans', -apple-system, sans-serif;
+}
+
+/* ── Pill Badge ────────────────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  white-space: nowrap;
+}
+
+.pill-dark {
+  background: var(--text-dark);
+  color: var(--white);
+}
+
+.pill-glass-light {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pill-glass-purple {
+  background: rgba(124, 107, 196, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--purple);
+}
+
+.pill-outline {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ── Trust Badge ───────────────────────────────────────────── */
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+}
+
+.trust-badge-light {
+  background: rgba(45, 35, 68, 0.06);
+  color: var(--text-mid);
+}
+
+/* ── Phone Image ───────────────────────────────────────────── */
+.phone-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Headline Styles ───────────────────────────────────────── */
+.headline {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -2px;
+}
+
+.headline em {
+  font-style: italic;
+  color: var(--purple-light);
+}
+
+.headline-dark em {
+  color: var(--purple);
+}
+
+.sub-text {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sub-text-dark {
+  color: var(--text-mid);
+}

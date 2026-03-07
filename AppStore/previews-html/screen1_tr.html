@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Screen 1 — Hero (TR)</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    .preview {
+      background: linear-gradient(175deg, #1E1437 0%, #2A1D45 40%, #1A1230 100%);
+    }
+
+    .glow-1 {
+      position: absolute;
+      top: -300px;
+      right: -200px;
+      width: 1200px;
+      height: 1200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,107,196,0.15) 0%, transparent 65%);
+    }
+    .glow-2 {
+      position: absolute;
+      bottom: 400px;
+      left: -300px;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(75,50,140,0.12) 0%, transparent 65%);
+    }
+
+    .app-brand {
+      position: absolute;
+      top: 120px;
+      left: 100px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 5;
+    }
+    .app-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(124,107,196,0.4);
+    }
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .app-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: -0.5px;
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 320px;
+      left: 100px;
+      z-index: 5;
+      max-width: 650px;
+    }
+    .hero-text .headline {
+      font-size: 120px;
+      color: var(--white);
+      margin-bottom: 40px;
+    }
+    .hero-text .sub-text {
+      font-size: 36px;
+      max-width: 520px;
+      margin-bottom: 50px;
+    }
+
+    .trust-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .phone-wrap {
+      position: absolute;
+      right: -60px;
+      top: 500px;
+      width: 780px;
+      z-index: 4;
+      transform: rotate(6deg);
+    }
+    .phone-wrap img {
+      width: 100%;
+      filter: drop-shadow(0 40px 80px rgba(0,0,0,0.4));
+    }
+  </style>
+</head>
+<body>
+  <div class="preview">
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <div class="app-brand">
+      <div class="app-icon">
+        <img src="phones/appicon_144.png" alt="Untwist">
+      </div>
+      <div class="app-name">Untwist</div>
+    </div>
+
+    <div class="hero-text">
+      <div class="headline">
+        Düşüncelerinde<br><em>kaybolma.</em>
+      </div>
+      <div class="sub-text">
+        Düşüncelerini anla.<br>
+        Nefes nefes.
+      </div>
+
+      <div class="trust-row">
+        <div class="trust-badge">🔒 %100 cihazda</div>
+        <div class="trust-badge">🧠 BDT temelli</div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <img src="phones/home_tr.png" alt="Ana Ekran">
+    </div>
+  </div>
+</body>
+</html>
