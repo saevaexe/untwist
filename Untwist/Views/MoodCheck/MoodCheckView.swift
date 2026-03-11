@@ -1,10 +1,14 @@
 import SwiftUI
 import SwiftData
+import StoreKit
 
 struct MoodCheckView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @AppStorage("hasTrackedFirstMoodEntry") private var hasTrackedFirstMoodEntry = false
+    @AppStorage("totalMoodEntries") private var totalMoodEntries = 0
+    @AppStorage("hasRequestedReview") private var hasRequestedReview = false
+    @Environment(\.requestReview) private var requestReview
     @State private var score: Double
     @State private var note = ""
     @State private var saved = false
@@ -218,12 +222,21 @@ struct MoodCheckView: View {
         let entry = MoodEntry(score: Int(score), note: note.isEmpty ? nil : note)
         modelContext.insert(entry)
         saved = true
+        totalMoodEntries += 1
 
         if !hasTrackedFirstMoodEntry {
             hasTrackedFirstMoodEntry = true
             AnalyticsManager.shared.trackFirstMoodEntry()
         }
         AnalyticsManager.shared.incrementMoodEntries()
+
+        // Request review: 5+ entries, positive mood, only once
+        if !hasRequestedReview && totalMoodEntries >= 5 && Int(score) >= 60 {
+            hasRequestedReview = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                requestReview()
+            }
+        }
 
         // Crisis check on note text
         if !note.isEmpty && ThoughtTrapEngine.detectCrisis(note) {

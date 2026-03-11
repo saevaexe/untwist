@@ -408,8 +408,13 @@ struct PaywallView: View {
                 dismiss()
             }
         } catch {
-            if !((error as NSError).domain == "RevenueCat.ErrorCode" && (error as NSError).code == 1) {
-                errorMessage = error.localizedDescription
+            let nsError = error as NSError
+            // Skip user cancellation (RevenueCat code 1 or SKError code 2)
+            let isRevenueCatCancel = nsError.domain == "RevenueCat.ErrorCode" && nsError.code == 1
+            let isStoreKitCancel = nsError.domain == "SKErrorDomain" && nsError.code == 2
+            if !isRevenueCatCancel && !isStoreKitCancel {
+                print("Purchase error: \(error)")
+                errorMessage = String(localized: "paywall_purchase_error", defaultValue: "Unable to complete purchase. Please check your internet connection and try again.")
             }
         }
     }
@@ -423,7 +428,8 @@ struct PaywallView: View {
                 dismiss()
             }
         } catch {
-            errorMessage = error.localizedDescription
+            print("Restore error: \(error)")
+            errorMessage = String(localized: "paywall_restore_error", defaultValue: "Unable to restore purchases. Please check your internet connection and try again.")
         }
     }
 
